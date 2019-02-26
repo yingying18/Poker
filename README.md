@@ -1,4 +1,5 @@
-# csc667-teamproject-teamNN
+# csc667-teamproject-team06
+
 
 # Todo:
 
@@ -8,6 +9,20 @@
 
 3. When ready, initialize your repository with the initial state of your project.
 
+
+Stack:
+- Server Provider : 
+- Web Server : 
+- Server Side Language: 
+- Framework : 
+- Frontend Technologies : 
+
+Team 06 Members and Roles:
+-- Jarek Rettinghouse - Team Lead / FullStack Developer
+-- Ben - 
+-- Arnold - 
+-- Jasmine - 
+-- Cavit - 
 
 
 ### Note that the milestone folders have been moved to their branch named milestones. 
