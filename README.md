@@ -9,6 +9,7 @@
 
 3. When ready, initialize your repository with the initial state of your project.
 
+//NOTE:  not finalized, Please review and notify team members on questions or suggestions on improvement or changes to current project/team state
 
 Stack:
 - Server Provider : 
@@ -18,11 +19,24 @@ Stack:
 - Frontend Technologies : 
 
 Team 06 Members and Roles:
--- Jarek Rettinghouse - Team Lead / FullStack Developer
--- Ben - 
--- Arnold - 
--- Jasmine - 
--- Cavit - 
+- Jarek Rettinghouse : Team Lead / FullStack Developer
+- Ben : 
+- Arnold : 
+- Jasmine : 
+- Cavit : 
+
+Github Practices and Gitflow:
+Master : Full working branch
+develop : Development branch cloned from master
+namefeature : Personal Branches cloned from develop
+
+Helpful: Notify team members on what you are working on if not already assigned to avoid too many merge conflicts
+
+PR requests:
+- I suggest we only have 2-3 people max who are responsible for master merging from development.
+- Once a branch is ready and would like to merge it into development, make a Pull Request into develop and have at least 1 other person Review it
+- Generally someone else should merge the code into develop other than the person who wrote it.
+
 
 
 ### Note that the milestone folders have been moved to their branch named milestones. 
