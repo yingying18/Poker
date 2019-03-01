@@ -12,18 +12,18 @@
 //NOTE:  not finalized, Please review and notify team members on questions or suggestions on improvement or changes to current project/team state
 
 Stack:
-- Server Provider : 
-- Web Server : 
-- Server Side Language: 
-- Framework : 
-- Frontend Technologies : 
+- Server Provider : Aws
+- Web Server : Nginx 
+- Server Side Language: Js
+- Framework : Express Js
+- Frontend Technologies : Bootstrap
 
 Team 06 Members and Roles:
 - Jarek Rettinghouse : Team Lead / FullStack Developer
 - Ben : 
 - Arnold : 
 - Jasmine : 
-- Cavit : 
+- Cavit : Front End Developer
 
 Github Practices and Gitflow:
 Master : Full working branch
