@@ -1,12 +1,20 @@
-# csc667-teamproject-teamNN
+# csc667-sp19-Team6
+csc667-sp19-Team06 Poker Game Project
 
-# Todo:
+# csc667-teamproject-team06
 
-1. Change the name of the repo with the correct team number.
+# Software Stack
+- Server Provider: AWS
+- Web Server: Nginx
+- Framework: Express Js
+- Frontend Technologies: Bootstrap
+- Database: mysql
 
-2. Invite all members to your repository.
-
-3. When ready, initialize your repository with the initial state of your project.
-
+# Team Members and Roles
+- Jarek Rettinghouse: Team Lead / Full Stack Developer / Document Writer
+- Ben: Front End Developer
+- Arnold: Back End Developer / Document Writer
+- Wenying: Back End Developer
+- Cavit: Front End Developer
 
 
