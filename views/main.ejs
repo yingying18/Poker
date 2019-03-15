@@ -19,6 +19,16 @@ html {
       width: 100%;
     height: 100%;
 }
+.navBarHolder{
+    
+    width: 80%;
+    height: 2%;
+    color:white;
+   
+    margin-right: 10%;
+    margin-left: 10%;
+    color: white;
+}
 .middleContainerOpaq{
     width: 80%;
     height: 80%;
@@ -64,38 +74,42 @@ html {
          left:10%;
          width : 20%;
          height:40%;
-
+border-radius: 10px;
+  background: #565648;
+ 
+   box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.3);     
 }
+
+
+
+        
+
+
     </style>
     <link rel="stylesheet"  type="text/css"  href="./css/bootstrap/bootstrap.css">
     <script src=./js/bootstrap/bootstrap.min.js"></script>
 </head>
 <body   >
-<nav class="navbar navbar-expand-lg " style="background-color: #4d4d33;">
+
   
  
+ <div class="navBarHolder" >
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-        <a class="nav-link" style="color:white;" href="#">home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" style="color:white;" href="#">how to play <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" style="color:white;" href="#">About</a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Register</a>
-      </li>
-    </ul>
+   <button type = "button" class="btn btn-dark btn-xs ">
+      home
+   </button>
    
-  </div>
+   <button type = "button" class="btn btn-dark btn-xs ">
+      how to play
+   </button>
+    <button type = "button" class="btn btn-dark btn-xs ">
+      register
+   </button>
+   <button type = "button" class="btn btn-dark btn-xs ">
+      login
+   </button>
 
- 
-</nav>
+</div>
  <div class="mainHolder" >
   
           <div class="middleContainerOpaq"></div>
