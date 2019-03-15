@@ -1,11 +1,12 @@
 const express = require('express');
 const app = express();
-
-const login = require('./routes/login');
-const home = require('./routes/home');
 app.set('view engine','ejs');
 app.set('views','./views');
+const login = require('./routes/login');
+const home = require('./routes/home');
+const main = require('./routes/main');
 
+app.use(express.static('public'));
 
 
 //console.log('node enf'+process.env.NODE_ENV);
@@ -13,11 +14,13 @@ app.set('views','./views');
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(express.static('public'));
+
+
 
 
 app.use('/login',login);
 app.use('/',home);
+app.use('/main',main);
 
 app.use(function(req,res,next){
 
