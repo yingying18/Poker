@@ -20,10 +20,10 @@
 
  <% if ( typeof result != 'undefined' ) { %>
  <% for (var i=0; i<result.length; i++) {%>
-            <tr>
+            <tr id="user<%=result[i].id %>">
 
             <td>
-             <button style="color:white;background-color:#d65151;" type="button" onclick="makeMyAccountProfileEditable(<%=result[0].id %>);" class="btn btn-secondary btn-sm">Edit Account </button>
+             <button style="color:white;background-color:#d65151;" type="button" onclick="makeUserEditable('<%=result[i].id %>','<%= result[i].username %>','<%= result[i].password %>','<%= result[i].usertype %>');" class="btn btn-secondary btn-sm">Edit Account </button>
              </td>
               <td>
                <%= result[i].username  %>
@@ -34,7 +34,7 @@
               <td>
                 <%= result[i].usertype %>
               </td>
-<td></td><td></td>
+              <td></td><td></td>
             </tr>
  <%}%>
   <%}%>

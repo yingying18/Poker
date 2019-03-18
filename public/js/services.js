@@ -6,12 +6,17 @@
 function postData(method,urlaction,data, destinationdiv){
       
       console.log('data post called');
-     var data={};
+     
+     let senddata={};
+    if ( (typeof data !== 'undefined') && (data !== '') ){
+      senddata = data;
+    }
+    
 
      $.ajax({
             type: method,
             url: "/"+urlaction,
-            data: JSON.stringify(data),
+            data: JSON.stringify(senddata),
             contentType: "application/json; charset=utf-8",
             success: function (data) {
             console.log('success');

@@ -10,22 +10,7 @@ app.get('/main',(req, res) =>{
 });
 
 
-app.post('/gotomenu/users',(req, res) =>{
-	 console.log("gotomenu route called");
 
-	 dbRequest.getUsers(dbconn,'',function(result){
-
-				let list = result;
-				
-		 			res.render('./admin/users', {result:list});
-		 		
-	                         
-	});
-	
-	
-	
-
-});
 
 
 

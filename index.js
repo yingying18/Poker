@@ -25,7 +25,7 @@ app.use('/',home);
 
 //admin pages
 
-//require('./routes/admin/user.js')(app,dbRequest,dbconn);
+require('./routes/admin/user.js')(app,dbRequest,dbconn);
 require('./routes/main.js')(app,dbRequest,dbconn);
 
 app.use(function(req,res,next){
