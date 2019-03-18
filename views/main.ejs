@@ -97,8 +97,8 @@ html {
        position: relative;
          top: 10%;
          left:10%;
-         width : 20%;
-         height:40%;
+         width : 70%;
+         height:80%;
 border-radius: 10px;
   background: #565648;
  
@@ -142,6 +142,8 @@ li a:hover {
     </style>
     <link rel="stylesheet"  type="text/css"  href="./css/bootstrap/bootstrap.css">
     <script src=./js/bootstrap/bootstrap.min.js"></script>
+     <script src="./js/services.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body   >
 
@@ -162,13 +164,16 @@ li a:hover {
    <button type = "button" class="btn btn-dark btn-xs ">
       login
    </button>
+  <button type = "button" class="btn btn-dark btn-xs " onclick="gotoMenu('images','','','');" >
+      users
+   </button>
 
 </div>
  <div class="mainHolder" >
   
           <div class="middleContainerOpaq"></div>
           
-          <div class="middleContainer">
+          <div id="updatableMiddleContainer" class="middleContainer">
                 <div class="cube">cav asasas asasdadasds asadsdads</div>
           </div>
    
@@ -190,6 +195,10 @@ li a:hover {
           <li><a href="#home">|</a></li>
           <li><a href="#about">privacy</a></li>
         </ul>
+
+
+
+
 
  </div>
   <div class="copyright">

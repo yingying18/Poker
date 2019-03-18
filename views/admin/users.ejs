@@ -1,0 +1,52 @@
+ <div id="users" class="cube">
+      <h3>Users</h3>
+     
+       <div id="operation"></div>
+      <table id="usersTable" class="table table-striped">
+          <thead>
+            <tr>
+             <th scope="col"></th>
+              <th scope="col">Name</th>
+              <th scope="col">pasword</th>
+              <th scope="col">Account Type</th>
+<td></td><td></td>
+             
+
+            </tr>
+          </thead>
+          <tbody>
+
+  
+
+ <% if ( typeof result != 'undefined' ) { %>
+ <% for (var i=0; i<result.length; i++) {%>
+            <tr>
+
+            <td>
+             <button style="color:white;background-color:#d65151;" type="button" onclick="makeMyAccountProfileEditable(<%=result[0].id %>);" class="btn btn-secondary btn-sm">Edit Account </button>
+             </td>
+              <td>
+               <%= result[i].username  %>
+              </td>
+              <td>
+                <%= result[i].password %>
+              </td>
+              <td>
+                <%= result[i].usertype %>
+              </td>
+<td></td><td></td>
+            </tr>
+ <%}%>
+  <%}%>
+            <tr><td></td><td></td><td></td><td></td><td></td>
+              <td>
+                <button style="color:white;background-color:#d65151;" type="button" onclick="suspendUsers();" class="btn btn-secondary btn-sm">Suspend Selected</button>
+                <button style="color:white;background-color:#d65151;" type="button" onclick="activateUsers();" class="btn btn-secondary btn-sm">Activate Selected</button>
+              </td>
+            </tr>
+           
+          </tbody>
+      </table>
+     
+
+</div>
