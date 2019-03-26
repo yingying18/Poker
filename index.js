@@ -5,6 +5,13 @@ app.set('views','./views');
 const login = require('./routes/login');
 const home = require('./routes/home');
 const main = require('./routes/main');
+const howtoplay= require('./routes/howtoplay');
+const about = require('./routes/about');
+const game = require('./routes/game');
+const lobby = require('./routes/lobby');
+const register = require('./routes/register');
+const userprofile = require('./routes/userprofile');
+
 const dbconn = require('./utils/dbconn.js');
 const dbRequest = require('./utils/dbrequest.js')
 app.use(express.static('public'));
@@ -21,6 +28,12 @@ app.use(express.urlencoded({extended: true}));
 
 app.use('/login',login);
 app.use('/',home);
+app.use('/howtoplay',howtoplay);
+app.use('/about', about);
+app.use('/game', game);
+app.use('/lobby', lobby);
+app.use('/register', register);
+app.use('/userprofile', userprofile);
 //app.use('/main',main);
 
 //admin pages
