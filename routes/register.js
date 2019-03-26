@@ -3,8 +3,8 @@ const router = express.Router();
 
 router.get('/',(req, res) =>{
 	console.log('');
-	res.render('./index');
-	//res.send('home');
+	res.render('./register');
+	//res.send('');
 	//res.end();
 	//res.status(404).send('message');
 
