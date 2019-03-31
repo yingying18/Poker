@@ -16,6 +16,8 @@ const dbconn = require('./utils/dbconn.js');
 const dbRequest = require('./utils/dbrequest.js')
 app.use(express.static('public'));
 
+// Error 404
+// TO-DO
 
 //console.log('node enf'+process.env.NODE_ENV);
 //console.log('env'+ app.get('env'));
@@ -46,11 +48,10 @@ app.use(function(req,res,next){
 	console.log('example middleware');
 	next();
 
-
 });
 
 
 
 
-
-app.listen(3000, ()=>{ console.log('listening om port 3000')});
+// Start listening on port 3000
+app.listen(3000, ()=>{ console.log('listening on port 3000')});
