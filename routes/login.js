@@ -7,8 +7,8 @@ var bodyParser = require('body-parser');
 var path = require('path');
 
 router.get('/',(req, res) =>{
-	console.log('login')
-	res.render('login');
+	console.log('login');
+	res.render('./login');
 	//res.status(404).send('message');
 
 });

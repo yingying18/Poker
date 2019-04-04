@@ -12,6 +12,8 @@ const lobby = require('./routes/lobby');
 const register = require('./routes/register');
 const userprofile = require('./routes/userprofile');
 
+const adminpanel = require('./routes/admin/adminpanel');
+
 const dbconn = require('./utils/dbconn.js');
 const dbRequest = require('./utils/dbrequest.js')
 app.use(express.static('public'));
@@ -28,7 +30,7 @@ app.use(express.urlencoded({extended: true}));
 
 
 
-app.use('/login',login);
+
 app.use('/',home);
 app.use('/howtoplay',howtoplay);
 app.use('/about', about);
@@ -36,6 +38,8 @@ app.use('/game', game);
 app.use('/lobby', lobby);
 app.use('/register', register);
 app.use('/userprofile', userprofile);
+app.use('/adminpanel', adminpanel);
+app.use('/login',login);
 //app.use('/main',main);
 
 //admin pages
@@ -45,7 +49,7 @@ require('./routes/main.js')(app,dbRequest,dbconn);
 
 app.use(function(req,res,next){
 
-	console.log('example middleware');
+	//console.log('example middleware');
 	next();
 
 });
