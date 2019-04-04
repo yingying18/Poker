@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 var mysql = require('mysql');
-//var session = require('express-session');
+var session = require('express-session');
 var bodyParser = require('body-parser');
 var path = require('path');
 
