@@ -1,7 +1,7 @@
-const express = require('express');
-const app = express();
-app.set('view engine','ejs');
-app.set('views','./views');
+/* index.js is the main file that handles routing,  */
+const express = require('express'); // equiv to import express
+const app = express(); //specify that app is an express application, can run ejs methods
+
 const login = require('./routes/login');
 const home = require('./routes/home');
 const main = require('./routes/main');
@@ -11,12 +11,27 @@ const game = require('./routes/game');
 const lobby = require('./routes/lobby');
 const register = require('./routes/register');
 const userprofile = require('./routes/userprofile');
-
 const adminpanel = require('./routes/admin/adminpanel');
 
 const dbconn = require('./utils/dbconn.js');
 const dbRequest = require('./utils/dbrequest.js')
 app.use(express.static('public'));
+app.set('view engine','ejs');
+app.set('views','./views');
+
+// home
+// server expects to receive request from client
+app.get('/', function(req,res){
+	res.render('index',{
+		title: 'CSC667_Team06'
+	}); 
+	// response::server sends response to home page
+}); 
+
+// index
+app.get('/index', function(req,res){
+	res.render('index',{title: 'Express'});
+});
 
 // Error 404
 // TO-DO
@@ -26,11 +41,7 @@ app.use(express.static('public'));
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-
-
-
-
-
+app.use(express.static('public'));
 app.use('/',home);
 app.use('/howtoplay',howtoplay);
 app.use('/about', about);
@@ -52,10 +63,8 @@ app.use(function(req,res,next){
 	//console.log('example middleware');
 	next();
 
+
 });
-
-
-
 
 // Start listening on port 3000
 app.listen(3000, ()=>{ console.log('listening on port 3000')});
