@@ -149,59 +149,22 @@ li a:hover {
 <body   >
 
   
- 
- <div class="navBarHolder" >
+<header>
+<% include ./header %>
+</header>
 
-   <button type = "button" class="btn btn-dark btn-xs ">
-      home
-   </button>
-   
-   <button type = "button" class="btn btn-dark btn-xs ">
-      how to play
-   </button>
-    <button type = "button" class="btn btn-dark btn-xs ">
-      register
-   </button>
-   <button type = "button" class="btn btn-dark btn-xs ">
-      login
-   </button>
-  <button type = "button" class="btn btn-dark btn-xs " onclick="gotoMenu('images','','','');" >
-      users
-   </button>
+  <div class="mainHolder" >
+    <div class="middleContainerOpaq"></div>
+    <div id="updatableMiddleContainer" class="middleContainer">
+      <div class="cube">cav asasas asasdadasds asadsdads</div>
+    </div>
+  </div>
 
-</div>
- <div class="mainHolder" >
-  
-          <div class="middleContainerOpaq"></div>
-          
-          <div id="updatableMiddleContainer" class="middleContainer">
-                <div class="cube">cav asasas asasdadasds asadsdads</div>
-          </div>
-   
- </div>
-
- <div class="mainfooter">
-        <ul>
-          <li><a href="#home">home</a></li>
-           <li><a href="#home">|</a></li>
-          <li><a href="#news">how to play</a></li>
-           <li><a href="#home">|</a></li>
-          <li><a href="#contact">register</a></li>
-           <li><a href="#home">|</a></li>
-          <li><a href="#about">login</a></li>
-           <li><a href="#home">|</a></li>
-          <li><a href="#about">contact</a></li>
-          <li><a href="#home">|</a></li>
-          <li><a href="#about">terms</a></li>
-          <li><a href="#home">|</a></li>
-          <li><a href="#about">privacy</a></li>
-        </ul>
+  <footer>
+    <% include ./footer %>
+  </footer>
 
 
-
-
-
- </div>
   <div class="copyright">
     © 2019  Copyright:  CSC 667 Hold Em Poker
 
