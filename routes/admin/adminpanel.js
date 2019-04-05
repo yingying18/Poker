@@ -1,9 +1,10 @@
-const express = require('express');
-const router = express.Router();
+module.exports = function (app,dbRequest,dbconn) {
 
-router.get('/',(req, res) =>{
-	console.log('admin rendered');
-	res.render('./adminpanel');
-});
+	app.get('/adminpanel',(req, res) =>{
+		 console.log("admin get called");	
+					
+			 			res.render('admin/adminpanel');
+			 		
+	});
 
-module.exports = router;
+}

@@ -12,26 +12,28 @@ function postData(method,urlaction,data, destinationdiv){
       senddata = data;
     }
     
-
+   
      $.ajax({
             type: method,
-            url: "/"+urlaction,
+            url: urlaction,
             data: JSON.stringify(senddata),
             contentType: "application/json; charset=utf-8",
             success: function (data) {
-            console.log('success');
-                console.log('success post data');
-                            //console.log(JSON.stringify(data));
-                            //alert(resultdiv);
-                            document.getElementById(destinationdiv).innerHTML=data;
+
+                console.log('success: data sent ');
+                document.getElementById(destinationdiv).innerHTML=data;
             }
         });
 };
 
 function gotoMenu(method,urlaction,data, destinationdiv){
       
-       console.log('gotmenu called');
-       postData("post","gotomenu/users","","updatableMiddleContainer");
+       console.log('gotomenu called');
+       //postData("post","gotomenu/users","","updatableMiddleContainer");
+
+       postData(method,urlaction,data,destinationdiv);
+       
+
      
 };
 

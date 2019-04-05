@@ -1,61 +1,20 @@
-<!-- views/login.ejs -->
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <% include ./head %>
-</head>
-
-<body class="container">
-    
-    <header>
-        <% include ./header %>
-    </header>
-    
-    <div class="wrapper fadeInDown">
-        <div id="formContent">
-            <!-- Tabs Titles -->
-
-            <!-- Icon -->
-            <div class="fadeIn first">
-                <img src="https://image.flaticon.com/icons/svg/1562/1562450.svg" id="icon" alt="" width="100" height="100"/>
-            </div>
-
-            <!-- Login Form -->
-            <form>
-                <input type="text" id="login" class="fadeIn second" name="login" placeholder="Username">
-                <input type="text" id="password" class="fadeIn third" name="login" placeholder="Password">
-                <input type="submit" class="fadeIn fourth" value="Log In">
-                <input type="submit" class="fadeIn fourth" value="Register">
-            </form>
-
-            <!-- Remind Passowrd -->
-            <div id="formFooter">
-                <a class="underlineHtechntecover" href="#">Forgot Password?</a>
-            </div>
-
-        </div>
-    </div>
-</body>
-
-<style>
     /* BASIC */
 
-    html {
+    .login html {
         background-color: #56baed;
     }
-    body {
+    .login body {
         font-family: "Poppins", sans-serif;
         height: 100vh;
     }
-    a {
+    .login a {
         color: #92badd;
         display: inline-block;
         text-decoration: none;
         font-weight: 400;
     }
-    h2 {
+    .logoin h2 {
         text-align: center;
         font-size: 16px;
         font-weight: 600;
@@ -104,11 +63,11 @@
 
     /* TABS */
 
-    h2.inactive {
+    .login h2.inactive {
         color: #cccccc;
     }
 
-    h2.active {
+    .login h2.active {
         color: #0d0d0d;
         border-bottom: 2px solid #5fbae9;
     }
@@ -330,8 +289,3 @@
     #icon {
         width: 60%;
     }
-</style>
-
-</body>
-
-</html>

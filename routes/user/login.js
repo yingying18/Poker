@@ -1,9 +1,9 @@
 module.exports = function (app,dbRequest,dbconn) {
 
-	app.get('/about',(req, res) =>{
+	app.get('/login',(req, res) =>{
 		 console.log("register post called");	
 					
-			 			res.render('about/about');
+			 			res.render('user/login');
 			 		
 	});
 
