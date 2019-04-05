@@ -1,13 +1,10 @@
-const express = require('express');
-const router = express.Router();
+module.exports = function (app,dbRequest,dbconn) {
 
-router.get('/',(req, res) =>{
-	console.log('');
-	res.render('./lobby');
-	//res.send('');
-	//res.end();
-	//res.status(404).send('message');
+	app.get('/lobby',(req, res) =>{
+		 console.log("lobby called");	
+					
+			 			res.render('game/lobby');
+			 		
+	});
 
-});
-
-module.exports = router;
+}

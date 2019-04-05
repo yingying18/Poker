@@ -17,22 +17,6 @@ app.set('views','./views');
 const dbconn = require('./utils/dbconn.js');
 const dbRequest = require('./utils/dbrequest.js')
 app.use(express.static('public'));
-app.set('view engine','ejs');
-app.set('views','./views');
-
-// home
-// server expects to receive request from client
-app.get('/', function(req,res){
-	res.render('index',{
-		title: 'CSC667_Team06'
-	}); 
-	// response::server sends response to home page
-}); 
-
-// index
-app.get('/index', function(req,res){
-	res.render('index',{title: 'Express'});
-});
 
 // Error 404
 // TO-DO
@@ -64,6 +48,7 @@ app.use(express.urlencoded({extended: true}));
 require('./routes/main.js')(app,dbRequest,dbconn);
 
 require('./routes/game/howtoplay.js')(app,dbRequest,dbconn);
+require('./routes/game/lobby.js')(app,dbRequest,dbconn);
 
 require('./routes/admin/adminpanel.js')(app,dbRequest,dbconn);
 
@@ -81,8 +66,10 @@ app.use(function(req,res,next){
 	//console.log('example middleware');
 	next();
 
-
 });
+
+
+
 
 // Start listening on port 3000
 app.listen(3000, ()=>{ console.log('listening on port 3000')});
