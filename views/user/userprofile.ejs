@@ -20,11 +20,11 @@ html {
     height: 100%;
 }
 .navBarHolder{
-    
+
     width: 80%;
     height: 2%;
     color:white;
-   
+
     margin-right: 10%;
     margin-left: 10%;
     color: white;
@@ -36,27 +36,23 @@ html {
      opacity:0.70;
     position: absolute;
     z-index:-10;
-    
-    
-     
-       
-     
+
 }
 .middleContainer{
     width: 100%;
     height: 100%;
-    
-    
-   
-     
+
+
+
+
      postion: absolute;
     opacity:1.0;
      z-index:10;
-     
-       
+
+
 }
 .mainHolder{
-    
+
     width: 80%;
     height: 80%;
     color:white;
@@ -69,12 +65,12 @@ html {
     width: 80%;
     height: 8%;
     color:white;
-  
+
     margin-right: 10%;
     margin-left: 10%;
     color: white;
     background-color:#6e6953;
-    
+
     position:relative;
 }
 .copyright{
@@ -101,8 +97,8 @@ html {
          height:80%;
 border-radius: 10px;
   background: #565648;
- 
-   box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.3);     
+
+   box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.3);
 }
 
 ul {
@@ -110,7 +106,7 @@ ul {
   margin: 0;
   padding: 0;
   overflow: hidden;
- 
+
 }
 
 li {
@@ -136,7 +132,7 @@ li a:hover {
  color:gray;
 }
 
-        
+
 
 
     </style>
@@ -145,48 +141,37 @@ li a:hover {
      <script src="./js/services.js"></script>
      <script src="./js/user.js"></script>
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+     <div class="cube">
+             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"  style="width:100%">
+             <h1>UserProfile</h1>
+             <h2>Games Played</h2>
+             <h3>Number of Chips</h3>
+     </div>
 </head>
-<body   >
+<body>
 
-  
-<header>
-<% include ./header %>
-</header>
+ <div class="mainfooter">
+        <ul>
+          <li><a href="#home">home</a></li>
+           <li><a href="#home">|</a></li>
+          <li><a href="#news">how to play</a></li>
+           <li><a href="#home">|</a></li>
+          <li><a href="#contact">register</a></li>
+           <li><a href="#home">|</a></li>
+          <li><a href="#about">login</a></li>
+           <li><a href="#home">|</a></li>
+          <li><a href="#about">contact</a></li>
+          <li><a href="#home">|</a></li>
+          <li><a href="#about">terms</a></li>
+          <li><a href="#home">|</a></li>
+          <li><a href="#about">privacy</a></li>
+        </ul>
 
 
-   <button type = "button" class="btn btn-dark btn-xs ">
-      home
-   </button>
-   
-   <button type = "button" class="btn btn-dark btn-xs ">
-      how to play
-   </button>
-    <button type = "button" class="btn btn-dark btn-xs ">
-      register
-   </button>
-   <button type = "button" class="btn btn-dark btn-xs ">
-      login
-   </button>
-  <button type = "button" class="btn btn-dark btn-xs " onclick="gotoMenu('images','','','');" >
-      users
-   </button>
 
-</div>
- <div class="mainHolder" >
-  
-          <div class="middleContainerOpaq"></div>
-          
-          <div id="updatableMiddleContainer" class="middleContainer">
-                <div class="cube">Introduction and recent information or changes</div>
-          </div>
-   
+
+
  </div>
-
-  <footer>
-    <% include ./footer %>
-  </footer>
-
-
   <div class="copyright">
     © 2019  Copyright:  CSC 667 Hold Em Poker
 
