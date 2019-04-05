@@ -64,3 +64,11 @@ function cleanInsideDiv(divtoclean){
       vardiv.innerHTML = "";
 
 }
+
+function callInfoPopup(infotype,messagetoshow){
+    //let modaldiv = document.getElementById(divtoclean);
+    //let infoIconDiv = document.getElementById(divtoclean);
+    //let infoMessageDiv =document.getElementById(infoMessage);
+    $('#modalWindow').modal();
+
+}
