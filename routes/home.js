@@ -2,11 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/',(req, res) =>{
+
 	console.log('');
 	res.render('./index');
-	//res.send('home');
-	//res.end();
-	//res.status(404).send('message');
+
 
 });
 

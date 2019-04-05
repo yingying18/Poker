@@ -33,3 +33,13 @@ function updateUser(id, name,password,usertype){
 	 postData(method,urlaction,data, destinationdiv);
    
 }
+
+
+
+function login(){
+
+}
+
+function register(){
+
+}

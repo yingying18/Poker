@@ -1,29 +1,69 @@
+<div id="cube" class="cube">
+    <div class="registerForm" id="registerForm">
+        <form class="needs-validation" validate>
+          <div class="form-row">
+            <div class="col-md-4 mb-3">
+              <label for="validationCustom01">user name</label>
+              <input type="text" class="form-control" id="validationCustom01" placeholder="user name" value="" required>
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+            </div>
 
-    <div id="game">
-        <form action="/action_page.php">
-           
-                <h1>Register</h1>
-                <p>Please fill in this form to create an account.</p>
-                <hr>
+          </div>
+          <div class="form-row">
+            <div class="col-md-4 mb-3">
+              <label for="validationCustom01">email</label>
+              <input type="text" class="form-control" id="validationCustom01" placeholder="email" value="" required>
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-4 mb-3">
+              <label for="validationCustom01">password</label>
+              <input type="text" class="form-control" id="validationCustom01" placeholder="password" value="" required>
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+            </div>
 
-                <label for="email"><b>Email</b></label>
-                <input type="text" placeholder="Enter Email" name="email" required>
+            <div class="col-md-4 mb-3">
+              <label for="validationCustom02">retype password</label>
+              <input type="text" class="form-control" id="validationCustom02" placeholder="reenter password" value="" required>
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+            </div>
 
-                <label for="psw"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="psw" required>
+          </div>
+          <div class="form-row">
+              <div class="col-md-3 mb-3">
+                <input type="file" class="custom-file-input" id="validatedCustomFile" required>
+                <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                <div class="invalid-feedback">Example invalid custom file feedback</div>
+              </div>
+          </div>
 
-                <label for="psw-repeat"><b>Repeat Password</b></label>
-                <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
-                <hr>
-
-
-                <button type="submit" class="registerbtn">Register</button>
-          
-
-
+          <div class="form-group">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+              <label class="form-check-label" for="invalidCheck">
+                Agree to terms and conditions
+              </label>
+              <div class="invalid-feedback">
+                You must agree before submitting.
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-primary" type="submit">register</button>
         </form>
 
+
+
     </div>
+</div>
 
 
 

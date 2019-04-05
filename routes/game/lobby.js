@@ -1,12 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/',(req, res) =>{
+router.get('/lobby',(req, res) =>{
 	console.log('');
 	res.render('./lobby');
-	//res.send('');
-	//res.end();
-	//res.status(404).send('message');
+
 
 });
 

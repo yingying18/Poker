@@ -5,9 +5,12 @@
 //urlaction: link to catch request
 function postData(method,urlaction,data, destinationdiv){
       
-      console.log('data post called');
-     
-     let senddata={};
+    
+
+    console.log('data post called');
+    
+
+    let senddata={};
     if ( (typeof data !== 'undefined') && (data !== '') ){
       senddata = data;
     }
@@ -29,7 +32,6 @@ function postData(method,urlaction,data, destinationdiv){
 function gotoMenu(method,urlaction,data, destinationdiv){
       
        console.log('gotomenu called');
-       //postData("post","gotomenu/users","","updatableMiddleContainer");
 
        postData(method,urlaction,data,destinationdiv);
        
@@ -38,4 +40,27 @@ function gotoMenu(method,urlaction,data, destinationdiv){
 };
 
 
+function hideDiv(divtohide){
 
+  let vardiv = document.getElementById(divtohide);
+    if ( (vardiv !=="undefined") && (vardiv !== null) )
+      vardiv.style.display = "none";
+
+}
+
+
+function showDiv(divtoshow){
+
+  let vardiv = document.getElementById(divtoshow);
+    if ( (vardiv !=="undefined") && (vardiv !== null) )
+      vardiv.style.display = "block";
+
+}
+
+function cleanInsideDiv(divtoclean){
+
+  let vardiv = document.getElementById(divtoclean);
+    if ( (vardiv !=="undefined") && (vardiv !== null) )
+      vardiv.innerHTML = "";
+
+}
