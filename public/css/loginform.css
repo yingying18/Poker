@@ -299,11 +299,7 @@ input[type=text]:placeholder {
     height:30px;
     border-radius: 0px 0px 5px 5px;
 }
-.formFooter {
-    background-color:#595544;
-    height:30px;
-    border-radius: 0px 0px 5px 5px;
-}
+
 .loginlogo{
 
     margin-top: 20px;

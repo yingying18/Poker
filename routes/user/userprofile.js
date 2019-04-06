@@ -1,11 +1,10 @@
-const express = require('express');
-const router = express.Router();
+module.exports = function (app,dbRequest,dbconn) {
 
-router.get('/',(req, res) =>{
-	
-	console.log('');
-	res.render('./userprofile');
+	app.get('/userprofile',(req, res) =>{
+		 console.log("register post called");	
+					
+		res.render('user/userprofile');
+			 		
+	});
 
-});
-
-module.exports = router;
+}

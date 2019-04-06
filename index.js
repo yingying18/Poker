@@ -53,6 +53,7 @@ require('./routes/admin/adminpanel.js')(app,dbRequest,dbconn);
 
 require('./routes/user/login.js')(app,dbRequest,dbconn);
 require('./routes/user/register.js')(app,dbRequest,dbconn);
+require('./routes/user/userprofile.js')(app,dbRequest,dbconn);
 require('./routes/about.js')(app,dbRequest,dbconn);
 
 
