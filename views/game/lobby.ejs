@@ -1,2 +1,85 @@
+<div id="cube" class="cube">
+    <div class="innercube">
+        <div class="gamepanelcontainer">
+            <%if ( typeof lobbyresult != 'undefined' ) { %>
+                <h3>Game Id: <%= lobbyresult.lobbyid %></h3>
+                <p>MinBet: <%= lobbyresult.minbet%> Seats available: <%= lobbyresult.seatsavailable%></p>
+            <% } %>
+            
+            <h3>Game Id: 1</h3>
+            <p>Min Bet: x Seats available: y</p>
 
+            <table id="gameTable" class="table table-striped">
+            <tr>
+            <th scope="col">UserID</th>
+            <th scope="col">Username</th>
+            <th scope="col">Currency</th>
+            <th scope="col">Current Bet Amount</th>
+            <td scope="col">Card1</td>
+            <td scope="col">Card2</td>
+            <td scope="col">PlayerTurn?</td>
+            <td scope="col">Buttons</td>
+            </tr>
+
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>Ted</td>
+                <td>$123</td>
+                <td>$1</td>
+                <td>King Diamond</td>
+                <td>Two Diamond</td>
+                <td>Yes</td>
+                <td>
+                <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Edit</button>
+                <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove</button>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Ted</td>
+                <td>$345</td>
+                <td>$2</td>
+                <td>Queen Spades</td>
+                <td>Ace Clubs</td>
+                <td>No</td>
+                <td>
+                <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Edit</button>
+                <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove</button>
+                </td>
+            </tr>
+
+            <% if ( typeof result != 'undefined' ) { %>
+                <% for (var i=0; i<result.length; i++) {%>
+                <tr id="user<%=result1[i].id%>">
+                <!--"makeUserEditable('<%=result[i].id %>','<%= result[i].username %>','<%= result[i].password %>','<%= result[i].usertype %>');"-->
+                <td>
+                <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Edit Account </button>
+                </td>
+                    <td>
+                    <%= result[i].tableid  %>
+                    </td>
+                    <td>
+                    <%= result[i].playerseats %>
+                    </td>
+                    <td>
+                    <%= result[i].minbetamount %>
+                    </td>
+                    <td>
+                    <%= result[i].rngseed %>
+                    </td>
+                    <td></td>
+                </tr>
+                <%}%>
+                <tr><td></td><td></td><td></td><td></td><td></td>
+                <td>
+                </td>
+                </tr>
+            <%}%>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
