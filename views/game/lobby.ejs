@@ -1,2 +1,225 @@
+<div id="cube" class="cube">
+    <div class="innercube">
+        <div class="gamepanelcontainer">
+            <%if ( typeof lobbyresult != 'undefined' ) { %>
+                <h3>Game Id: <%= lobbyresult.lobbyid %></h3>
+                <p>MinBet: <%= lobbyresult.minbet%> Seats available: <%= lobbyresult.seatsavailable%></p>
+            <% } %>
+            
+            <h3>Game Id: 1</h3>
+            <p>Min Bet: x Seats available: y</p>
 
+            <table id="gameTable" class="table table-striped">
+            <tr>
+            <th scope="col">UserID</th>
+            <th scope="col">Username</th>
+            <th scope="col">Currency</th>
+            <th scope="col">Current Bet Amount</th>
+            <td scope="col">Card1</td>
+            <td scope="col">Card2</td>
+            <td scope="col">PlayerTurn?</td>
+            <td scope="col">Buttons</td>
+            </tr>
 
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>Ted</td>
+                <td>$123</td>
+                <td>$1</td>
+                <td>King Diamond</td>
+                <td>Two Diamond</td>
+                <td>Yes</td>
+                <td>
+                <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Edit</button>
+                <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove</button>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Ted</td>
+                <td>$345</td>
+                <td>$2</td>
+                <td>Queen Spades</td>
+                <td>Ace Clubs</td>
+                <td>No</td>
+                <td>
+                <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Edit</button>
+                <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove</button>
+                </td>
+            </tr>
+
+            <% if ( typeof result != 'undefined' ) { %>
+                <% for (var i=0; i<result.length; i++) {%>
+                <tr id="user<%=result1[i].id%>">
+                <!--"makeUserEditable('<%=result[i].id %>','<%= result[i].username %>','<%= result[i].password %>','<%= result[i].usertype %>');"-->
+                <td>
+                <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Edit Account </button>
+                </td>
+                    <td>
+                    <%= result[i].tableid  %>
+                    </td>
+                    <td>
+                    <%= result[i].playerseats %>
+                    </td>
+                    <td>
+                    <%= result[i].minbetamount %>
+                    </td>
+                    <td>
+                    <%= result[i].rngseed %>
+                    </td>
+                    <td></td>
+                </tr>
+                <%}%>
+                <tr><td></td><td></td><td></td><td></td><td></td>
+                <td>
+                </td>
+                </tr>
+            <%}%>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!DOCTYPE html>
+<html lang="en">
+<!-- views/head.ejs -->
+<meta charset="UTF-8">
+<title>Super Awesome</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="./js/bootstrap/bootstrap.min.js"></script>
+<script src="./js/services.js"></script>
+<script src="./js/user.js"></script>
+<link rel="stylesheet" type="text/css" href="./css/bootstrap/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="./css/lobby.css">
+<body>
+    <div class="container-fluid">
+        <!-- Start Top Row -->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong>User Name Here</strong>
+                    </div>
+                    <div class="col-md-12">
+                        <img alt="" src="https://s3.amazonaws.com/uifaces/faces/twitter/rogie/128.jpg" class="rounded">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="row justify-content-end">
+                    <div class="col-md-8">
+                    </div>
+                    <div class="col-md-2">
+
+                        <button type="button" class="btn btn-success">
+                            My Account
+                        </button>
+                    </div>
+                    <div class="col-md-2">
+
+                        <button type="button" class="btn btn-success">
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Top Row -->
+
+        <!-- Start Bottom Row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <!-- Left Hand Column -->
+                    <div class="col-md-3">
+                        <div class="row">
+                            <!-- My Stats -->
+                            <div class="col-md-12">
+                                <dl>
+                                    <h2>
+                                        My Statistics
+                                    </h2>
+                                    <dt>
+                                        Chips:
+                                    </dt>
+                                    <dt>
+                                        My Level:
+                                    </dt>
+                                    <dt>
+                                        Win Rate:
+                                    </dt>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3 class="card-title">Tables Available</h3>
+                                        <h6> Table 1</h6>
+                                        <h6> Table 2</h6>
+                                        <h6> Table 3</h6>
+                                        <h6> Table 4</h6>
+                                        <h6> Table 5</h6>
+                                    </div>
+                                </div>
+                                <!-- Expect to have dynamic pagination -->
+                                <!-- <nav>
+                                        <ul class="pagination">
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">1</a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">2</a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">3</a>
+                                            </li>
+                                        </ul>
+                                    </nav> -->
+                                <button type="button" class="btn btn-success">
+                                    New Table
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Right Hand Column -->
+                    <!-- Statistics -->
+                    <div class="col-md-9">
+                        <dl>
+                            <h2>
+                                Statistics
+                            </h2>
+                            <dt>
+                                Top Players:
+                            </dt>
+                            <dt>
+                                Prizes:
+                            </dt>
+                            <dt>
+                                Total Available Tables:
+                            </dt>
+                            <dt>
+                                Total Player Online:
+                            </dt>
+                            <dt>
+                                Number of Registered Users:
+                            </dt>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Bottom Row -->
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+</body>
+
+</html>

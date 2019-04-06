@@ -48,6 +48,7 @@ app.use(express.urlencoded({extended: true}));
 require('./routes/main.js')(app,dbRequest,dbconn);
 
 require('./routes/game/howtoplay.js')(app,dbRequest,dbconn);
+require('./routes/game/lobby.js')(app,dbRequest,dbconn);
 
 require('./routes/admin/adminpanel.js')(app,dbRequest,dbconn);
 
