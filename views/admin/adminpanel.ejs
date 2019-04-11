@@ -13,6 +13,16 @@
           <a class="adminpanelcontainer nav-link" id="admins-tab" data-toggle="tab" href="#adminsMenu" role="tab" aria-controls="admins" aria-selected="false">Admins</a>
         </li>
       </ul>
+
+      <!--
+        #455DF7 blue
+
+        #87CEFA light sky blue
+
+        #F74545 red
+
+        #3CB371 green
+      -->
       
       <div class="tab-content">
         <div id="gameTablesMenu" class="tab-pane fade in active">
@@ -35,8 +45,8 @@
                 <td>123456789</td>
                 <td></td>
                 <td>
-                  <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Edit</button>
-                  <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove</button>
+                  <button style="color:white;background-color:#455DF7;" type="button" onclick="" class="btn btn-secondary btn-sm">Edit</button>
+                  <button style="color:white;background-color:#F74545;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove</button>
                 </td>
               </tr>
 
@@ -45,7 +55,7 @@
                   <tr id="user<%=result1[i].id%>">
                   <!--"makeUserEditable('<%=result[i].id %>','<%= result[i].username %>','<%= result[i].password %>','<%= result[i].usertype %>');"-->
                   <td>
-                  <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Edit Account </button>
+                  <button style="color:white;background-color:#455DF7;" type="button" onclick="" class="btn btn-secondary btn-sm">Edit Account </button>
                   </td>
                     <td>
                     <%= result1[i].tableid  %>
@@ -64,7 +74,7 @@
                 <%}%>
                 <tr><td></td><td></td><td></td><td></td><td></td>
                   <td>
-                    <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove</button>
+                    <button style="color:white;background-color:#F74545;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove</button>
                   </td>
                 </tr>
               <%}%>
@@ -73,7 +83,11 @@
           </table>
 
           <!--Button form to Create Table-->
-
+          <form action="/" method="">
+            Max Player Seats: <input type="text" name="maxseats"><br>
+            Min Bet Amount:   <input type="text" name="minbetamount"><br>
+            <input type="submit" value="Create Table">
+          </form>
 
         </div>
 
@@ -98,8 +112,8 @@
                 <td>123</td>
                 <td>Super</td>
                   <td>
-                    <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Edit</button>
-                    <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove</button>
+                    <button style="color:white;background-color:#455DF7;" type="button" onclick="" class="btn btn-secondary btn-sm">Edit</button>
+                    <button style="color:white;background-color:#F74545;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove</button>
                   </td>
               </tr>
 
@@ -111,21 +125,23 @@
                   <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Edit Account </button>
                   </td>
                     <td>
-                    <%= result2[i].tableid  %>
+                    <%= result2[i].username  %>
                     </td>
                     <td>
-                      <%= result2[i].playerseats %>
+                      <%= result2[i].password %>
                     </td>
                     <td>
-                      <%= result2[i].minbetamount %>
+                      <%= result2[i].currency %>
                     </td>
-                    <td></td><td></td>
+                    <td>
+                    <%= result2[i].accounttype %>
+                    </td><td></td>
                   </tr>
                 <%}%>
                 <tr><td></td><td></td><td></td><td></td><td></td>
                   <td>
-                    <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Edit</button>
-                    <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove</button>
+                    <button style="color:white;background-color:#455DF7;" type="button" onclick="" class="btn btn-secondary btn-sm">Edit</button>
+                    <button style="color:white;background-color:#F74545;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove</button>
                   </td>
               </tr>
               <%}%>
@@ -143,9 +159,9 @@
             <tr>
               <th scope="col">ID</th> 
               <th scope="col">Name</th>
-              <th scope="col">Currency</th>
               <th scope="col">AdminStatus</th>
               <th scope="col">AdminType</th>
+              <th><th>
               <td></td>
             </tr>
 
@@ -153,12 +169,12 @@
               <tr>
                 <td>1</td>
                 <td>Billy Bob</td>
-                <td>$123</td>
-                <td>Admin</td>
-                <td>1</td>
+                <td>Yes</td>
+                <td>Super type</td>
+                <td></td>
                 <td>
-                  <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Edit</button>
-                  <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove</button>
+                  <button style="color:white;background-color:#3CB371;" type="button" onclick="" class="btn btn-secondary btn-sm">Give Admin</button>
+                  <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove Admin</button>
                 </td>
               </tr>
 
@@ -172,21 +188,19 @@
                       <%= result3[i].name%>
                     </td>
                     <td>
-                      <%= result3[i].currency%>
-                    </td>
-                    <td>
                       <%= result3[i].adminstatus%>
                     </td>
                     <td>
-                      <%= result3[i].admintype %>
+                      <%= result3[i].admintype%>
                     </td>
+                    <td></td>
                     <td></td>
                   </tr>
                 <%}%>
                 <tr><td></td><td></td><td></td><td></td><td></td>
                   <td>
-                    <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Edit</button>
-                    <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove</button>
+                    <button style="color:white;background-color:#3CB371;" type="button" onclick="" class="btn btn-secondary btn-sm">Give Admin</button>
+                    <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove Admin</button>
                   </td>
                 </tr>
               <%}%>

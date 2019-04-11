@@ -31,8 +31,11 @@
                 <td>Two Diamond</td>
                 <td>Yes</td>
                 <td>
-                <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Edit</button>
-                <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove</button>
+                <button style="color:white;background-color:#3CB371;" type="button" onclick="" class="btn btn-secondary btn-sm">Join Game</button>
+                <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Leave Game</button>
+                <button style="color:white;background-color:#3CB371;" type="button" onclick="" class="btn btn-secondary btn-sm">Call</button>
+                <button style="color:white;background-color:#4B0082;" type="button" onclick="" class="btn btn-secondary btn-sm">Raise 10</button>
+                <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Fold</button>
                 </td>
             </tr>
             <tr>
@@ -44,31 +47,33 @@
                 <td>Ace Clubs</td>
                 <td>No</td>
                 <td>
-                <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Edit</button>
-                <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove</button>
+                <button style="color:white;background-color:#3CB371;" type="button" onclick="" class="btn btn-secondary btn-sm">Join Game</button>
+                <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Leave Game</button>
+                <button style="color:white;background-color:#3CB371;" type="button" onclick="" class="btn btn-secondary btn-sm">Call</button>
+                <button style="color:white;background-color:#4B0082;" type="button" onclick="" class="btn btn-secondary btn-sm">Raise 10</button>
+                <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Fold</button>
                 </td>
             </tr>
 
             <% if ( typeof result != 'undefined' ) { %>
                 <% for (var i=0; i<result.length; i++) {%>
-                <tr id="user<%=result1[i].id%>">
-                <!--"makeUserEditable('<%=result[i].id %>','<%= result[i].username %>','<%= result[i].password %>','<%= result[i].usertype %>');"-->
-                <td>
-                <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Edit Account </button>
-                </td>
+                <tr id="user<%=result[i].id%>">
+                <td></td>
                     <td>
-                    <%= result[i].tableid  %>
+                    <%= result[i].userid  %>
                     </td>
                     <td>
-                    <%= result[i].playerseats %>
+                    <%= result[i].username %>
                     </td>
                     <td>
-                    <%= result[i].minbetamount %>
+                    <%= result[i].currency %>
                     </td>
                     <td>
-                    <%= result[i].rngseed %>
+                    <%= result[i].betamount %>
                     </td>
-                    <td></td>
+                    <td><%= result[i].card1 %></td>
+                    <td><%= result[i].card2 %></td>
+                    <td><%= result[i].isturn %></td>
                 </tr>
                 <%}%>
                 <tr><td></td><td></td><td></td><td></td><td></td>
@@ -79,7 +84,6 @@
 
                 </tbody>
             </table>
-        </div>
 
 
 
@@ -208,4 +212,3 @@
 </div>
 
 
-  
