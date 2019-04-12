@@ -67,12 +67,16 @@
       <div class="form-row">
         <div class="col-md-3 mb-3">
           <input
+            onchange=" document.getElementById('filenameinput').innerHTML=this.files[0].name;"
             type="file"
             class="custom-file-input"
             id="registeruserimage"
             name="registeruserimage"
           />
-          <label class="custom-file-label" for="registeruserimage"
+          <label
+            class="custom-file-label"
+            id="filenameinput"
+            for="registeruserimage"
             >Choose file...</label
           >
           <div class="invalid-feedback">
