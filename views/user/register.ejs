@@ -1,69 +1,106 @@
 <div id="cube" class="cube">
-    <div class="innercube" id="registerForm">
-        <form id="userregisterform" class="needs-validation" validate>
-          <div class="form-row">
-            <div class="col-md-4 mb-3">
-              <label for="name">user name</label><br>
-              <input type="text" class="form-control" id="registername" placeholder="user name" value="" required>
-              <div class="valid-feedback">
-                Looks good!
-              </div>
-            </div>
-
+  <div class="innercube" id="registerForm">
+    <form id="userregisterform" class="needs-validation" validate>
+      <div class="form-row">
+        <div class="col-md-4 mb-3">
+          <label for="name">user name</label><br />
+          <input
+            type="text"
+            class="form-control"
+            id="registername"
+            placeholder="user name"
+            value=""
+            required
+          />
+          <div class="valid-feedback">
+            Looks good!
           </div>
-          <div class="form-row">
-            <div class="col-md-4 mb-3">
-              <label for="email">email</label><br>
-              <input type="text" class="form-control" id="registeremail" placeholder="email" value="" required>
-              <div class="valid-feedback">
-                Looks good!
-              </div>
-            </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-md-4 mb-3">
+          <label for="email">email</label><br />
+          <input
+            type="text"
+            class="form-control"
+            id="registeremail"
+            placeholder="email"
+            value=""
+            required
+          />
+          <div class="valid-feedback">
+            Looks good!
           </div>
-          <div class="form-row">
-            <div class="col-md-4 mb-3">
-              <label for="password">password</label><br>
-              <input type="text" class="form-control" id="registerpassword" placeholder="password" value="" required>
-              <div class="valid-feedback">
-                Looks good!
-              </div>
-            </div>
-
-            <div class="col-md-4 mb-3">
-              <label for="repassword">retype password</label><br>
-              <input type="text" class="form-control" id="registerrepassword" placeholder="reenter password" value="" required>
-              <div class="valid-feedback">
-                Looks good!
-              </div>
-            </div>
-
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-md-4 mb-3">
+          <label for="password">password</label><br />
+          <input
+            type="text"
+            class="form-control"
+            id="registerpassword"
+            placeholder="password"
+            value=""
+            required
+          />
+          <div class="valid-feedback">
+            Looks good!
           </div>
-          <div class="form-row">
-              <div class="col-md-3 mb-3">
-                <input type="file" class="custom-file-input" id="registeruserimage" required>
-                <label class="custom-file-label" for="registeruserimage">Choose file...</label>
-                <div class="invalid-feedback">Example invalid custom file feedback</div>
-              </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <label for="repassword">retype password</label><br />
+          <input
+            type="text"
+            class="form-control"
+            id="registerrepassword"
+            placeholder="reenter password"
+            value=""
+            required
+          />
+          <div class="valid-feedback">
+            Looks good!
           </div>
-
-          <div class="form-group">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="registeragree" required>
-              <label class="form-check-label" for="registeragree">
-                Agree to terms and conditions
-              </label>
-              <div class="invalid-feedback">
-                You must agree before submitting.
-              </div>
-            </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-md-3 mb-3">
+          <input
+            type="file"
+            class="custom-file-input"
+            id="registeruserimage"
+            name="registeruserimage"
+          />
+          <label class="custom-file-label" for="registeruserimage"
+            >Choose file...</label
+          >
+          <div class="invalid-feedback">
+            Example invalid custom file feedback
           </div>
-          <button class="btn btn-primary" type="button" onclick="userregister();">register</button>
-        </form>
+        </div>
+      </div>
 
-
-
-    </div>
+      <div class="form-group">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            value=""
+            id="registeragree"
+            required
+          />
+          <label class="form-check-label" for="registeragree">
+            Agree to terms and conditions
+          </label>
+          <div class="invalid-feedback">
+            You must agree before submitting.
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary" type="button" onclick="userregister();">
+        register
+      </button>
+    </form>
+  </div>
 </div>
-
-
-
