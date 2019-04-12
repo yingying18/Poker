@@ -40,6 +40,26 @@ function login(){
 
 }
 
-function register(){
+function userregister(){
+	let user = document.getElementById('registername').value;
+	let email = document.getElementById('registeremail').value;
+	let pass = document.getElementById('registerpassword').value;
+	let repass = document.getElementById('registerrepassword').value;
+	let agree = document.getElementById('registeragree').checked ;
+	let	formdata = {
+		registername : "user name",
+		registeremail : "user email",
+		registerpassword : "password",
+		registeragree : "user agreement"
+	}
+	let postdata = {
+		name : user,
+		email : email,
+		password : pass
+
+	}
+	//alert(agree);
+	postData("post","registersave",postdata,"cube");
+	callInfoPopup("","");
 
 }

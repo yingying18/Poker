@@ -1,10 +1,10 @@
 <div id="cube" class="cube">
     <div class="innercube" id="registerForm">
-        <form class="needs-validation" validate>
+        <form id="userregisterform" class="needs-validation" validate>
           <div class="form-row">
             <div class="col-md-4 mb-3">
-              <label for="validationCustom01">user name</label><br>
-              <input type="text" class="form-control" id="validationCustom01" placeholder="user name" value="" required>
+              <label for="name">user name</label><br>
+              <input type="text" class="form-control" id="registername" placeholder="user name" value="" required>
               <div class="valid-feedback">
                 Looks good!
               </div>
@@ -13,8 +13,8 @@
           </div>
           <div class="form-row">
             <div class="col-md-4 mb-3">
-              <label for="validationCustom01">email</label><br>
-              <input type="text" class="form-control" id="validationCustom01" placeholder="email" value="" required>
+              <label for="email">email</label><br>
+              <input type="text" class="form-control" id="registeremail" placeholder="email" value="" required>
               <div class="valid-feedback">
                 Looks good!
               </div>
@@ -22,16 +22,16 @@
           </div>
           <div class="form-row">
             <div class="col-md-4 mb-3">
-              <label for="validationCustom01">password</label><br>
-              <input type="text" class="form-control" id="validationCustom01" placeholder="password" value="" required>
+              <label for="password">password</label><br>
+              <input type="text" class="form-control" id="registerpassword" placeholder="password" value="" required>
               <div class="valid-feedback">
                 Looks good!
               </div>
             </div>
 
             <div class="col-md-4 mb-3">
-              <label for="validationCustom02">retype password</label><br>
-              <input type="text" class="form-control" id="validationCustom02" placeholder="reenter password" value="" required>
+              <label for="repassword">retype password</label><br>
+              <input type="text" class="form-control" id="registerrepassword" placeholder="reenter password" value="" required>
               <div class="valid-feedback">
                 Looks good!
               </div>
@@ -40,16 +40,16 @@
           </div>
           <div class="form-row">
               <div class="col-md-3 mb-3">
-                <input type="file" class="custom-file-input" id="validatedCustomFile" required>
-                <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                <input type="file" class="custom-file-input" id="registeruserimage" required>
+                <label class="custom-file-label" for="registeruserimage">Choose file...</label>
                 <div class="invalid-feedback">Example invalid custom file feedback</div>
               </div>
           </div>
 
           <div class="form-group">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-              <label class="form-check-label" for="invalidCheck">
+              <input class="form-check-input" type="checkbox" value="" id="registeragree" required>
+              <label class="form-check-label" for="registeragree">
                 Agree to terms and conditions
               </label>
               <div class="invalid-feedback">
@@ -57,7 +57,7 @@
               </div>
             </div>
           </div>
-          <button class="btn btn-primary" type="button" onclick="callInfoPopup();">register</button>
+          <button class="btn btn-primary" type="button" onclick="userregister();">register</button>
         </form>
 
 
