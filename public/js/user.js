@@ -68,6 +68,7 @@ function userregister() {
   var formaData = new FormData();
 
   var x = document.getElementById("registeruserimage");
+  userimage = x.files[0];
   //alert(x.files.length);
   var txt = "";
   if ("files" in x) {
@@ -95,6 +96,7 @@ function userregister() {
     email: email,
     password: pass
   };
+  formaData.append("postdata", JSON.stringify(postdata));
   //formaData.append("postdata", JSON.stringify(postdata));
   //alert(formaData.length);
   console.log("file info : " + formaData["image"]);

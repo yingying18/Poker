@@ -10,7 +10,10 @@ module.exports = function(app, dbRequest, dbconn, upload, fs) {
     //handle image
 
     console.log("form data", req.file);
-    console.log(req.file.filename);
+
+    let jsonob = JSON.parse(req.body["postdata"]);
+    console.log("form post data name" + jsonob.name);
+
     fs.rename(
       "public/images/userimages/" + req.file.filename,
       "public/images/userimages/5.jpg",
@@ -20,7 +23,7 @@ module.exports = function(app, dbRequest, dbconn, upload, fs) {
     );
 
     //handle the rest of the form and post data to db and get the result
-    dbRequest.insertUser(dbconn, req.body, function(result) {
+    dbRequest.insertUser(dbconn, jsonob, function(result) {
       // console.log("return" + JSON.stringify(result));
       if (typeof result.code !== "undefined" || result === "") {
         res.send("we encountered an error during the registration");
