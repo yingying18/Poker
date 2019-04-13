@@ -1,31 +1,46 @@
 <!-- views/header.ejs -->
 
-<div class="navBarHolder">
-    <button type = "button" class="btn btn-dark btn-xs " onclick="gotoMenu('get','/index','','updatableMiddleContainer');" >
+
+<div id="barholder" class="navBarHolder">
+    <button type="button" class="btn btn-dark btn-xs "
+        onclick="gotoMenu('get','/index','','updatableMiddleContainer');">
         home
     </button>
-     <button type = "button" class="btn btn-dark btn-xs " onclick="gotoMenu('get','/about','','updatableMiddleContainer');" >
+    <button type="button" class="btn btn-dark btn-xs "
+        onclick="gotoMenu('get','/about','','updatableMiddleContainer');">
         About
     </button>
-    <button type = "button" class="btn btn-dark btn-xs " onclick="gotoMenu('get','/howtoplay','','updatableMiddleContainer');" >
+    <button type="button" class="btn btn-dark btn-xs "
+        onclick="gotoMenu('get','/howtoplay','','updatableMiddleContainer');">
         How to play
     </button>
-    <button type = "button" class="btn btn-dark btn-xs " onclick="gotoMenu('get','/register','','updatableMiddleContainer');" >
+    <button type="button" class="btn btn-dark btn-xs "
+        onclick="gotoMenu('get','/register','','updatableMiddleContainer');">
         Register
     </button>
-    <button type = "button" class="btn btn-dark btn-xs " onclick="gotoMenu('get','/login','','updatableMiddleContainer');" >
-        login
-    </button>
-    <button type = "button" class="btn btn-dark btn-xs " onclick="gotoMenu('get','/lobby','','updatableMiddleContainer');" >
+
+    <button type="button" class="btn btn-dark btn-xs "
+        onclick="gotoMenu('get','/lobby','','updatableMiddleContainer');">
         Lobby
     </button>
-    <button type = "button" class="btn btn-dark btn-xs " onclick="gotoMenu('get','/userprofile','','updatableMiddleContainer');" >
+    <button type="button" class="btn btn-dark btn-xs "
+        onclick="gotoMenu('get','/userprofile','','updatableMiddleContainer');">
         Profile
     </button>
-    <button type = "button" class="btn btn-dark btn-xs " onclick="gotoMenu('get','/adminpanel','','updatableMiddleContainer');" >
+    <button type="button" class="btn btn-dark btn-xs "
+        onclick="gotoMenu('get','/adminpanel','','updatableMiddleContainer');">
         Admin
     </button>
-    <button type = "button" class="btn btn-dark btn-xs " onclick="gotoMenu('get','','','');" >
+    <% if ( (typeof authanticate === 'undefined') || authanticate == "false" ) { %>
+    <button type="button" class="btn btn-dark btn-xs "
+        onclick="gotoMenu('get','/login','','updatableMiddleContainer');">
+        login
+    </button>
+    <%}%>
+    <% if ( (typeof authanticate !== 'undefined') && authanticate == "true" ) { %>
+    <button type="button" class="btn btn-dark btn-xs "
+        onclick="gotoMenu('post','/logout','','updatableMiddleContainer');">
         Log out
     </button>
+    <%}%>
 </div>

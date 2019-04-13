@@ -17,6 +17,10 @@ function postData(method, urlaction, data, destinationdiv) {
     success: function (data) {
       console.log("success: data sent ");
       document.getElementById(destinationdiv).innerHTML = data;
+      if ((urlaction == "login/authanticate") || (urlaction == "/logout")) {
+        gotoMenu('get', '/navbar', '', 'barholder');
+        urlaction == "null";
+      }
     }
   });
 }
@@ -45,6 +49,7 @@ function gotoMenu(method, urlaction, data, destinationdiv) {
   console.log("gotomenu called");
 
   postData(method, urlaction, data, destinationdiv);
+
 }
 
 function hideDiv(divtohide) {

@@ -4,6 +4,9 @@ const fileUpload = require("express-fileupload");
 app.set("view engine", "ejs");
 app.set("views", "./views");
 var fs = require("fs");
+var session = require('express-session');
+var multer = require("multer");
+var upload = multer({ dest: "public/images/userimages/" });
 //const login = require('./routes/login');
 //const home = require('./routes/home');
 //const main = require('./routes/main')(app);
@@ -20,8 +23,11 @@ const dbconn = require("./utils/dbconn.js");
 const dbRequest = require("./utils/dbrequest.js");
 
 app.use(express.static("public"));
-var multer = require("multer");
-var upload = multer({ dest: "public/images/userimages/" });
+app.use(session({
+  secret: 'secret_word', resave: false,
+  saveUninitialized: true
+}))
+
 // Error 404
 // TO-DO
 
@@ -30,6 +36,20 @@ var upload = multer({ dest: "public/images/userimages/" });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(function (req, res, next) {
+  console.log("app use : " + JSON.stringify(req.session));
+  let sesdata = JSON.stringify(req.session);
+  if (typeof req.session.userid !== 'undefined') {
+    req.body.authanticate = "true";
+  } else {
+    req.body.authanticate = "false";
+  }
+  console.log(req.body.authanticate);
+  next();
+})
+
+
 //app.use(fileUpload());
 
 //app.use('/',main);
@@ -62,7 +82,7 @@ require("./routes/about.js")(app, dbRequest, dbconn);
 //require('./routes/howtoplay.js')(app,dbRequest,dbconn);
 //require('./routes/admin/adminpanel.js')(app,dbRequest,dbconn);
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   //console.log('example middleware');
   next();
 });

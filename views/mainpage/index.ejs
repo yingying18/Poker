@@ -1,25 +1,29 @@
 <div id="cube" class="cube">
 	<div class="innercube">
-		<img src="https://previews.dropbox.com/p/thumb/AAZHMqklS1Jno1_2ZYkSZPknLCnJTDJGDHw_YMVef9Kp5oOs8tMdIVwLcZxCP_lU8fRJugrU5L_fk1u5ZVf41OUHfyxUlkYCBEjyTRUKSmscsUYdGA6zTaGtOPHaWPGJxHxKMDLgST78_bnQ8drRpIwLZYLaC84-Xo-p-QDoop4ENaPN02ewKy33qvdlHkXfjQuOpwtysDH3Qyv5qwwLZyyTucyJOdP78ofkZgOfc_KPANJP_wTHGgbzyeC8ukXVLKc7A8gVErnoUbOdveb56NEYkGt1ee6HzzB9MK1Dt8s0dFCSlHrw1DIhTE0CwdjpW8fnnL8D1QwNpAhsAX-mMKL3/p.png?size_mode=5" alt="Texas Hold'em Poker" style="width:100%;">
-		<br><br>
-		<h1>Register or Login to start playing.</h1>
-		<br><br><br>
-		<h2>Current Project Progress:</h2>
-		Main: Updating Progress
-		<br>
-		About: Need to format and add in information
-		<br>
-		How To Play: Update on details?
-		<br>
-		Register/Login: completed front-end (maybe format to be similar), working on back-end
-		<br>
-		Lobby: Implement data and reformat (both front-end and back-end)
-		<br>
-		Profile: completed front-end, working on back-end
-		<br>
-		Admin: working on game table (front-end and back-end), + users and admins completed front-end
-		<br>
-		Logout: need action
+
+		<% if ( (typeof authanticate !== 'undefined') && authanticate == "true" ) { %>
+		<img src="images/userimages/person.png" alt="Texas Hold'em Poker" style="width:50px;height:50px"><br>
+		<span>logged user : <span>
+				<%}%>
+				<br><br>
+				<h1>Register or Login to start playing.</h1>
+				<br><br><br>
+				<h2>Current Project Progress:</h2>
+				Main: Updating Progress
+				<br>
+				About: Need to format and add in information
+				<br>
+				How To Play: Update on details?
+				<br>
+				Register/Login: completed front-end (maybe format to be similar), working on back-end
+				<br>
+				Lobby: Implement data and reformat (both front-end and back-end)
+				<br>
+				Profile: completed front-end, working on back-end
+				<br>
+				Admin: working on game table (front-end and back-end), + users and admins completed front-end
+				<br>
+				Logout: need action
 
 	</div><!-- By default this div is injected-->
 </div>

@@ -12,15 +12,16 @@
     <!-- holds navigation bar -->
   </header>
 
-  <div class="mainHolder">
+  <div class=" mainHolder">
     <div class="middleContainerOpaq"></div>
     <div id="updatableMiddleContainer" class="middleContainer">
       <!-- We use this div to inject any section on clicks-->
       <div id="cube" class="cube">
         <div class="innercube">
-          <img
-            src="https://previews.dropbox.com/p/thumb/AAZHMqklS1Jno1_2ZYkSZPknLCnJTDJGDHw_YMVef9Kp5oOs8tMdIVwLcZxCP_lU8fRJugrU5L_fk1u5ZVf41OUHfyxUlkYCBEjyTRUKSmscsUYdGA6zTaGtOPHaWPGJxHxKMDLgST78_bnQ8drRpIwLZYLaC84-Xo-p-QDoop4ENaPN02ewKy33qvdlHkXfjQuOpwtysDH3Qyv5qwwLZyyTucyJOdP78ofkZgOfc_KPANJP_wTHGgbzyeC8ukXVLKc7A8gVErnoUbOdveb56NEYkGt1ee6HzzB9MK1Dt8s0dFCSlHrw1DIhTE0CwdjpW8fnnL8D1QwNpAhsAX-mMKL3/p.png?size_mode=5"
-            alt="Texas Hold'em Poker" style="width:100%;">
+          <% if ( (typeof authanticate !== 'undefined') && authanticate =="true" ) { %>
+          <img src="images/userimages/person.png" alt="Texas Hold'em Poker" style="width:50px;height:50px"><br>
+          <span>logged user : <span>
+              <%}%>
           <br><br>
           <h1>Register or Login to start playing.</h1>
           <br><br><br>
@@ -47,35 +48,35 @@
 
     <footer>
       <% include ./footer %>
-    </footer>
-    <!-- Modal -->
-    <div class="modal fade" id="modalWindow" tabindex="-1" role="dialog" aria-labelledby="modalWindow"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalTitle">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div style="float:left;">
-              <i id="modalLogo" class="material-icons" style="font-size:90px;color:red;">report_problem</i>
-            </div>
-            <div id="modalMessage" style="float:right;text-align: center;">
-              info window
-            </div>
+              </footer>
+              <!-- Modal -->
+              <div class="modal fade" id="modalWindow" tabindex="-1" role="dialog" aria-labelledby="modalWindow"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="modalTitle">Modal title</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div style="float:left;">
+                        <i id="modalLogo" class="material-icons" style="font-size:90px;color:red;">report_problem</i>
+                      </div>
+                      <div id="modalMessage" style="float:right;text-align: center;">
+                        info window
+                      </div>
 
 
-          </div>
-          <div class="modal-footer">
+                    </div>
+                    <div class="modal-footer">
 
 
-          </div>
-        </div>
-      </div>
-    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 </body>
 
 </html>
