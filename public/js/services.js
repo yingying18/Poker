@@ -14,7 +14,7 @@ function postData(method, urlaction, data, destinationdiv) {
     data: JSON.stringify(senddata),
 
     contentType: "application/json; charset=utf-8",
-    success: function(data) {
+    success: function (data) {
       console.log("success: data sent ");
       document.getElementById(destinationdiv).innerHTML = data;
     }
@@ -33,7 +33,7 @@ function postMultipartData(method, urlaction, data, destinationdiv) {
     contentType: false,
     enctype: "multipart/form-data",
     //contentType: "application/json; charset=utf-8",
-    success: function(data) {
+    success: function (data) {
       console.log("success: data sent ");
 
       document.getElementById(destinationdiv).innerHTML = data;
@@ -62,7 +62,13 @@ function cleanInsideDiv(divtoclean) {
   if (vardiv !== "undefined" && vardiv !== null) vardiv.innerHTML = "";
 }
 
-function callInfoPopup(infotype, messagetoshow) {
+function callInfoPopup(title, infotype, messagetoshow) {
+  // info type : report_problem
+
+  document.getElementById('modalTitle').innerHTML = title;
+  document.getElementById('modalMessage').innerHTML = messagetoshow;
+  document.getElementById('modalLogo').innerHTML = infotype;
+
   //let modaldiv = document.getElementById(divtoclean);
   //let infoIconDiv = document.getElementById(divtoclean);
   //let infoMessageDiv =document.getElementById(infoMessage);

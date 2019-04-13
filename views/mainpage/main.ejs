@@ -1,74 +1,81 @@
 <!DOCTYPE html>
 <html lang="en" class="mainhtml">
+
 <head>
   <% include ./head %>
 
 </head>
-  <body class="mainbody">
-    <header>
-      <% include ./header %><!-- holds navigation bar -->
-    </header>
 
-    <div class="mainHolder" >
-      <div class="middleContainerOpaq"></div>
-      <div id="updatableMiddleContainer" class="middleContainer"><!-- We use this div to inject any section on clicks-->
-            <div id="cube" class="cube">
-              <div class="innercube">
-                <img src="https://previews.dropbox.com/p/thumb/AAZHMqklS1Jno1_2ZYkSZPknLCnJTDJGDHw_YMVef9Kp5oOs8tMdIVwLcZxCP_lU8fRJugrU5L_fk1u5ZVf41OUHfyxUlkYCBEjyTRUKSmscsUYdGA6zTaGtOPHaWPGJxHxKMDLgST78_bnQ8drRpIwLZYLaC84-Xo-p-QDoop4ENaPN02ewKy33qvdlHkXfjQuOpwtysDH3Qyv5qwwLZyyTucyJOdP78ofkZgOfc_KPANJP_wTHGgbzyeC8ukXVLKc7A8gVErnoUbOdveb56NEYkGt1ee6HzzB9MK1Dt8s0dFCSlHrw1DIhTE0CwdjpW8fnnL8D1QwNpAhsAX-mMKL3/p.png?size_mode=5" alt="Texas Hold'em Poker" style="width:100%;">
-                <br><br>
-                <h1>Register or Login to start playing.</h1>
-                <br><br><br>
-                <h2>Current Project Progress:</h2>
-                Main: Updating Progress
-                <br>
-                About: Need to format and add in information
-                <br>
-                How To Play: Update on details?
-                <br>
-                Register/Login: completed front-end (maybe format to be similar), working on back-end
-                <br>
-                Lobby: Implement data and reformat (both front-end and back-end)
-                <br>
-                Profile: completed front-end, working on back-end
-                <br>
-                Admin: working on game table (front-end and back-end), + users and admins completed front-end
-                <br>
-                Logout: need action
+<body class="mainbody">
+  <header>
+    <% include ./header %>
+    <!-- holds navigation bar -->
+  </header>
 
-              </div>
-            </div><!-- By default this div is injected-->
-      </div>
-   
+  <div class="mainHolder">
+    <div class="middleContainerOpaq"></div>
+    <div id="updatableMiddleContainer" class="middleContainer">
+      <!-- We use this div to inject any section on clicks-->
+      <div id="cube" class="cube">
+        <div class="innercube">
+          <img
+            src="https://previews.dropbox.com/p/thumb/AAZHMqklS1Jno1_2ZYkSZPknLCnJTDJGDHw_YMVef9Kp5oOs8tMdIVwLcZxCP_lU8fRJugrU5L_fk1u5ZVf41OUHfyxUlkYCBEjyTRUKSmscsUYdGA6zTaGtOPHaWPGJxHxKMDLgST78_bnQ8drRpIwLZYLaC84-Xo-p-QDoop4ENaPN02ewKy33qvdlHkXfjQuOpwtysDH3Qyv5qwwLZyyTucyJOdP78ofkZgOfc_KPANJP_wTHGgbzyeC8ukXVLKc7A8gVErnoUbOdveb56NEYkGt1ee6HzzB9MK1Dt8s0dFCSlHrw1DIhTE0CwdjpW8fnnL8D1QwNpAhsAX-mMKL3/p.png?size_mode=5"
+            alt="Texas Hold'em Poker" style="width:100%;">
+          <br><br>
+          <h1>Register or Login to start playing.</h1>
+          <br><br><br>
+          <h2>Current Project Progress:</h2>
+          Main: Updating Progress
+          <br>
+          About: Need to format and add in information
+          <br>
+          How To Play: Update on details?
+          <br>
+          Register/Login: completed front-end (maybe format to be similar), working on back-end
+          <br>
+          Lobby: Implement data and reformat (both front-end and back-end)
+          <br>
+          Profile: completed front-end, working on back-end
+          <br>
+          Admin: working on game table (front-end and back-end), + users and admins completed front-end
+          <br>
+          Logout: need action
+
+        </div>
+      </div><!-- By default this div is injected-->
+    </div>
+
     <footer>
       <% include ./footer %>
     </footer>
     <!-- Modal -->
-<div class="modal fade" id="modalWindow" tabindex="-1" role="dialog" aria-labelledby="modalWindow" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div  class="modal-body">
-        <div >
-             <i id="modalLogo" class="material-icons" style="font-size:90px;color:red;">report_problem</i>
+    <div class="modal fade" id="modalWindow" tabindex="-1" role="dialog" aria-labelledby="modalWindow"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalTitle">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div style="float:left;">
+              <i id="modalLogo" class="material-icons" style="font-size:90px;color:red;">report_problem</i>
+            </div>
+            <div id="modalMessage" style="float:right;text-align: center;">
+              info window
+            </div>
+
+
+          </div>
+          <div class="modal-footer">
+
+
+          </div>
         </div>
-        <div id="modalMessage">
-          info window
-        </div>
-      
-       
-      </div>
-      <div class="modal-footer">
-       
-        
       </div>
     </div>
-  </div>
-</div>
-  </body>
-</html>
+</body>
 
+</html>
