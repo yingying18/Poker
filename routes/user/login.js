@@ -30,7 +30,15 @@ module.exports = function (app, dbRequest, dbconn) {
 					req.session.picture = result[0].picture;
 					req.session.usertype = result[0].usertype;
 					console.log("session : " + req.session.username);
-					res.render('mainpage/index', { authanticate: "true", id: result.id, username: result.username, useremail: result.email, filetype: result.filetype, picture: result.picture, usertype: result.usertype });
+					authuser = {
+						userid: req.session.userid,
+						username: req.session.username,
+						useremail: req.session.useremail,
+						filetype: req.session.filetype,
+						picture: req.session.picture,
+						usertype: req.session.picture
+					}
+					res.render('mainpage/index', { authanticate: "true", authuser: authuser });
 
 				}
 			}
