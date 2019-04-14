@@ -18,7 +18,7 @@ function postData(method, urlaction, data, destinationdiv) {
       console.log("success: data sent ");
       document.getElementById(destinationdiv).innerHTML = data;
       if ((urlaction == "login/authanticate") || (urlaction == "/logout")) {
-        gotoMenu('get', '/navbar', '', 'barholder');
+        gotoMenu('get', '/navbar', '', 'header');
         urlaction == "null";
       }
     }
