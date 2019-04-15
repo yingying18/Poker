@@ -22,22 +22,22 @@
 
 }
 .navBarHolder{
-   
-    width: 80%;
-    height: 40px;
-    margin-right: 10%;
-    margin-left: 10%;
+ 
+  width: 80%;
+  height: 40px;
+  margin-right: 10%;
+  margin-left: 10%;
 
 }
 .middleContainerOpaq{
 
-    width: 80%;
-    height: 100%;
-    background-color:#4d4d33;
-     opacity:0.70;
-    position: absolute;
-    z-index:-10;
-    
+  width: 80%;
+  height: 100%;
+  background-color:#4d4d33;
+  opacity:0.70;
+  position: absolute;
+  z-index:-10;
+  
 }
 .middleContainer{
   display: table;
@@ -48,20 +48,20 @@
   position: relative;
   opacity:1.0;
   z-index:10;
-
+  
 
  
 
        
 }
 .mainHolder{
-    
-    width: 80%;
-    height: 100%;
-    margin-right: 10%;
-    margin-left: 10%;
   
-   
+  width: 80%;
+  height: 100%;
+  margin-right: 10%;
+  margin-left: 10%;
+  overflow: auto;
+  
 
 
 }
@@ -87,7 +87,7 @@
   padding-top:5px;
   color: #807e69;
   background-color:#595544;
-text-align: center;
+  text-align: center;
   position:relative;
 
 }
@@ -142,8 +142,9 @@ text-align: center;
 }
 
 .innercube {
-    width: 100%;
-     padding-left: 50px;
-    padding-top: 50px;
-    padding-right: 50px;
+  width: 100%;
+  padding-left: 50px;
+  padding-top: 50px;
+  padding-right: 50px;
+
 }
