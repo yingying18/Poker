@@ -1,0 +1,13 @@
+<div id="cube" class = "cube">
+    <div class="innercube">
+        <canvas id="myCanvas" height="600" width="800" style="border:1px solid #000000;">Your browser does not support HTML canvasses.</canvas>
+        <script>
+            window.onload = function() {
+                var c=document.getElementById("myCanvas");
+                var ctx=c.getContext("2d");
+                ctx.fillStyle="#FF0000";
+                ctx.fillRect(0,0,150,75);
+            }
+        </script>
+    </div>
+</div>

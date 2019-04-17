@@ -1,12 +1,9 @@
-const express = require('express');
-const router = express.Router();
+module.exports = function (app, dbRequest, dbconn) {
 
-router.get('/game',(req, res) =>{
-	
-	console.log('');
-	res.render('./game');
+	app.get('/game', (req, res) => {
 
+		console.log("game view called");
+		res.render('game/game');
+	});
 
-});
-
-module.exports = router;
+}
