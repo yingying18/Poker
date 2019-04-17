@@ -1,4 +1,4 @@
-<div id="cube" class="cube">
+<div id="adminpanel" class="cube">
   <div class="innercube">
     <div class="adminpanelcontainer" >
       
@@ -105,43 +105,30 @@
             </tr>
 
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>Billy</td>
-                <td>C</td>
-                <td>123</td>
-                <td>Super</td>
+              <% if ( typeof result != 'undefined' ) { %>
+                <% for (var i=0; i<result.length; i++) {%>
                   <td>
-                    <button style="color:white;background-color:#455DF7;" type="button" onclick="" class="btn btn-secondary btn-sm">Edit</button>
-                    <button style="color:white;background-color:#F74545;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove</button>
-                  </td>
-              </tr>
-
-              <% if ( typeof result2 != 'undefined' ) { %>
-                <% for (var i=0; i<result2.length; i++) {%>
-                  <tr id="user<%=result2[i].id%>">
-
-                  <td>
-                  <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Edit Account </button>
+                  <%= result[i].id %>
                   </td>
                     <td>
-                    <%= result2[i].username  %>
+                      <%= result[i].username  %>
                     </td>
                     <td>
-                      <%= result2[i].password %>
+                      <%= result[i].password %>
                     </td>
                     <td>
-                      <%= result2[i].currency %>
+                      <%= result[i].email %>
                     </td>
                     <td>
-                    <%= result2[i].accounttype %>
-                    </td><td></td>
+                      <%= result[i].usertype %>
+                    </td><td>
+                      <button style="color:white;background-color:#455DF7;" type="button" onclick="makeUserEditable('<%=result[i].id %>','<%= result[i].username %>','<%= result[i].password %>','<%= result[i].usertype %>');" class="btn btn-secondary btn-sm">Edit</button>
+                      <button style="color:white;background-color:#F74545;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove</button>
+                    </td>
                   </tr>
                 <%}%>
                 <tr><td></td><td></td><td></td><td></td><td></td>
                   <td>
-                    <button style="color:white;background-color:#455DF7;" type="button" onclick="" class="btn btn-secondary btn-sm">Edit</button>
-                    <button style="color:white;background-color:#F74545;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove</button>
                   </td>
               </tr>
               <%}%>
@@ -159,50 +146,40 @@
             <tr>
               <th scope="col">ID</th> 
               <th scope="col">Name</th>
-              <th scope="col">AdminStatus</th>
               <th scope="col">AdminType</th>
+              <th scope="col">Email</th>
               <th><th>
               <td></td>
             </tr>
 
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>Billy Bob</td>
-                <td>Yes</td>
-                <td>Super type</td>
-                <td></td>
-                <td>
-                  <button style="color:white;background-color:#3CB371;" type="button" onclick="" class="btn btn-secondary btn-sm">Give Admin</button>
-                  <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove Admin</button>
-                </td>
-              </tr>
-
-              <% if ( typeof result3 != 'undefined' ) { %>
-                <% for (var i=0; i<result3.length; i++) {%>
-                  <tr id="user<%=result3[i].id%>">
-
-                  <td>
-                  </td>
+              <% if ( typeof result != 'undefined' ) { %>
+                <% for (var i=0; i<result.length; i++) {%>
+                  
+                  
+                    <tr id="user<%=result[i].id%>">
                     <td>
-                      <%= result3[i].name%>
+                      <%= result[i].id %>
                     </td>
                     <td>
-                      <%= result3[i].adminstatus%>
+                      <%= result[i].username%>
                     </td>
                     <td>
-                      <%= result3[i].admintype%>
+                      <%= result[i].usertype %>
+                    </td>
+                    <td>
+                      <%= result[i].email%>
+                    </td>
+                    <td>
+                      <% if(result[i].usertype != 0) {%>
+                      <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove Admin</button>
+                      <%} else {%>
+                        <button style="color:white;background-color:#3CB371;" type="button" onclick="" class="btn btn-secondary btn-sm">Give Admin</button>
+                      <%}%>
                     </td>
                     <td></td>
-                    <td></td>
-                  </tr>
+                    </tr>
                 <%}%>
-                <tr><td></td><td></td><td></td><td></td><td></td>
-                  <td>
-                    <button style="color:white;background-color:#3CB371;" type="button" onclick="" class="btn btn-secondary btn-sm">Give Admin</button>
-                    <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove Admin</button>
-                  </td>
-                </tr>
               <%}%>
 
             </tbody>
