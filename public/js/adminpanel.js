@@ -2,16 +2,14 @@ let activeEditNo = -1;
 function makeUserEditable(id, name, password, email, usertype) {
   activeEditNo = id;
   document.getElementById("user" + id).innerHTML =
-    '<tr>' +
     '<form id="editUser" method="post">' +
-    '<td>' + id + '</td>' +
-    '<td><input type="text" id="userName" name="userName" value="' + name +'"></td>' +
-    '<td><input type="text" id="userPass" name="userPass" value="' + password + '"></td>' +
-    '<td><input type="text" id="userEmail" name="userEmail" value="' + email + '"></td>' +
-    '<td><input type="text" id="userType" name="userType" value="' + usertype + '"></td>'
-    '<td style="width:100%;">hello</td>'
-    '<td><button style="color:white;background-color:#455DF7 type="button" onclick="">Button</button></td>'+
-    '</tr>';
+    '<td style="width:15%">' + id + '</td>' +
+    '<td style="width:15%"><input type="text" id="userName" name="userName" value="' + name +'"></td>' +
+    '<td style="width:15%"><input type="text" id="userPass" name="userPass" value="' + password + '"></td>' +
+    '<td style="width:15%"><input type="text" id="userEmail" name="userEmail" value="' + email + '"></td>' +
+    '<td style="width:15%"><input type="text" id="userType" name="userType" value="' + usertype + '"></td>' +
+    '</form>' +
+    '<td style="width:15%"><button style="color:white;background-color:#455DF7 type="button" onclick="">Button</button></td>';
 }
 
 function cancelUserEditable(id, name, password, usertype) {
@@ -101,7 +99,7 @@ function userregister() {
   if (pass !== repass) {
     infotext = infotext + " pasword and repassword fields are not matching <br>";
   }
-  
+
   if (infotext === "") {
     postMultipartData("post", "registersave", formaData, "cube");
   } else {

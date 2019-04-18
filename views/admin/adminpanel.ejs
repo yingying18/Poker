@@ -18,7 +18,7 @@
         <div id="gameTablesMenu" class="tab-pane fade in active">
           <h3>Current Game Tables</h3>
           <p></p>
-          <table id="usersTable" class="table table-striped">
+          <table id="usersTable" class="table table-striped" table width="100%" rules=groups cellspacing="0" cellpadding="0" class="table table-hover">
             <tr>
               <th scope="col">Table Id</th>
               <th scope="col">Player Seats</th>
@@ -88,16 +88,16 @@
               <th scope="col">Password</th>
               <th scope="col">Email</th>
               <th scope="col">Account Type</th>
-              <th scope="col" colspan="2">Buttons</th>
+              <th scope="col">Buttons</th>
             </tr>
 
             <tbody>
               <% if ( typeof result != 'undefined' ) { %>
                 <% for (var i=0; i<result.length; i++) {%>
                   <tr id="user<%=result[i].id%>">
-                  <td>
-                  <%= result[i].id %>
-                  </td>
+                    <td>
+                      <%= result[i].id %>
+                    </td>
                     <td>
                       <%= result[i].username  %>
                     </td>
