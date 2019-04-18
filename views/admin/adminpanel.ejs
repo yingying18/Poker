@@ -55,10 +55,10 @@
                   <tr id="table<%=result1[i].id%>">
                   <!--"makeUserEditable('<%=result[i].id %>','<%= result[i].username %>','<%= result[i].password %>','<%= result[i].usertype %>');"-->
                   <td>
-                  <button style="color:white;background-color:#455DF7;" type="button" onclick="" class="btn btn-secondary btn-sm">Edit Account </button>
+                  
                   </td>
                     <td>
-                    <%= result1[i].tableid  %>
+                      <%= result1[i].tableid  %>
                     </td>
                     <td>
                       <%= result1[i].playerseats %>
@@ -69,16 +69,13 @@
                     <td>
                       <%= result1[i].rngseed %>
                     </td>
-                    <td></td>
+                    <td>
+                      <button style="color:white;background-color:#455DF7;" type="button" onclick="" class="btn btn-secondary btn-sm">Edit</button>
+                      <button style="color:white;background-color:#F74545;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove</button>
+                    </td>
                   </tr>
                 <%}%>
-                <tr><td></td><td></td><td></td><td></td><td></td>
-                  <td>
-                    <button style="color:white;background-color:#F74545;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove</button>
-                  </td>
-                </tr>
               <%}%>
-
             </tbody>
           </table>
 
@@ -101,8 +98,7 @@
               <th scope="col">Password</th>
               <th scope="col">Email</th>
               <th scope="col">Account Type</th>
-              <th></th>
-              <td></td>
+              <th scope="col" colspan="2">Buttons</th>
             </tr>
 
             <tbody>
@@ -123,16 +119,13 @@
                     </td>
                     <td>
                       <%= result[i].usertype %>
-                    </td><td>
+                    </td>
+                    <td>
                       <button style="color:white;background-color:#455DF7;" type="button" onclick="makeUserEditable('<%=result[i].id %>','<%= result[i].username %>','<%= result[i].password %>','<%= result[i].email %>','<%= result[i].usertype %>');" class="btn btn-secondary btn-sm">Edit</button>
                       <button style="color:white;background-color:#F74545;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove</button>
                     </td>
                   </tr>
                 <%}%>
-                <tr><td></td><td></td><td></td><td></td><td></td>
-                  <td>
-                  </td>
-              </tr>
               <%}%>
             </tbody>
           </table>
