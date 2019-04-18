@@ -14,16 +14,6 @@
         </li>
       </ul>
 
-      <!--
-        #455DF7 blue
-
-        #87CEFA light sky blue
-
-        #F74545 red
-
-        #3CB371 green
-      -->
-      
       <div class="tab-content">
         <div id="gameTablesMenu" class="tab-pane fade in active">
           <h3>Current Game Tables</h3>
@@ -34,7 +24,6 @@
               <th scope="col">Player Seats</th>
               <th scope="col">Min Bet Amount</th>
               <th scope="col">RNG Seed</th>
-              <td></td><td></td>
             </tr>
 
             <tbody>
@@ -52,6 +41,7 @@
 
               <% if ( typeof result1 != 'undefined' ) { %>
                 <% for (var i=0; i<result1.length; i++) {%>
+                  
                   <tr id="table<%=result1[i].id%>">
                   <!--"makeUserEditable('<%=result[i].id %>','<%= result[i].username %>','<%= result[i].password %>','<%= result[i].usertype %>');"-->
                   <td>
@@ -85,13 +75,13 @@
             Min Bet Amount:   <input type="text" name="minbetamount"><br>
             <input type="submit" value="Create Table">
           </form>
-
         </div>
 
         <div id="usersMenu" class="tab-pane fade">
           <h3>Current Users</h3>
           <p></p>
           <table id="usersTable" class="table table-striped">
+            
             <tr>
               <th scope= "col">ID</th>
               <th scope="col">Username</th>
@@ -128,31 +118,27 @@
                 <%}%>
               <%}%>
             </tbody>
+
           </table>
-
-
-
         </div>
         
         <div id="adminsMenu" class="tab-pane fade">
           <h3>Current Admins</h3>
           <p></p>
           <table id="adminsTable" class="table table-striped">
+            
             <tr>
               <th scope="col">ID</th> 
               <th scope="col">Name</th>
               <th scope="col">AdminType</th>
               <th scope="col">Email</th>
-              <th><th>
-              <td></td>
+              <th scope="col">Buttons</th>
             </tr>
 
             <tbody>
               <% if ( typeof result != 'undefined' ) { %>
                 <% for (var i=0; i<result.length; i++) {%>
-                  
-                  
-                    <tr id="admin<%=result[i].id%>">
+                  <tr id="admin<%=result[i].id%>">
                     <td>
                       <%= result[i].id %>
                     </td>
@@ -172,14 +158,14 @@
                         <button style="color:white;background-color:#3CB371;" type="button" onclick="" class="btn btn-secondary btn-sm">Give Admin</button>
                       <%}%>
                     </td>
-                    <td></td>
-                    </tr>
+                  </tr>
                 <%}%>
               <%}%>
-
             </tbody>
+
           </table>
         </div>
+
       </div>
     </div>
   </div>
