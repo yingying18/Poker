@@ -11,7 +11,6 @@
   font:white;
   background-color: black;
 
-
 }
 
 .mainhtml {
@@ -21,6 +20,7 @@
   height: 100%;
 
 }
+
 .navBarHolder{
  
   width: 80%;
@@ -29,6 +29,7 @@
   margin-left: 10%;
 
 }
+
 .middleContainerOpaq{
 
   width: 80%;
@@ -39,7 +40,9 @@
   z-index:-10;
   
 }
+
 .middleContainer{
+
   display: table;
   border-collapse: separate;
   border-spacing: 50px;
@@ -48,12 +51,9 @@
   position: relative;
   opacity:1.0;
   z-index:10;
-  
 
- 
-
-       
 }
+
 .mainHolder{
   
   width: 80%;
@@ -62,9 +62,8 @@
   margin-left: 10%;
   overflow: auto;
   
-
-
 }
+
 .mainfooter{
     
   width: 100%;
@@ -75,8 +74,10 @@
 }
 
 .innerfooter{
+
   text-align: center;
   width: 100%;
+
 }
 
 .copyright{
@@ -91,7 +92,6 @@
   position:relative;
 
 }
-
 
 .cube{
 
@@ -111,7 +111,6 @@
 .mainfooter ul {
 
   list-style-type: none;
-
   padding: 0;
   overflow: hidden;
   text-align: center;
@@ -122,9 +121,7 @@
 
   float: left;
 
-
 }
-
 
 .mainfooter li a {
 
@@ -142,6 +139,7 @@
 }
 
 .innercube {
+  
   width: 100%;
   padding-left: 50px;
   padding-top: 50px;

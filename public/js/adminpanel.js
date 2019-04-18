@@ -1,34 +1,22 @@
-/*let activeEditNo = -1;
-function makeUserEditable(id, name, password, usertype) {
+let activeEditNo = -1;
+function makeUserEditable(id, name, password, email, usertype) {
   activeEditNo = id;
   document.getElementById("user" + id).innerHTML =
+    '<tr>' +
     '<form id="editUser" method="post">' +
-    "<td></td>" +
-    '<td><input type="text" id="userName" name="userName" value="' +
-    name +
-    '"></td>' +
-    '<td><input type="text" id="userPass" name="userPass" value="' +
-    password +
-    '"></td>' +
-    '<td><input type="text" id="userType" name="userType" value="' +
-    usertype +
-    '"></td>' +
-    '</form><td></td><td><button class="btn btn-secondary btn-sm" onclick="updateUser(' +
-    id +
-    ',userName.value,userPass.value,userType.value);" >submit</button>&nbsp;<button class="btn btn-secondary btn-sm"  onclick="cancelUserEditable(' +
-    id +
-    ",'" +
-    name +
-    "','" +
-    password +
-    "','" +
-    usertype +
-    "');\" >cancel</button></td>";
+    '<td>' + id + '</td>' +
+    '<td><input type="text" id="userName" name="userName" value="' + name +'"></td>' +
+    '<td><input type="text" id="userPass" name="userPass" value="' + password + '"></td>' +
+    '<td><input type="text" id="userEmail" name="userEmail" value="' + email + '"></td>' +
+    '<td><input type="text" id="userType" name="userType" value="' + usertype + '"></td>'
+    '<td style="width:100%;">hello</td>'
+    '<td><button style="color:white;background-color:#455DF7 type="button" onclick="">Button</button></td>'+
+    '</tr>';
 }
 
 function cancelUserEditable(id, name, password, usertype) {
   method = "post";
-  urlaction = "gotomenu/users";
+  urlaction = "gotomenu/adminpanel";
   destinationdiv = "updatableMiddleContainer";
   data = "";
 
@@ -54,13 +42,10 @@ function logincheck() {
   let password = document.getElementById('loginpassword').value;
 
   var data = {};
-
   data.username = username;
   data.password = password;
 
-
   postData('post', 'login/authanticate', data, 'updatableMiddleContainer');
-
 }
 
 function userregister() {
@@ -88,36 +73,52 @@ function userregister() {
     registeremail: email,
     registerpassword: pass
   };
+
   formaData.append("postdata", JSON.stringify(postdata));
-  //formaData.append("postdata", JSON.stringify(postdata));
-  //alert(formaData.length);
   console.log("file info : " + formaData["image"]);
   let infotext = "";
-  //alert(agree);
+
   if (user === "") {
     infotext = infotext + " user field is empty <br>";
   }
+
   if (email === "") {
     infotext = infotext + " email field is empty <br>";
   }
+  
   if (pass === "") {
     infotext = infotext + " password field is empty <br>";
   }
+
   if (repass === "") {
     infotext = infotext + " re password field is empty <br>";
   }
+
   if (agree === false) {
     infotext = infotext + " you need to agree the terms and conditions <br>";
   }
+
   if (pass !== repass) {
     infotext = infotext + " pasword and repassword fields are not matching <br>";
   }
-
+  
   if (infotext === "") {
     postMultipartData("post", "registersave", formaData, "cube");
   } else {
     callInfoPopup("registration form", "report_problem", infotext);
   }
-
 }
-*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
