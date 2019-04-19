@@ -6,54 +6,58 @@
 
 </head>
 
-<body class="mainbody">
+<body class="mainbody" onload="reseizeOpaqueDiv(null,null);" onresize="reseizeOpaqueDiv(null,null);">
   <header id="header">
     <% include ./header %>
     <!-- holds navigation bar -->
   </header>
 
-  <div class=" mainHolder">
-    <div class="middleContainerOpaq"></div>
+  <div id="mainholder" class=" mainHolder">
+    <div class="middleContainerOpaq" id="middleContainerOpaq"></div>
     <div id="updatableMiddleContainer" class="middleContainer">
       <!-- We use this div to inject any section on clicks-->
       <div id="cube" class="cube">
-        <div class="innercube">
-          <% if ( (typeof authanticate !== 'undefined') && authanticate =="true" ) { %>
-          <% if (authuser.picture === 0  ) { %>
-          <img src="images/userimages/person.png" style="width:50px;height:50px"><br>
-          <%}else{%>
-          <img src="images/userimages/<%= authuser.userid %>.<%= authuser.filetype %>" "
-            style=" width:50px;height:50px"><br>
-          <%}%>
-          <span>logged user : <%= authuser.username %> <span>
-            <%}%>
-          <br><br>
-          <h1>Register or Login to start playing.</h1>
-          <br><br><br>
-          <h2>Current Project Progress:</h2>
-          Main: Updating Progress
-          <br>
-          About: Need to format and add in information
-          <br>
-          How To Play: Update on details?
-          <br>
-          Register/Login: completed front-end (maybe format to be similar), working on back-end
-          <br>
-          Lobby: Implement data and reformat (both front-end and back-end)
-          <br>
-          Profile: completed front-end, working on back-end
-          <br>
-          Admin: working on game table (front-end and back-end), + users and admins completed front-end
-          <br>
-          Logout: need action
+                <div id="innercube" class="innercube">
+                  <% if ( (typeof authanticate !== 'undefined') && authanticate =="true" ) { %>
+                  <% if (authuser.picture === 0  ) { %>
+                  <img src="images/userimages/person.png" style="width:50px;height:50px"><br>
+                  <%}else{%>
+                  <img src="images/userimages/<%= authuser.userid %>.<%= authuser.filetype %>" 
+                    style=" width:50px;height:50px"><br>
+                  <%}%>
+                  <span>logged user : <%= authuser.username %> <span>
+                    <%}%>
+                  <br><br>
+                  <h1>Register or Login to start playing.</h1>
+                  <br><br><br>
+                  <h2>Current Project Progress:</h2>
+                  Main: Updating Progress
+                  <br>
+                  About: Need to format and add in information
+                  <br>
+                  How To Play: Update on details?
+                  <br>
+                  Register/Login: completed front-end (maybe format to be similar), working on back-end
+                  <br>
+                  Lobby: Implement data and reformat (both front-end and back-end)
+                  <br>
+                  Profile: completed front-end, working on back-end
+                  <br>
+                  Admin: working on game table (front-end and back-end), + users and admins completed front-end
+                  <br>
+                  Logout: need action
 
-        </div>
+                </div>
       </div><!-- By default this div is injected-->
     </div>
 
     <footer>
       <% include ./footer %>
             </footer>
+
+</body>
+
+</html>
             <!-- Modal -->
             <div class="modal fade" id="modalWindow" tabindex="-1" role="dialog" aria-labelledby="modalWindow"
               aria-hidden="true">
@@ -82,6 +86,3 @@
                 </div>
               </div>
             </div>
-</body>
-
-</html>

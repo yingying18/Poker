@@ -1,16 +1,16 @@
-<div id="adminpanel" class="cube">
-  <div class="innercube">
-    <div class="adminpanelcontainer" >
+<div id="cube" class="cube">
+  <div class="innercube"   id="innercube">
+    <div class="adminpanelcontainer" style="width:1000px">
       
       <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
-          <a class="nav-link active" id="gameTables-tab" data-toggle="tab" href="#gameTablesMenu" role="tab" aria-controls="gameTables" aria-selected="true">Game Tables</a>
+          <a class="nav-link active" id="gameTables-tab" data-toggle="tab" href="#gameTablesMenu" role="tab" aria-controls="gameTables" aria-selected="true" onClick="reseizeOpaqueDiv(null,null);">Game Tables</a>
         </li>
         <li class="nav-item">
-          <a class="adminpanelcontainer nav-link" id="users-tab" data-toggle="tab" href="#usersMenu" role="tab" aria-controls="users" aria-selected="false">Users</a>
+          <a class="adminpanelcontainer nav-link" id="users-tab" data-toggle="tab" href="#usersMenu" role="tab" aria-controls="users" aria-selected="false" onClick="reseizeOpaqueDiv(null,null);">Users</a>
         </li>
         <li class="nav-item">
-          <a class="adminpanelcontainer nav-link" id="admins-tab" data-toggle="tab" href="#adminsMenu" role="tab" aria-controls="admins" aria-selected="false">Admins</a>
+          <a class="adminpanelcontainer nav-link" id="admins-tab" data-toggle="tab" href="#adminsMenu" role="tab" aria-controls="admins" aria-selected="false" onClick="reseizeOpaqueDiv(null,null);">Admins</a>
         </li>
       </ul>
 
@@ -34,7 +34,7 @@
                 <td>123456789</td>
                 <td></td>
                 <td>
-                  <button style="color:white;background-color:#455DF7;" type="button" onclick="" class="btn btn-secondary btn-sm">Edit</button>
+                  <button style="color:white;background-color:#455DF7;" type="button" onclick="reseizeOpaqueDiv(null,null);" class="btn btn-secondary btn-sm">Edit</button>
                   <button style="color:white;background-color:#F74545;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove</button>
                 </td>
               </tr>
@@ -111,7 +111,7 @@
                       <%= result[i].usertype %>
                     </td>
                     <td>
-                      <button style="color:white;background-color:#455DF7;" type="button" onclick="makeUserEditable('<%=result[i].id %>','<%= result[i].username %>','<%= result[i].password %>','<%= result[i].email %>','<%= result[i].usertype %>');" class="btn btn-secondary btn-sm">Edit</button>
+                      <button style="color:white;background-color:#455DF7;" type="button" onclick="makeUserEditable('<%=result[i].id %>','<%= result[i].username %>','<%= result[i].password %>','<%= result[i].email %>','<%= result[i].usertype %>');reseizeOpaqueDiv(null,null);" class="btn btn-secondary btn-sm">Edit</button>
                       <button style="color:white;background-color:#F74545;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove</button>
                     </td>
                   </tr>
