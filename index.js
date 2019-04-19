@@ -24,7 +24,10 @@ var upload = multer({ dest: "public/images/userimages/" });
 const dbconn = require("./utils/dbconn.js");
 const dbRequest = require("./utils/dbrequest.js");
 
-app.use(express.static("public"));
+app.use(express.static("public",{
+   maxAge: 150000000
+}));
+
 app.use(session({
   secret: 'secret_word', resave: false,
   saveUninitialized: true
