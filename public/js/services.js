@@ -1,6 +1,6 @@
 //method : post,get,put,delete
 //urlaction: link to catch request
-function postData(method, urlaction, data, destinationdiv) {
+function postData(method, urlaction, data, destinationdiv,callback) {
   console.log("data json post called");
 
   let senddata = {};
@@ -17,12 +17,19 @@ function postData(method, urlaction, data, destinationdiv) {
     success: function (data) {
       console.log("success: data sent ");
       document.getElementById(destinationdiv).innerHTML = data;
+     
       if ((urlaction == "login/authanticate") || (urlaction == "/logout")) {
         gotoMenu('get', '/navbar', '', 'header');
         urlaction == "null";
       }
+
     }
-  });
+
+  }).done(function(){
+           callback(urlaction,destinationdiv);
+      });
+ 
+
 }
 
 function postMultipartData(method, urlaction, data, destinationdiv) {
@@ -45,10 +52,11 @@ function postMultipartData(method, urlaction, data, destinationdiv) {
   });
 }
 
-function gotoMenu(method, urlaction, data, destinationdiv) {
+function gotoMenu(method, urlaction, data, destinationdiv, callback) {
   console.log("gotomenu called");
 
-  postData(method, urlaction, data, destinationdiv);
+  postData(method, urlaction, data, destinationdiv,callback);
+
 
 }
 
@@ -78,4 +86,21 @@ function callInfoPopup(title, infotype, messagetoshow) {
   //let infoIconDiv = document.getElementById(divtoclean);
   //let infoMessageDiv =document.getElementById(infoMessage);
   $("#modalWindow").modal();
+}
+
+function reseizeOpaqueDiv(urlaction,divtochecksize){
+ 
+
+
+   
+        console.log(urlaction);
+    let calcwidth =parseInt( ((document.getElementById("updatableMiddleContainer").offsetWidth  ) - (document.getElementById("innercube").offsetWidth) )/2);
+    document.getElementById("middleContainerOpaq").style.height = document.getElementById('updatableMiddleContainer').clientHeight + "px";
+    document.getElementById("updatableMiddleContainer").style.paddingLeft = calcwidth-50 + "px";
+ 
+
+
+  
+   
+   
 }

@@ -1,5 +1,5 @@
 <div id="cube" class="cube">
-    <div class="innercube">
+    <div class="innercube"  id="innercube">
         <div class="gamepanelcontainer">
             <%if ( typeof lobbyresult != 'undefined' ) { %>
                 <h3>Game Id: <%= lobbyresult.lobbyid %></h3>
@@ -24,7 +24,7 @@
             <p>Card4: Four Clover</p>
             <p>Card5: HIDDEN</p>
 
-            <table id="gameTable" class="table table-striped">
+            <table id="gameTable" class="table table-striped" width="800px">
             <tr>
             <th scope="col">UserID</th>
             <th scope="col">Username</th>
@@ -45,7 +45,7 @@
                 <td>King Diamond</td>
                 <td>Two Diamond</td>
                 <td>Yes</td>
-                <td>
+                <td width="200px">
                 <button style="color:white;background-color:#3CB371;" type="button" onclick="" class="btn btn-secondary btn-sm">Join Game</button>
                 <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Leave Game</button>
                 <button style="color:white;background-color:#3CB371;" type="button" onclick="" class="btn btn-secondary btn-sm">Call</button>
@@ -111,7 +111,7 @@
                         <strong>User Name Here</strong>
                     </div>
                     <div class="col-md-12">
-                        <img alt="" src="https://s3.amazonaws.com/uifaces/faces/twitter/rogie/128.jpg" class="rounded">
+                        <img style="width:100px;height:100px;" src="https://s3.amazonaws.com/uifaces/faces/twitter/rogie/128.jpg" class="rounded">
                     </div>
                 </div>
             </div>

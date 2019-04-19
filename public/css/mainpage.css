@@ -3,7 +3,7 @@
   
   background-image: url("../images/background/5.jpg");
   width: 100%;
-  height: 100%;
+  height: calc(100% - 40px);
   margin:0 auto;
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
@@ -14,10 +14,11 @@
 }
 
 .mainhtml {
-  
+  text-align: center;
   margin:0 auto;
   width: 100%;
   height: 100%;
+
 
 }
 
@@ -33,7 +34,7 @@
 .middleContainerOpaq{
 
   width: 80%;
-  height: 100%;
+  height:500px;
   background-color:#4d4d33;
   opacity:0.70;
   position: absolute;
@@ -43,24 +44,29 @@
 
 .middleContainer{
 
-  display: table;
-  border-collapse: separate;
+  text-align: center
+  dicplay:block;
   border-spacing: 50px;
   width: 100%;
-  height: 100%;
+  min-height:500px;
   position: relative;
   opacity:1.0;
   z-index:10;
+  left:auto;
+
+
 
 }
 
 .mainHolder{
-  
+
+  display:table;
   width: 80%;
-  height: 100%;
-  margin-right: 10%;
-  margin-left: 10%;
-  overflow: auto;
+  min-height:500px;
+  margin-right:auto;
+  margin-left:auto;
+  overflow: show;
+ 
   
 }
 
@@ -99,13 +105,16 @@
   color: white;
   position: relative;
   width : 100%;
-  height:80%;
+ min-height:500px;
   overflow: auto;
   border-radius: 10px;
   background: #565648;
   box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.3);     
   display: table-row;
+    margin-left: auto;
+  margin-right: auto;
   
+
 }
 
 .mainfooter ul {
@@ -139,10 +148,13 @@
 }
 
 .innercube {
-  
-  width: 100%;
+    margin-left: auto;
+  margin-right: auto;
+  min-width: 800px;
+  min-height:500px;
   padding-left: 50px;
   padding-top: 50px;
   padding-right: 50px;
+  padding-bottom: 50px;
 
 }

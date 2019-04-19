@@ -3,43 +3,43 @@
 
 <div id="barholder" class="navBarHolder">
     <button type="button" class="btn btn-dark btn-xs "
-        onclick="gotoMenu('get','/index','','updatableMiddleContainer');">
+        onclick="gotoMenu('get','/index','','updatableMiddleContainer',reseizeOpaqueDiv);">
         home
     </button>
     <button type="button" class="btn btn-dark btn-xs "
-        onclick="gotoMenu('get','/about','','updatableMiddleContainer');">
+        onclick="gotoMenu('get','/about','','updatableMiddleContainer',reseizeOpaqueDiv);">
         About
     </button>
     <button type="button" class="btn btn-dark btn-xs "
-        onclick="gotoMenu('get','/howtoplay','','updatableMiddleContainer');">
+        onclick="gotoMenu('get','/howtoplay','','updatableMiddleContainer',reseizeOpaqueDiv);">
         How to play
     </button>
     <button type="button" class="btn btn-dark btn-xs "
-        onclick="gotoMenu('get','/register','','updatableMiddleContainer');">
+        onclick="gotoMenu('get','/register','','updatableMiddleContainer',reseizeOpaqueDiv);">
         Register
     </button>
 
     <button type="button" class="btn btn-dark btn-xs "
-        onclick="gotoMenu('get','/lobby','','updatableMiddleContainer');">
+        onclick="gotoMenu('get','/lobby','','updatableMiddleContainer',reseizeOpaqueDiv);">
         Lobby
     </button>
     <button type="button" class="btn btn-dark btn-xs "
-        onclick="gotoMenu('get','/userprofile','','updatableMiddleContainer');">
+        onclick="gotoMenu('get','/userprofile','','updatableMiddleContainer',reseizeOpaqueDiv);">
         Profile
     </button>
     <button type="button" class="btn btn-dark btn-xs "
-        onclick="gotoMenu('get','/adminpanel','','updatableMiddleContainer');">
+        onclick="gotoMenu('get','/adminpanel','','updatableMiddleContainer',reseizeOpaqueDiv);">
         Admin
     </button>
     <% if ( (typeof authanticate === 'undefined') || authanticate == "false" ) { %>
     <button type="button" class="btn btn-dark btn-xs "
-        onclick="gotoMenu('get','/login','','updatableMiddleContainer');">
+        onclick="gotoMenu('get','/login','','updatableMiddleContainer',reseizeOpaqueDiv);">
         login
     </button>
     <%}%>
     <% if ( (typeof authanticate !== 'undefined') && authanticate == "true" ) { %>
     <button type="button" class="btn btn-dark btn-xs "
-        onclick="gotoMenu('post','/logout','','updatableMiddleContainer');">
+        onclick="gotoMenu('post','/logout','','updatableMiddleContainer',reseizeOpaqueDiv);">
         Log out
     </button>
     <%}%>
