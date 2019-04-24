@@ -9,6 +9,7 @@ var fs = require("fs");
 var session = require('express-session');
 var multer = require("multer");
 var upload = multer({ dest: "public/images/userimages/" });
+var socket = require('socket.io');
 //const login = require('./routes/login');
 //const home = require('./routes/home');
 //const main = require('./routes/main')(app);
@@ -92,7 +93,11 @@ app.use(function (req, res, next) {
   next();
 });
 
+
+io.on('connection', () =>{
+    console.log('connection established');
+});
 // Start listening on port 3000
-app.listen(3000, () => {
+server.listen(3000, () => {
   console.log("listening on port 3000");
 });
