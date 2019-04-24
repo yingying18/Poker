@@ -94,9 +94,23 @@ app.use(function (req, res, next) {
 });
 
 
-io.on('connection', () =>{
-    console.log('connection established');
+io.on('connection', function(socket){
+  console.log('Connected to socket ...');
+  var news = [
+    { title: 'The cure of the Sadness is to play Videogames', date:'04.10.2016'}
+  ];
+
+  socket.emit('news', news);
+
+  socket.on('my other event', function(data){
+    console.log(data);
+  });
+
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
 });
+
 // Start listening on port 3000
 server.listen(3000, () => {
   console.log("listening on port 3000");
