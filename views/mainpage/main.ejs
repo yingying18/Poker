@@ -24,6 +24,10 @@
     <input type="submit">
   </form>
 
+  <form id="send-news">
+    <input type="submit">
+  </form>
+
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
 
@@ -33,6 +37,8 @@
         var $messageForm = $('#send-message');
         var $messageBox = $('#message');
         var $chat = $('#chat');
+        
+        var $sendnewsForm = $('#send-news');
 
         $messageForm.submit(function(e){
 
@@ -48,7 +54,18 @@
             console.log("new message recieved");
         });
 
+        $sendnewsForm.submit(function(e){
 
+            console.log("submit news before");
+            e.preventDefault();
+            socket.emit('initCall', "hello");
+            console.log("submit called after");
+        });
+
+        socket.on('news', function(data){
+            console.log(data);
+            socket.emit('my other event', {my: 'data'});
+        });
     });
   </script>
 
@@ -58,14 +75,6 @@
       <!-- We use this div to inject any section on clicks-->
       <div id="cube" class="cube">
         <div class="innercube">
-
-            <script>
-                var socket = io.connect('http://localhost:3000');
-                socket.on('news',function(data){
-                    console.log(data);
-                    socket.emit('my other event', { my: 'data'});
-                });
-            </script>
 
             <% if ( (typeof authanticate !== 'undefined') && authanticate =="true" ) { %>
             <% if (authuser.picture === 0  ) { %>

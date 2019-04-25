@@ -97,7 +97,8 @@ app.use(function (req, res, next) {
 io.on('connection', function(socket){
   console.log('Connection event caught.');
   socket.on('initCall', function (data) {
-    io.emit('news','client connected');
+    console.log(data);
+    //io.emit('news','client connected');
   });
 
   socket.on('send message', function(data){
