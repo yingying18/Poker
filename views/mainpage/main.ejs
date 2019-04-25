@@ -11,6 +11,46 @@
     <% include ./header %>
     <!-- holds navigation bar -->
   </header>
+  <style>
+  #chat{
+      height:500px;
+      color: white;
+  }
+  </style>
+  <div id="chat"></div>
+
+  <form id ="send-message">
+    <input size="35" id="message">
+    <input type="submit">
+  </form>
+
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+
+  <script>
+    jQuery(function($){
+        var socket = io.connect('http://localhost:3000');
+        var $messageForm = $('#send-message');
+        var $messageBox = $('#message');
+        var $chat = $('#chat');
+
+        $messageForm.submit(function(e){
+
+            console.log("submit called before");
+            e.preventDefault();
+            socket.emit('send message', $messageBox.val());
+            $messageBox.val('');
+            console.log("submit called after");
+        });
+
+        socket.on('new message', function(data){
+            $chat.append(data + "<br/>");
+            console.log("new message recieved");
+        });
+
+
+    });
+  </script>
 
   <div id="mainholder" class=" mainHolder">
     <div class="middleContainerOpaq" id="middleContainerOpaq"></div>
@@ -36,7 +76,7 @@
             <%}%>
             <span>logged user : <%= authuser.username %> <span>
               <%}%>
-          <br><br>
+                    
           <h1>Register or Login to start playing.</h1>
           <br><br><br>
           <h2>Current Project Progress:</h2>

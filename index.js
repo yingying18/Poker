@@ -99,6 +99,11 @@ io.on('connection', function(socket){
   socket.on('initCall', function (data) {
     io.emit('news','client connected');
   });
+
+  socket.on('send message', function(data){
+    console.log("Message emit!")
+    io.emit('new message', data);
+  });
 });
 
 // Start listening on port 3000
