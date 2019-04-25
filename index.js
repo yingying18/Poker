@@ -95,19 +95,9 @@ app.use(function (req, res, next) {
 
 
 io.on('connection', function(socket){
-  console.log('Connected to socket ...');
-  var news = [
-    { title: 'The cure of the Sadness is to play Videogames', date:'04.10.2016'}
-  ];
-
-  socket.emit('news', news);
-
-  socket.on('my other event', function(data){
-    console.log(data);
-  });
-
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
+  console.log('Connection event caught.');
+  socket.on('initCall', function (data) {
+    io.emit('news','client connected');
   });
 });
 
