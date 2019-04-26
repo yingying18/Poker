@@ -1,3 +1,21 @@
+
+    <form id ="send-inside">
+        <input size="35" id="messageinside">
+        <input type="submit">
+    </form>
+
+    <form id="print-inside">
+        <input type="submit">
+    </form>
+        
+    <!-- <form id="game-inside"> -->
+        <button type="submit" id="createGame" placeholder="Create Game" onclick="">Create Game</button>
+    <!-- </form> -->
+
+    <form id="send-news">
+        <input type="submit">
+    </form>
+
 <div id="cube" class="cube">
     <div class="innercube"  id="innercube">
         <div class="gamepanelcontainer">
@@ -41,7 +59,7 @@
     <div class="container-fluid" style="color:black;">
             <div class="row">
                 <!-- <div> -->
-                <div class='GameButtons' onclick="">
+                <!-- <div class='GameButtons' onclick="">
 
                 <form id ="send-inside">
                     <input size="35" id="messageinside">
@@ -53,30 +71,35 @@
                 </form>
                     
                 <form id="game-inside">
-                    <button id="createGame" placeholder="Create Game" onclick="createGame()">Create Game</button>
+                    <button type="submit" id="createGame" placeholder="Create Game" onclick="">Create Game</button>
                 </form>
-                    
-                    <script>
-                            jQuery(function($){
-                                var socket = io.connect('http://localhost:3000');
-                                var $createGame = $('#createGame');
-                                var $gameInside = $('#game-inside');
-                        
-                                //sending to server to be sent back
-                                $createGame.submit(function(e){
-                        
-                                    console.log("createGame called before");
-                                    e.preventDefault();
-                                    socket.emit('gameCreate',{ hello: 'world'});
-                                    console.log("gameCreate called after");
-                                });
 
-                                socket.on('gameResponse', function(data){
-                                    console.log('inside received this:' + data);
-                                });
-                                
+                <form id="send-news">
+                    <input type="submit">
+                </form> -->
+
+                    
+                    <!-- <script>
+                        jQuery(function($){
+                            var socket = io.connect('http://192.168.1.14:3000');
+                            var $createGame = $('#createGame');
+                            var $gameInside = $('#game-inside');
+                    
+                            //sending to server to be sent back
+                            $createGame.submit(function(e){
+                    
+                                console.log("createGame called before");
+                                e.preventDefault();
+                                socket.emit('gameCreate',{ hello: 'world'});
+                                console.log("gameCreate called after");
                             });
-                          </script>
+
+                            socket.on('gameResponse', function(data){
+                                console.log('inside received this:' + data);
+                            });
+                            
+                        });
+                    </script> -->
                     
                     <!-- <script>
                         function createGame(){
