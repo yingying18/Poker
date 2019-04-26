@@ -25,11 +25,11 @@ module.exports = {
       ")",
       function (err, result, fields) {
         if (err) {
-          console.log("error : " + result);
+          console.log("error : " + JSON.stringify(result));
           callback(err);
           throw err;
         } else {
-          console.log("in sendQuery Result: " + result);
+          console.log("returning response from db insertUser :  " + JSON.stringify(result));
           callback(result);
         }
         //con.release();
@@ -40,7 +40,7 @@ module.exports = {
     let result = con.query("Select * from user ;", 
       function ( err, result,  fields ) {
       if (err) throw err;
-      console.log("in sendQuery Result: " + result[0].id);
+      console.log("returning response from db getUsers :  " + JSON.stringify(result));
       callback(result);
       //con.release();
     });
@@ -49,7 +49,7 @@ module.exports = {
     let result = con.query( "select count(*) as count from user where (username = '" +  data.registername +  "' or email='" +  data.registeremail + "' ); ",
       function (err, result, fields) {
         if (err) throw err;
-        console.log("in sendQuery Result: " + result[0]);
+        console.log("returning response from db getUserEmailandUserNameCount :  " + JSON.stringify(result));
         callback(result);
         //con.release();
       }
@@ -59,7 +59,7 @@ module.exports = {
     let result = con.query( "select * from user where (email='" + data.registeremail +  "' ); ",
       function (err, result, fields) {
         if (err) throw err;
-        console.log("in sendQuery Result: " + result[0]);
+        console.log("returning response from db getUserByEmail :  " + JSON.stringify(result));
         callback(result);
         //con.release();
       }
@@ -69,7 +69,7 @@ module.exports = {
     let result = con.query( "select * from user where (username = '" +  data.username +  "' and password ='" +   data.password +  "' ); ",
       function (err, result, fields) {
         if (err) throw err;
-        console.log("in sendQuery Result: " + result[0]);
+        console.log("returning response from db checkLoginUser :  " + JSON.stringify(result));
         callback(result);
         //con.release();
       }
@@ -79,7 +79,7 @@ module.exports = {
     let result = con.query( "update user set username = '" + data.name + "' where id = " + data.id, 
       function (err, result, fields) {  
         if (err) throw err;
-        console.log("in sendQuery Result: " + result);
+        console.log("returning response from db updateUser : " + JSON.stringify(result));
         callback(result);
         //con.release();
       }
@@ -89,7 +89,18 @@ module.exports = {
     let result = con.query( "select * from tables ;" , 
       function (err, result, fields) {
         if (err) throw err;
-        console.log("in sendQuery Result: " + result);
+        console.log("returning response from db getAllTables : " + JSON.stringify(result));
+        callback(result);
+        
+      }
+    );
+  },
+    getTableById: function (con, data, callback) {
+      console.log(data);
+    let result = con.query(  "select * from tables where table_id = " +  data.tableid ,
+      function (err, result, fields) {
+        if (err) throw err;
+        console.log("returning response from db getTableById : " + JSON.stringify(result));
         callback(result);
         
       }

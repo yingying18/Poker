@@ -2,7 +2,7 @@
 //urlaction: link to catch request
 function postData(method, urlaction, data, destinationdiv,callback) {
   console.log("data json post called");
-
+ 
   let senddata = {};
   if (typeof data !== "undefined" && data !== "") {
     senddata = data;
@@ -26,8 +26,9 @@ function postData(method, urlaction, data, destinationdiv,callback) {
     }
 
   }).done(function(){
-           if ((typeof callback !== "undefined") && ( callback !==""))
-           callback(urlaction,destinationdiv);
+           if ((typeof callback !== "undefined") && ( callback !=="")){
+             callback(urlaction,destinationdiv);
+          }
       });
  
 

@@ -29,6 +29,7 @@ module.exports = function (app, dbRequest, dbconn) {
 					req.session.filetype = result[0].filetype;
 					req.session.picture = result[0].picture;
 					req.session.usertype = result[0].usertype;
+					req.session.authanticate = "true";
 					console.log("session : " + req.session.username);
 					authuser = {
 						userid: req.session.userid,
@@ -38,7 +39,7 @@ module.exports = function (app, dbRequest, dbconn) {
 						picture: req.session.picture,
 						usertype: req.session.picture
 					}
-					req.session.authdata = {userdata:authuser};
+					req.session.authuser = authuser;
 					res.render('mainpage/index', { authanticate: "true", authuser: authuser });
 
 				}
