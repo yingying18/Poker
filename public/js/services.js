@@ -19,13 +19,14 @@ function postData(method, urlaction, data, destinationdiv,callback) {
       document.getElementById(destinationdiv).innerHTML = data;
      
       if ((urlaction == "login/authanticate") || (urlaction == "/logout")) {
-        gotoMenu('get', '/navbar', '', 'header');
+        gotoMenu('get', '/navbar', '', 'header','');
         urlaction == "null";
       }
 
     }
 
   }).done(function(){
+           if ((typeof callback !== "undefined") && ( callback !==""))
            callback(urlaction,destinationdiv);
       });
  

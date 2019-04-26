@@ -37,11 +37,8 @@ module.exports = {
     );
   },
   getUsers: function (con, data, callback) {
-    let result = con.query("Select * from user ;", function (
-      err,
-      result,
-      fields
-    ) {
+    let result = con.query("Select * from user ;", 
+      function ( err, result,  fields ) {
       if (err) throw err;
       console.log("in sendQuery Result: " + result[0].id);
       callback(result);
@@ -49,12 +46,7 @@ module.exports = {
     });
   },
   getUserEmailandUserNameCount: function (con, data, callback) {
-    let result = con.query(
-      "select count(*) as count from user where (username = '" +
-      data.registername +
-      "' or email='" +
-      data.registeremail +
-      "' ); ",
+    let result = con.query( "select count(*) as count from user where (username = '" +  data.registername +  "' or email='" +  data.registeremail + "' ); ",
       function (err, result, fields) {
         if (err) throw err;
         console.log("in sendQuery Result: " + result[0]);
@@ -64,10 +56,7 @@ module.exports = {
     );
   },
   getUserByEmail: function (con, data, callback) {
-    let result = con.query(
-      "select * from user where (email='" +
-      data.registeremail +
-      "' ); ",
+    let result = con.query( "select * from user where (email='" + data.registeremail +  "' ); ",
       function (err, result, fields) {
         if (err) throw err;
         console.log("in sendQuery Result: " + result[0]);
@@ -77,12 +66,7 @@ module.exports = {
     );
   },
   checkLoginUser: function (con, data, callback) {
-    let result = con.query(
-      "select * from user where (username = '" +
-      data.username +
-      "' and password ='" +
-      data.password +
-      "' ); ",
+    let result = con.query( "select * from user where (username = '" +  data.username +  "' and password ='" +   data.password +  "' ); ",
       function (err, result, fields) {
         if (err) throw err;
         console.log("in sendQuery Result: " + result[0]);
@@ -92,13 +76,22 @@ module.exports = {
     );
   },
   updateUser: function (con, data, callback) {
-    let result = con.query(
-      "update user set username = '" + data.name + "' where id = " + data.id,
-      function (err, result, fields) {
+    let result = con.query( "update user set username = '" + data.name + "' where id = " + data.id, 
+      function (err, result, fields) {  
         if (err) throw err;
         console.log("in sendQuery Result: " + result);
         callback(result);
         //con.release();
+      }
+    );
+  },
+  getAllTables: function (con, data, callback) {
+    let result = con.query( "select * from tables ;" , 
+      function (err, result, fields) {
+        if (err) throw err;
+        console.log("in sendQuery Result: " + result);
+        callback(result);
+        
       }
     );
   }

@@ -38,6 +38,7 @@ module.exports = function (app, dbRequest, dbconn) {
 						picture: req.session.picture,
 						usertype: req.session.picture
 					}
+					req.session.authdata = {userdata:authuser};
 					res.render('mainpage/index', { authanticate: "true", authuser: authuser });
 
 				}

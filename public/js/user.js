@@ -1,4 +1,4 @@
-/*let activeEditNo = -1;
+
 function makeUserEditable(id, name, password, usertype) {
   activeEditNo = id;
   document.getElementById("user" + id).innerHTML =
@@ -59,7 +59,7 @@ function logincheck() {
   data.password = password;
 
 
-  postData('post', 'login/authanticate', data, 'updatableMiddleContainer');
+  postData('post', 'login/authanticate', data, 'updatableMiddleContainer','reseizeOpaqueDiv');
 
 }
 
@@ -120,4 +120,3 @@ function userregister() {
   }
 
 }
-*/
