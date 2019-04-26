@@ -122,6 +122,11 @@ io.on('connection', function(socket){
     console.log("We are sending back data! (inside middle container)");
     io.emit('new inside message', data);
   });
+  //
+  socket.on('gameCreate', function(data){
+    console.log("gameCreate received from lobby.ejs");
+    io.emit('gameResponse', {data : 'somedata'});
+  });
 
 
 });
