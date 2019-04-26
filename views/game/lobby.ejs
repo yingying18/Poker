@@ -9,7 +9,8 @@
     </form>
         
     <!-- <form id="game-inside"> -->
-        <button type="submit" id="createGame" placeholder="Create Game" onclick="">Create Game</button>
+        <button id="createGame" placeholder="Create Game" onclick="createGame()">Create Game</button>
+
     <!-- </form> -->
 
     <form id="send-news">
@@ -101,17 +102,7 @@
                         });
                     </script> -->
                     
-                    <!-- <script>
-                        function createGame(){
-                            // Client-side socket creation
-                            console.log("create game function called");
-                            var socket = io.connect('http://localhost:3000');
-                            socket.emit('initCall', "client responded");
-                                socket.on('news', function(data){
-                                    console.log('Server responded with: ' + data);
-                                });
-                        }
-                    </script> -->
+                    
                 </div>
                 <!-- </div> -->
             </div>

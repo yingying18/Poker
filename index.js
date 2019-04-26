@@ -123,6 +123,11 @@ io.on('connection', function(socket){
     io.emit('new inside message', data);
   });
 
+  socket.on('initCall', function(data){
+    console.log("initCall called" + data);
+    io.emit('testEvent', 'goodbye');
+  });
+
 
 });
 
