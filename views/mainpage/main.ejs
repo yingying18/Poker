@@ -19,14 +19,6 @@
       <div id="cube" class="cube">
         <div class="innercube" id="innercube">
 
-            <script>
-                var socket = io.connect('http://localhost:3000');
-                socket.on('news',function(data){
-                    console.log(data);
-                    socket.emit('my other event', { my: 'data'});
-                });
-            </script>
-
             <% if ( (typeof authanticate !== 'undefined') && authanticate =="true" ) { %>
             <% if (authuser.picture === 0  ) { %>
             <img src="images/userimages/person.png" style="width:50px;height:50px"><br>

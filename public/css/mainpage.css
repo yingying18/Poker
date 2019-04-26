@@ -44,8 +44,8 @@
 
 .middleContainer{
 
-  text-align: center
-  dicplay:block;
+  text-align: center;
+  display: block;
   border-spacing: 50px;
   width: 100%;
   min-height:500px;

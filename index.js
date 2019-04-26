@@ -94,8 +94,18 @@ app.use(function (req, res, next) {
 });
 
 
-io.on('connection', () =>{
+io.on('connection', function(socket){
     console.log('connection established');
+    socket.on('initCall', function(data){
+      console.log("initCall called" + data);
+      io.emit('testEvent', 'goodbye');
+    });
+
+    socket.on('send message', function(data){
+      console.log("This is the message contents: " + data);
+      io.emit('relay message', data);
+    });
+
 });
 // Start listening on port 3000
 server.listen(3000, () => {
