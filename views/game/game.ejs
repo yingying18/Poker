@@ -1,0 +1,115 @@
+<div id="cube" class="cube">
+    <div class="innercube"  id="innercube">
+        <div class="gamepanelcontainer">
+
+            <!-- <script>
+                var socket = io.connect('http://localhost:3000');
+                socket.on('news',function(data){
+                    console.log(data);
+                    socket.emit('my other event', { my: 'data'});
+                });
+            </script> -->
+
+            <%if ( typeof lobbyresult != 'undefined' ) { %>
+                <h3>Game Id: <%= lobbyresult.lobbyid %></h3>
+                <p>MinBet: <%= lobbyresult.minbet%> 
+                Seats available: <%= lobbyresult.seatsavailable%>
+                Current Pot: <%= lobbyresult.pot %>
+                </p>
+                <p>Card1: <%=lobbyresult.card1%></p>
+                <p>Card2: <%=lobbyresult.card2%></p>
+                <p>Card3: <%=lobbyresult.card3%></p>
+                <p>Card4: <%=lobbyresult.card4%></p>
+                <p>Card5: <%=lobbyresult.card5%></p>
+            <% } %>
+            
+            <h3>Game Id: 1</h3>
+            <p>Min Bet: x Seats available: y</p>
+            <p>Seats Available: 3</p>
+            <p>Current Pot: $2</p>
+            <p>Card1: Ace Hearts</p>
+            <p>Card2: Two Diamonds</p>
+            <p>Card3: Three Spades</p>
+            <p>Card4: Four Clover</p>
+            <p>Card5: HIDDEN</p>
+
+            <table id="gameTable" class="table table-striped" width="800px">
+            <tr>
+            <th scope="col">UserID</th>
+            <th scope="col">Username</th>
+            <th scope="col">Currency</th>
+            <th scope="col">Current Bet Amount</th>
+            <td scope="col">Card1</td>
+            <td scope="col">Card2</td>
+            <td scope="col">PlayerTurn?</td>
+            <td scope="col">Buttons</td>
+            </tr>
+
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>Ted</td>
+                <td>$123</td>
+                <td>$1</td>
+                <td>King Diamond</td>
+                <td>Two Diamond</td>
+                <td>Yes</td>
+                <td width="200px">
+                <button style="color:white;background-color:#3CB371;" type="button" onclick="" class="btn btn-secondary btn-sm">Join Game</button>
+                <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Leave Game</button>
+                <button style="color:white;background-color:#3CB371;" type="button" onclick="" class="btn btn-secondary btn-sm">Call</button>
+                <button style="color:white;background-color:#4B0082;" type="button" onclick="" class="btn btn-secondary btn-sm">Raise 10</button>
+                <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Fold</button>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Ted</td>
+                <td>$345</td>
+                <td>$2</td>
+                <td>Queen Spades</td>
+                <td>Ace Clubs</td>
+                <td>No</td>
+                <td>
+                <button style="color:white;background-color:#3CB371;" type="button" onclick="" class="btn btn-secondary btn-sm">Join Game</button>
+                <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Leave Game</button>
+                <button style="color:white;background-color:#3CB371;" type="button" onclick="" class="btn btn-secondary btn-sm">Call</button>
+                <button style="color:white;background-color:#4B0082;" type="button" onclick="" class="btn btn-secondary btn-sm">Raise 10</button>
+                <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Fold</button>
+                </td>
+            </tr>
+
+            <% if ( typeof result != 'undefined' ) { %>
+                <% for (var i=0; i<result.length; i++) {%>
+                <tr id="user<%=result[i].id%>">
+                <td></td>
+                    <td>
+                    <%= result[i].userid  %>
+                    </td>
+                    <td>
+                    <%= result[i].username %>
+                    </td>
+                    <td>
+                    <%= result[i].currency %>
+                    </td>
+                    <td>
+                    <%= result[i].betamount %>
+                    </td>
+                    <td><%= result[i].card1 %></td>
+                    <td><%= result[i].card2 %></td>
+                    <td><%= result[i].isturn %></td>
+                </tr>
+                <%}%>
+                <tr><td></td><td></td><td></td><td></td><td></td>
+                <td>
+                </td>
+                </tr>
+            <%}%>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
