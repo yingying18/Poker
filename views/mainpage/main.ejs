@@ -40,6 +40,7 @@
         
         var $sendnewsForm = $('#send-news');
 
+        //sending to server to be sent back
         $messageForm.submit(function(e){
 
             console.log("submit called before");
@@ -49,23 +50,38 @@
             console.log("submit called after");
         });
 
+        //from io.emit('new message')
         socket.on('new message', function(data){
             $chat.append(data + "<br/>");
             console.log("new message recieved");
         });
 
+
+        //sending to server to be printed to console and not sent back
         $sendnewsForm.submit(function(e){
-
-            console.log("submit news before");
             e.preventDefault();
-            socket.emit('initCall', "hello");
-            console.log("submit called after");
+            socket.emit('submit news', "hello");
         });
 
-        socket.on('news', function(data){
-            console.log(data);
-            socket.emit('my other event', {my: 'data'});
+        //sending to server to be sent back (inside middle div)
+        $Form.submit(function(e){
+            e.preventDefault();
+            socket.emit('inside send', "hello to send inside");
         });
+
+        //
+        socket.on('inside response', function(data){
+          console.log("inside recieved this: " + data);
+        });
+
+        //sending to server to be printed to console (inside middle div)
+        $Form.submit(function(e){
+          e.preventDefault();
+          socket.emit('inside send', "hello to print inside");
+        });
+
+
+
     });
   </script>
 
