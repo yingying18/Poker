@@ -40,6 +40,11 @@
         
         var $sendnewsForm = $('#send-news');
 
+        var $insideSendForm = $('#send-inside');
+        var $messageinsideBox = $('#messageinside');
+
+        var $insidePrintForm = $('#print-inside');
+
         //sending to server to be sent back
         $messageForm.submit(function(e){
 
@@ -64,7 +69,7 @@
         });
 
         //sending to server to be sent back (inside middle div)
-        $Form.submit(function(e){
+        $insideSendForm.submit(function(e){
             e.preventDefault();
             socket.emit('inside send', "hello to send inside");
         });
@@ -75,7 +80,7 @@
         });
 
         //sending to server to be printed to console (inside middle div)
-        $Form.submit(function(e){
+        $insidePrintForm.submit(function(e){
           e.preventDefault();
           socket.emit('inside send', "hello to print inside");
         });
