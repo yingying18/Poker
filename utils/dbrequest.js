@@ -95,12 +95,77 @@ module.exports = {
       }
     );
   },
-    getTableById: function (con, data, callback) {
+  getTableById: function (con, data, callback) {
       console.log(data);
     let result = con.query(  "select * from tables where table_id = " +  data.tableid ,
       function (err, result, fields) {
         if (err) throw err;
         console.log("returning response from db getTableById : " + JSON.stringify(result));
+        callback(result);
+        
+      }
+    );
+  },
+  getGameTableSession: function (con, data, callback) {
+      console.log(data);
+    let result = con.query(  "select * from gametablesession where table_id = " +  data.tableid + " and state != 'ended' " ,
+      function (err, result, fields) {
+        if (err) throw err;
+        console.log("returning response from db getGameTableSession : " + JSON.stringify(result));
+        callback(result);
+        
+      }
+    );
+  },
+  createGameTableSession: function (con, data, callback) {
+     console.log("createGameTableSession"+ JSON.stringify(data));
+    let result = con.query(  
+      "insert into gametablesession "+
+      "("+
+      "table_id,"+
+      "state,"+
+      "userturn,"+
+      "usercyclestarter,"+
+      "totalbet,"+
+      "cycle,"+
+      "maxcycle"+
+      ")"+
+      " values ( "+
+      data.tableid+ ","+
+      '"waiting"'+","+
+      data.userid+ ","+
+      data.userid+ ","+
+      "0,"+
+      "1,"+
+      "1"+
+      ")",
+      function (err, result, fields) {
+        if (err) throw err;
+        console.log("returning response from db createGameTableSession : " + JSON.stringify(result));
+        callback(result);
+        
+      }
+    );
+  },
+  createGameUserSession: function (con, data, callback) {
+    console.log("createGameUserSession in db"+ JSON.stringify(data));
+    let result = con.query(  
+      "insert into gameusersession "+
+      "("+
+      "gamesession_id,"+
+      "user_id,"+
+      "seatnumber,"+
+      "userbet"+
+      ")"+
+      " values ( "+
+      data.gametablesession.id+ ","+
+      data.userid+ ","+
+      data.seatno+ ","+
+      "0"+
+      ")",
+      function (err, result, fields) {
+        if (err) throw err;
+        console.log("returning response from db createGameUserSession : " + JSON.stringify(result));
         callback(result);
         
       }

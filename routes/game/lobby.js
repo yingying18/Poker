@@ -25,7 +25,7 @@ module.exports = function (app,dbRequest,dbconn) {
                     res.send("we encountered an error while calling the game.");
                   } else {
                   	console.log("lobby auth : "+req.session.authanticate);
-                    res.render('game/game',{authanticate : req.session.authanticate, authuser : req.session.authuser, result: result});
+                    res.render('game/game',{authanticate : req.session.authanticate, authuser : req.session.authuser, tabledata: result[0]});
                   }
         });	
 		 //res.render('game/game',{authanticate : req.session.authanticate, authuser : req.session.authuser});

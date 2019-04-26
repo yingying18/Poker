@@ -11,9 +11,9 @@
                     });
                 </script> -->
                 
-                <h3>table : <%= result[0].table_id%></h3>
-                <p>min bet: <%= result[0].minamount%></p>
-                <p>max seat <%= result[0].maxplayer%></p>
+                <h3>table : <%= tabledata.table_id%></h3>
+                <p>min bet: <%= tabledata.minamount%></p>
+                <p>max seat <%= tabledata.maxplayer%></p>
                 <p>table pot: </p>
                 <p>dealer cards: </p>
 
@@ -30,26 +30,49 @@
                     </tr>
 
                     <tbody>
-                    <%let recordCount = result[0].maxplayer%>
-                     <% for (i = 0 ;i < recordCount; i++) { %>
+                    <%let recordCount = tabledata.maxplayer%>
+                     <% for (i = 1 ;i <= recordCount; i++) { %>
                                                
-                                           
-                            <tr id = "<%= i %>">
-                                <td><%= i+1 %></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
+                               <% if ( (typeof gameusersession !== 'undefined') && gameusersession !== "" ) { %>               
+                                    <% if ( parseInt(gameusersession.seatnumber) === i) { %>     
+                                        <tr id = "<%= i %>">
+                                            <td><%= i %></td>
+                                            <td id="<%= i %>userid"><%= gameusersession.userid %></td>
+                                            <td id="<%= i %>username"><%= authuser.username %></td>
+                                            <td id="<%= i %>currency">0</td>
+                                            <td id="<%= i %>currentbet">0</td>
+                                            <td id="<%= i %>cards">none</td>
+                                            <td id="<%= i %>playerturn">waiting</td>
+                                        </tr>
+                                    <%}else{%>
+                                       <tr id = "<%= i %>">
+                                            <td><%= i %></td>
+                                            <td id="<%= i %>userid"></td>
+                                            <td id="<%= i %>username"></td>
+                                            <td id="<%= i %>currency"></td>
+                                            <td id="<%= i %>currentbet"></td>
+                                            <td id="<%= i %>cards"></td>
+                                            <td id="<%= i %>playerturn"></td>
+                                        </tr>
+                                    <%}%>
+                            <%}else{%>
+                                    <tr id = "<%= i %>">
+                                        <td><%= i %></td>
+                                        <td id="<%= i %>userid"></td>
+                                        <td id="<%= i %>username"></td>
+                                        <td id="<%= i %>currency"></td>
+                                        <td id="<%= i %>currentbet"></td>
+                                        <td id="<%= i %>cards"></td>
+                                        <td id="<%= i %>playerturn"></td>
+                                    </tr>
+                            <%}%>
+                            <tr >
                                 <td colspan ="7" width="200px">
-                                    <button style="color:white;background-color:#3CB371;" type="button" onclick="" class="btn btn-secondary btn-sm">Join Game</button>
-                                    <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Leave Game</button>
-                                    <button style="color:white;background-color:#3CB371;" type="button" onclick="" class="btn btn-secondary btn-sm">Call</button>
-                                    <button style="color:white;background-color:#4B0082;" type="button" onclick="" class="btn btn-secondary btn-sm">Raise 10</button>
-                                    <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Fold</button>
+                                    <button style="color:white;background-color:#3CB371;" type="button" onclick="joingame('<%= authuser.userid%>',<%= i %>,<%= JSON.stringify(tabledata) %>);" class="btn btn-secondary btn-sm">Join Game</button>
+                                    <button style="color:white;background-color:#d65151;" type="button" onclick="leavegame('<%= authuser.userid%>');" class="btn btn-secondary btn-sm">Leave Game</button>
+                                    <button style="color:white;background-color:#3CB371;" type="button" onclick="callgame('<%= authuser.userid%>');" class="btn btn-secondary btn-sm">Call</button>
+                                    <button style="color:white;background-color:#4B0082;" type="button" onclick="raisegame('<%= authuser.userid%>');" class="btn btn-secondary btn-sm">Raise 10</button>
+                                    <button style="color:white;background-color:#d65151;" type="button" onclick="foldgame('<%= authuser.userid%>');" class="btn btn-secondary btn-sm">Fold</button>
                                 </td>
                             </tr>
                     <% } %>

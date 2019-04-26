@@ -1,12 +1,67 @@
-const express = require('express');
-const router = express.Router();
+module.exports = function (app,dbRequest,dbconn) {
 
-router.get('/game',(req, res) =>{
-	
-	console.log('');
-	res.render('./game');
+	app.get('/game',(req, res) =>{
+		console.log("game called");
+		res.render('./game/game');	
+		
+			 		
+	});
 
+	app.post('/game/joingamesession',(req, res) =>{
+		console.log("game join game session called");
+		console.log("join game session : "+JSON.stringify(req.body));
+		let data = {};
+		//{"userid":"168","seatno":1,"tabledata":{"table_id":1,"minamount":1,"active":1,"maxplayer":4},"authanticate":"true"}
+		data.tableid = req.body.tabledata.table_id;
+		data.userid = parseInt(req.body.userid);
+		data.seatno = req.body.seatno;
+		dbRequest.getGameTableSession(dbconn, data, function (result) {
+                  
+                  if (typeof result.code !== "undefined" || result === "") {
+                    res.send("we encountered an error while getting the game table session.");
+                  }else {
 
-});
+                  	if (result.length === 0){
+          				
+          				dbRequest.createGameTableSession(dbconn, data, function (result) {
+          
+				                  if (typeof result.code !== "undefined" || result === "") {
+				                    res.send("we encountered an error while creating the game session.");
+				                  } else {
+				                  	
+	          	          				dbRequest.getGameTableSession(dbconn, data, function (result) {
 
-module.exports = router;
+								                  if (typeof result.code !== "undefined" || result === "") {
+								                   	res.send("we encountered an error while getting the game table session.");
+								                  } else {
+								                  	console.log("colecting last record "+ JSON.stringify(result[0]));
+								                  	data.gametablesession = result[0];
+
+								                  	dbRequest.createGameUserSession(dbconn, data, function (result) {
+
+											                  if (typeof result.code !== "undefined" || result === "") {
+											                   	res.send("we encountered an error while creating the game user session.");
+											                  } else {
+											                  	console.log("colecting last record "+ JSON.stringify(result));
+											                  	//data.gametablesession = result[0];
+											                    res.render('game/game',{authanticate : req.session.authanticate, authuser : req.session.authuser, tabledata: req.body.tabledata,gametablesession :data.gametablesession, gameusersession:{gamesession_id : data.gametablesession.id,seatnumber: data.seatno,userid: data.userid }});
+											                  }
+											        });	
+								                    //res.render('game/game',{authanticate : req.session.authanticate, authuser : req.session.authuser, tabledata: req.body.tabledata,gametablesession :data.gametablesession});
+								                  }
+								        });	
+					                    //res.render('game/game',{authanticate : req.session.authanticate, authuser : req.session.authuser, tabledata: req.body.tabledata});
+				                  }
+				        });	
+
+                  	}else{
+                    	res.render('./game/game',{authanticate : req.session.authanticate, authuser : req.session.authuser, tabledata : req.body.tabledata, gametablesession : result });	
+                	}
+                }
+         });	
+		//res.render('./game/game',{authanticate : req.session.authanticate, authuser : req.session.authuser, tabledata : req.body.tabledata });	
+		
+			 		
+	});
+
+}
