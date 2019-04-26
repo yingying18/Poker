@@ -104,7 +104,7 @@ io.on('connection', function(socket){
   });
   
   //
-  socket.on('submit news', function (data) {
+  socket.on('news', function (data) {
     console.log("This was sent: " + data);
     console.log("We are not sending stuff back! (outside middle container)");
     //io.emit('news','client connected');
