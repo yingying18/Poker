@@ -96,23 +96,27 @@ app.use(function (req, res, next) {
 
 io.on('connection', function(socket){
   console.log('Connection event caught.');
-  socket.on('submitnews', function (data) {
-    console.log("This was sent: " + data);
-    console.log("We are not sending stuff back! (outside middle container)");
-    //io.emit('news','client connected');
-  });
-
+  //
   socket.on('send message', function(data){
     console.log("Time to respond (emit) with: " + data);
     console.log("We are sending back data! (outside middle container)");
     io.emit('new message', data);
   });
+  
+  //
+  socket.on('submit news', function (data) {
+    console.log("This was sent: " + data);
+    console.log("We are not sending stuff back! (outside middle container)");
+    //io.emit('news','client connected');
+  });
 
+  //
   socket.on('inside submit', function(data){
     console.log("This was sent: " + data);
     console.log("We are not sending stuff back! (inside middle container)");
   });
 
+  //
   socket.on('inside send', function(data){
     console.log("Time to respond (emit) with: " + data);
     console.log("We are sending back data! (inside middle container)");

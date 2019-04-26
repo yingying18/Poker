@@ -63,7 +63,7 @@
 
 
         //sending to server to be printed to console and not sent back
-        $sendnewsForm.submit(function(e){
+        $sendnewsForm.submit( function(e){
             e.preventDefault();
             socket.emit('submit news', "hello");
         });
@@ -72,6 +72,9 @@
         $insideSendForm.submit(function(e){
             e.preventDefault();
             socket.emit('inside send', "hello to send inside");
+            //socket.emit('inside send', $messageinsideBox.val());
+            $messageinsideBox.val('');
+            console.log("submit called after");
         });
 
         //
