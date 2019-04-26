@@ -8,6 +8,7 @@
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
+  background-attachment: fixed;
   font:white;
   background-color: black;
 
@@ -148,7 +149,7 @@
 }
 
 .innercube {
-    margin-left: auto;
+  margin-left: auto;
   margin-right: auto;
   min-width: 800px;
   min-height:500px;
@@ -157,4 +158,15 @@
   padding-right: 50px;
   padding-bottom: 50px;
 
+}
+
+.innercubeside {
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 390px;
+  min-height:500px;
+  padding-left: 50px;
+  padding-top: 50px;
+  padding-right: 50px;
+  padding-bottom: 50px;
 }
