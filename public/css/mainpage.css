@@ -106,13 +106,13 @@
   color: white;
   position: relative;
   width : 100%;
- min-height:500px;
+  min-height:500px;
   overflow: auto;
   border-radius: 10px;
   background: #565648;
   box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.3);     
   display: table-row;
-    margin-left: auto;
+  margin-left: auto;
   margin-right: auto;
   
 
