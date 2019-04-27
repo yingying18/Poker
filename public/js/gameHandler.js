@@ -8,9 +8,7 @@ function createGame(){
     var socket = io.connect('http://localhost:3000');
     socket.emit('initCall', "client responded");
     socket.on('testEvent', function(data){
-        var content = "";
-        content = document.getElementById('chat').innerHTML;
-        document.getElementById('chat').innerHTML = content + "<br>" + data;
+        socket.disconnect();
     });
 }
 
@@ -27,5 +25,7 @@ function sendMessage(){
         var content = "";
         content = document.getElementById('chat').innerHTML;
         document.getElementById('chat').innerHTML = content + "<br>" + data;
+        socket.disconnect();
+        //document.getElementById('chat').innerHTML = "<br>" + data;
     });
 }
