@@ -71,7 +71,11 @@ module.exports = function (app,dbRequest,dbconn) {
 							                  		data.gamesessionid = result[0].id;
 
               		                  				dbRequest.getGameUserSessionForTable(dbconn, data, function (result) {
-					                  				//returns -may return multiple users-  [{"id":7,"gamesession_id":19,"user_id":168,"seatnumber":1,"userbet":0,"usercards":null}]
+					                  				/*returns -may return multiple users-  
+					                  				[{"id":168,"gamesession_id":19,"user_id":168,"seatnumber":1,"userbet":0,
+					                  				"usercards":null,"username":"cavit","password":"cavit","usertype":0,"suspended":0,"deleted":0,
+					                  				"email":"cavit","picture":1,"registerdate":"2019-04-14T07:00:00.000Z","filetype":"jpeg"}]
+													*/
 
 
 											                  if (typeof result.code !== "undefined" || result === "") {

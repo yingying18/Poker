@@ -16,46 +16,78 @@ module.exports = function (app,dbRequest,dbconn) {
 		data.userid = parseInt(req.body.userid);
 		data.seatno = req.body.seatno;
 		dbRequest.getGameTableSession(dbconn, data, function (result) {
-                  
+        // returns  [{"id":19,"table_id":1,"state":"waiting","userturn":168,"usercyclestarter":168,"totalbet":0,"cycle":1,"maxcycle":1}]
+
                   if (typeof result.code !== "undefined" || result === "") {
                     res.send("we encountered an error while getting the game table session.");
                   }else {
 
                   	if (result.length === 0){
-          				
-          				dbRequest.createGameTableSession(dbconn, data, function (result) {
-          
+          				/*
+          					below section handles : if there is no game session for the selected table
+								-create a session in gametablesession
+								-add logged user to gameusersession -> the user becomes game session starter
+
+						*/
+	          				dbRequest.createGameTableSession(dbconn, data, function (result) {
+	          
+					                  if (typeof result.code !== "undefined" || result === "") {
+					                    res.send("we encountered an error while creating the game session.");
+					                  } else {
+					                  	
+		          	          				dbRequest.getGameTableSession(dbconn, data, function (result) {
+
+									                  if (typeof result.code !== "undefined" || result === "") {
+									                   	res.send("we encountered an error while getting the game table session.");
+									                  } else {
+									                  	console.log("colecting last record "+ JSON.stringify(result[0]));
+									                  	data.gametablesession = result[0];
+
+									                  	dbRequest.createGameUserSession(dbconn, data, function (result) {
+
+												                  if (typeof result.code !== "undefined" || result === "") {
+												                   	res.send("we encountered an error while creating the game user session.");
+												                  } else {
+												                  	console.log("colecting last record "+ JSON.stringify(result));
+												                  	//data.gametablesession = result[0];
+												                    res.render('game/game',{
+												                    		authanticate : req.session.authanticate, 
+												                    		authuser : req.session.authuser, 
+												                    		tabledata: req.body.tabledata,
+												                    		gametablesession :data.gametablesession, 
+												                    		gameusersession:{gamesession_id : data.gametablesession.id,seatnumber: data.seatno,userid: data.userid }});
+												                  }
+												        });	
+									       
+									                  }
+									        });	
+						                   
+					                  }
+					        });	
+
+                  	}else{
+                  		data.gametablesession = result[0];
+                  		/*
+                  			below section handles : if there is already a game session for the selected table 
+                  				-add user to gameusersession
+						*/
+		                dbRequest.createGameUserSession(dbconn, data, function (result) {
+
 				                  if (typeof result.code !== "undefined" || result === "") {
-				                    res.send("we encountered an error while creating the game session.");
+				                   	res.send("we encountered an error while creating the game user session.");
 				                  } else {
-				                  	
-	          	          				dbRequest.getGameTableSession(dbconn, data, function (result) {
-
-								                  if (typeof result.code !== "undefined" || result === "") {
-								                   	res.send("we encountered an error while getting the game table session.");
-								                  } else {
-								                  	console.log("colecting last record "+ JSON.stringify(result[0]));
-								                  	data.gametablesession = result[0];
-
-								                  	dbRequest.createGameUserSession(dbconn, data, function (result) {
-
-											                  if (typeof result.code !== "undefined" || result === "") {
-											                   	res.send("we encountered an error while creating the game user session.");
-											                  } else {
-											                  	console.log("colecting last record "+ JSON.stringify(result));
-											                  	//data.gametablesession = result[0];
-											                    res.render('game/game',{authanticate : req.session.authanticate, authuser : req.session.authuser, tabledata: req.body.tabledata,gametablesession :data.gametablesession, gameusersession:{gamesession_id : data.gametablesession.id,seatnumber: data.seatno,userid: data.userid }});
-											                  }
-											        });	
-								                    //res.render('game/game',{authanticate : req.session.authanticate, authuser : req.session.authuser, tabledata: req.body.tabledata,gametablesession :data.gametablesession});
-								                  }
-								        });	
-					                    //res.render('game/game',{authanticate : req.session.authanticate, authuser : req.session.authuser, tabledata: req.body.tabledata});
+				                  	console.log("colecting last record "+ JSON.stringify(result));
+				                  	//data.gametablesession = result[0];
+				                    res.render('game/game',{
+				                    		authanticate : req.session.authanticate, 
+				                    		authuser : req.session.authuser, 
+				                    		tabledata: req.body.tabledata,
+				                    		gametablesession :data.gametablesession, 
+				                    		gameusersession:{gamesession_id : data.gametablesession.id,seatnumber: data.seatno,userid: data.userid }});
 				                  }
 				        });	
 
-                  	}else{
-                    	res.render('./game/game',{authanticate : req.session.authanticate, authuser : req.session.authuser, tabledata : req.body.tabledata, gametablesession : result });	
+                    	//res.render('./game/game',{authanticate : req.session.authanticate, authuser : req.session.authuser, tabledata : req.body.tabledata, gametablesession : result });	
                 	}
                 }
          });	
