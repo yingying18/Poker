@@ -43,5 +43,3 @@ deck.click(function(card){
     }
 });
 
-
-});
