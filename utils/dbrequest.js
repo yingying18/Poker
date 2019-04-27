@@ -233,5 +233,20 @@ module.exports = {
         
       }
     );
+  },
+  deleteUserFromGameUserSession: function (con, data, callback) {
+      console.log(colors.yellow("data paremeter passed to db call deleteUserFromGameUserSession : "+JSON.stringify(data)+'\n'));
+    let result = con.query(  "delete from gameusersession where  gamesession_id = " +  data.gamesessionid + " and user_id = " + data.userid ,
+      function (err, result, fields) {
+        if (err) {
+          console.log(colors.magenta("db error : deleteUserFromGameUserSession ->" + JSON.stringify(result)+ '\n'));
+          callback(err);
+          throw err;
+        }
+        console.log(colors.yellow("returning response from db deleteUserFromGameUserSession : " + JSON.stringify(result)+'\n'));
+        callback(result);
+        
+      }
+    );
   }
 };

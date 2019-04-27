@@ -109,11 +109,41 @@ module.exports = function (app,dbRequest,dbconn) {
 				                  }
 				        });	
 
-                    	//res.render('./game/game',{authanticate : req.session.authanticate, authuser : req.session.authuser, tabledata : req.body.tabledata, gametablesession : result });	
                 	}
                 }
          });	
-		//res.render('./game/game',{authanticate : req.session.authanticate, authuser : req.session.authuser, tabledata : req.body.tabledata });	
+		
+	});
+
+	app.post('/game/leavetablesession',(req, res) =>{
+		
+		console.log(colors.red("colecting last record "+ JSON.stringify(req.body)));
+		console.log(colors.red("leavetablesession called"));
+		let data = {
+			userid : req.body.userid,
+			gamesessionid : req.body.gamesessionid
+
+		}
+		dbRequest.deleteUserFromGameUserSession(dbconn, data, function (result) {
+
+                  if (typeof result.code !== "undefined" || result === "") {
+                   	res.send("we encountered an error while creating the game user session.");
+                  } else {
+                  	console.log("colecting last record "+ JSON.stringify(result));
+
+							dbRequest.getAllTables(dbconn, null, function (result) {
+                  
+					                  if (typeof result.code !== "undefined" || result === "") {
+					                    res.send("we encountered an error while calling the lobby.");
+					                  } else {
+					                  	console.log("lobby auth : "+req.session.authanticate);
+					                    res.render('game/lobby', {result : result, authanticate : req.session.authanticate, authuser : req.session.authuser});
+					                  }
+					         });
+							
+                  }
+        });	
+		
 		
 			 		
 	});

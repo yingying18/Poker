@@ -3,7 +3,7 @@
 function checkgamesession() {
  
 
-  var data = {};
+  let data = {};
    console.log('checking started: '+usera);
   //postData('post', 'lobby/showgame/checkgamesession', data, 'updatableMiddleContainer',reseizeOpaqueDiv);
 
@@ -18,7 +18,7 @@ function startcounter(time , functiontocall,user){
 }
 
 function joingame(userid, seatno , tabledata){
-  var data = {};
+  let data = {};
   data.userid = userid;
   data.seatno = seatno;
   data.tabledata = tabledata;
@@ -26,9 +26,12 @@ function joingame(userid, seatno , tabledata){
   postData('post', 'game/joingamesession', data, 'updatableMiddleContainer',reseizeOpaqueDiv);
 }
 
-function leavegame(userid){
-
-  alert('leave game :'+userid);
+function leavegame(userid , gamesession){
+  let data = {};
+  data.userid = userid;
+  data.gamesessionid = gamesession;
+  alert('leave game :'+ userid + 'gamesession' + gamesession);
+  postData('post', 'game/leavetablesession', data, 'updatableMiddleContainer',reseizeOpaqueDiv);
 }
 
 function callgame(userid){
