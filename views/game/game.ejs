@@ -1,0 +1,63 @@
+<div id="cube" class="cube">
+    <div class="innercube"  id="innercube">
+        <% if ( (typeof authanticate !== 'undefined') && authanticate === "true" ) { %>
+            <div class="gamepanelcontainer">
+
+                <!-- <script>
+                    var socket = io.connect('http://localhost:3000');
+                    socket.on('news',function(data){
+                        console.log(data);
+                        socket.emit('my other event', { my: 'data'});
+                    });
+                </script> -->
+                
+                <h3>table : <%= result[0].table_id%></h3>
+                <p>min bet: <%= result[0].minamount%></p>
+                <p>max seat <%= result[0].maxplayer%></p>
+                <p>table pot: </p>
+                <p>dealer cards: </p>
+
+
+                <table id="gameTable" class="table table-striped" width="800px">
+                    <tr>
+                    <th scope="col">Seat</th>
+                    <th scope="col">UserID</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Currency</th>
+                    <th scope="col">Current Bet Amount</th>
+                    <td scope="col">Cards</td>
+                    <td scope="col">PlayerTurn?</td>
+                    </tr>
+
+                    <tbody>
+                    <%let recordCount = result[0].maxplayer%>
+                     <% for (i = 0 ;i < recordCount; i++) { %>
+                                               
+                                           
+                            <tr id = "<%= i %>">
+                                <td><%= i+1 %></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan ="7" width="200px">
+                                    <button style="color:white;background-color:#3CB371;" type="button" onclick="" class="btn btn-secondary btn-sm">Join Game</button>
+                                    <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Leave Game</button>
+                                    <button style="color:white;background-color:#3CB371;" type="button" onclick="" class="btn btn-secondary btn-sm">Call</button>
+                                    <button style="color:white;background-color:#4B0082;" type="button" onclick="" class="btn btn-secondary btn-sm">Raise 10</button>
+                                    <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Fold</button>
+                                </td>
+                            </tr>
+                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+        <%}%>
+    </div>
+</div>
+
+

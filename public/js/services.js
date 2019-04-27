@@ -2,7 +2,7 @@
 //urlaction: link to catch request
 function postData(method, urlaction, data, destinationdiv,callback) {
   console.log("data json post called");
-
+ 
   let senddata = {};
   if (typeof data !== "undefined" && data !== "") {
     senddata = data;
@@ -19,14 +19,16 @@ function postData(method, urlaction, data, destinationdiv,callback) {
       document.getElementById(destinationdiv).innerHTML = data;
      
       if ((urlaction == "login/authanticate") || (urlaction == "/logout")) {
-        gotoMenu('get', '/navbar', '', 'header');
+        gotoMenu('get', '/navbar', '', 'header','');
         urlaction == "null";
       }
 
     }
 
   }).done(function(){
-           callback(urlaction,destinationdiv);
+           if ((typeof callback !== "undefined") && ( callback !=="")){
+             callback(urlaction,destinationdiv);
+          }
       });
  
 

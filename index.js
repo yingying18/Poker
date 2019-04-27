@@ -9,6 +9,7 @@ var fs = require("fs");
 var session = require('express-session');
 var multer = require("multer");
 var upload = multer({ dest: "public/images/userimages/" });
+var socket = require('socket.io');
 //const login = require('./routes/login');
 //const home = require('./routes/home');
 //const main = require('./routes/main')(app);
@@ -91,8 +92,30 @@ app.use(function (req, res, next) {
   //console.log('example middleware');
   next();
 });
+var connectCounter = 0;
 
+io.on('connection', function(socket){
+  socket.on('connect', function() { connectCounter++; });
+  socket.on('disconnect', function() { connectCounter--; });
+  // console.log("connection established with total: " + connectCounter);
+
+    socket.on('initCall', function(data){
+      console.log("initCall called" + data);
+      io.emit('testEvent', 'goodbye');
+    });
+
+
+
+
+    socket.on('send message', function(data){
+      console.log("This is the message contents: " + data);
+      //socket.broadcast.emit('relay message', data);
+      console.log("connection established with total: " + connectCounter);
+      io.emit('relay message', data);
+    });
+
+});
 // Start listening on port 3000
-app.listen(3000, () => {
+server.listen(3000, () => {
   console.log("listening on port 3000");
 });

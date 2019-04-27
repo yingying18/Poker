@@ -1,8 +1,14 @@
+
+    <!-- <form id="game-inside"> -->
+        <div class="chat-component">
+        <div style="overflow: auto; width:300px; height:200px; background-color:white; display:inline-block;" id="chat"></div>
+        <input style="width:300px; height:50px;" type="text" id="chatinputbox">
+        <button id="sendMessage" placeholder="Send" onclick="sendMessage();">Send</button>
+        </div>
+
 <div id="cube" class="cube">
     <div class="innercube"  id="innercube" style="border: thick solid black;width: 100px; float:top; height:100px; background:#26547C; margin:10px">
         <div class="gamepanelcontainer">
-
-
             <table id="gameTable" class="table table-striped" width="800px">
                 <tr>
                     <th scope="col">Game ID</th>
@@ -120,6 +126,18 @@
                                     </dt>
                                 </dl>
                             </div>
+            <%if ( typeof lobbyresult != 'undefined' ) { %>
+                <h3>Game Id: <%= lobbyresult.lobbyid %></h3>
+                <p>MinBet: <%= lobbyresult.minbet%> 
+                Seats available: <%= lobbyresult.seatsavailable%>
+                Current Pot: <%= lobbyresult.pot %>
+                </p>
+                <p>Card1: <%=lobbyresult.card1%></p>
+                <p>Card2: <%=lobbyresult.card2%></p>
+                <p>Card3: <%=lobbyresult.card3%></p>
+                <p>Card4: <%=lobbyresult.card4%></p>
+                <p>Card5: <%=lobbyresult.card5%></p>
+            <% } %>
                         </div>
                     </div>
                 </div>
@@ -131,7 +149,4 @@
             <div style="margin-top: -30px; margin-left: -30px"><h3>Chat</h3></div>
         </div>
     </div>
-    
 </div>
-
-
