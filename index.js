@@ -24,7 +24,7 @@ var socket = require('socket.io');
 
 const dbconn = require("./utils/dbconn.js");
 const dbRequest = require("./utils/dbrequest.js");
-
+app.timeout =0 ;
 app.use(express.static("public",{
    maxAge: 150000000
 }));
@@ -76,7 +76,7 @@ require("./routes/main.js")(app, dbRequest, dbconn);
 
 require("./routes/game/howtoplay.js")(app, dbRequest, dbconn);
 require("./routes/game/lobby.js")(app, dbRequest, dbconn);
-
+require("./routes/game/game.js")(app, dbRequest, dbconn);
 require("./routes/admin/adminpanel.js")(app, dbRequest, dbconn);
 
 require("./routes/user/login.js")(app, dbRequest, dbconn);
@@ -116,6 +116,7 @@ io.on('connection', function(socket){
 
 });
 // Start listening on port 3000
+server.timeout =0 ;
 server.listen(3000, () => {
   console.log("listening on port 3000");
 });

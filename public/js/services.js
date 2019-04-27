@@ -1,5 +1,7 @@
 //method : post,get,put,delete
 //urlaction: link to catch request
+var usera = null;
+var timercheck = null;
 function postData(method, urlaction, data, destinationdiv,callback) {
   console.log("data json post called");
  
@@ -95,9 +97,9 @@ function reseizeOpaqueDiv(urlaction,divtochecksize){
 
 
    
-        console.log(urlaction);
+    console.log(urlaction);
     let calcwidth =parseInt( ((document.getElementById("updatableMiddleContainer").offsetWidth  ) - (document.getElementById("innercube").offsetWidth) )/2);
-    document.getElementById("middleContainerOpaq").style.height = document.getElementById('updatableMiddleContainer').clientHeight + "px";
+    document.getElementById("middleContainerOpaq").style.height = document.getElementById('updatableMiddleContainer').clientHeight +100+ "px";
     document.getElementById("updatableMiddleContainer").style.paddingLeft = calcwidth-50 + "px";
  
 
