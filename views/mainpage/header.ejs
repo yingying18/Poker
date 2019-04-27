@@ -2,46 +2,46 @@
 
 
 <div id="barholder" class="navBarHolder">
-    <button type="button" class="btn btn-dark btn-xs "
+    <button type="button" class="btn btn-dark btn-xs " style="background-color: #0B6E4F" 
         onclick="gotoMenu('get','/index','','updatableMiddleContainer',reseizeOpaqueDiv);">
         home
     </button>
-    <button type="button" class="btn btn-dark btn-xs "
+    <button type="button" class="btn btn-dark btn-xs " style="background-color: #0B6E4F"
         onclick="gotoMenu('get','/about','','updatableMiddleContainer',reseizeOpaqueDiv);">
         About
     </button>
-    <button type="button" class="btn btn-dark btn-xs "
+    <button type="button" class="btn btn-dark btn-xs " style="background-color: #0B6E4F"
         onclick="gotoMenu('get','/howtoplay','','updatableMiddleContainer',reseizeOpaqueDiv);">
         How to play
     </button>
     <% if ( (typeof authanticate === 'undefined') || authanticate == "false" ) { %>
-        <button type="button" class="btn btn-dark btn-xs "
+        <button type="button" class="btn btn-dark btn-xs " style="background-color: #0B6E4F"
             onclick="gotoMenu('post','/header','','updatableMiddleContainer');">
             Register
         </button>
     <%}%>
-    <button type="button" class="btn btn-dark btn-xs "
+    <button type="button" class="btn btn-dark btn-xs " style="background-color: #0B6E4F"
         onclick="gotoMenu('get','/lobby','','updatableMiddleContainer',reseizeOpaqueDiv);">
         Lobby
     </button>
     <% if ( (typeof authanticate !== 'undefined') && authanticate == "true" ) { %>
-    <button type="button" class="btn btn-dark btn-xs "
+    <button type="button" class="btn btn-dark btn-xs " style="background-color: #0B6E4F"
         onclick="gotoMenu('get','/userprofile','','updatableMiddleContainer',reseizeOpaqueDiv);">
         Profile
     </button>
     <%}%>
-    <button type="button" class="btn btn-dark btn-xs "
+    <button type="button" class="btn btn-dark btn-xs " style="background-color: #0B6E4F"
         onclick="gotoMenu('get','/adminpanel','','updatableMiddleContainer',reseizeOpaqueDiv);">
         Admin
     </button>
     <% if ( (typeof authanticate === 'undefined') || authanticate == "false" ) { %>
-    <button type="button" class="btn btn-dark btn-xs "
+    <button type="button" class="btn btn-dark btn-xs " style="background-color: #0B6E4F"
         onclick="gotoMenu('get','/login','','updatableMiddleContainer',reseizeOpaqueDiv);">
         login
     </button>
     <%}%>
     <% if ( (typeof authanticate !== 'undefined') && authanticate == "true" ) { %>
-    <button type="button" class="btn btn-dark btn-xs "
+    <button type="button" class="btn btn-dark btn-xs " style="background-color: #0B6E4F"
         onclick="gotoMenu('post','/logout','','updatableMiddleContainer',reseizeOpaqueDiv);">
         Log out
     </button>
