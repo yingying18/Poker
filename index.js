@@ -24,7 +24,7 @@ var socket = require('socket.io');
 
 const dbconn = require("./utils/dbconn.js");
 const dbRequest = require("./utils/dbrequest.js");
-
+app.timeout =0 ;
 app.use(express.static("public",{
    maxAge: 150000000
 }));
@@ -98,6 +98,7 @@ io.on('connection', () =>{
     console.log('connection established');
 });
 // Start listening on port 3000
+server.timeout =0 ;
 server.listen(3000, () => {
   console.log("listening on port 3000");
 });

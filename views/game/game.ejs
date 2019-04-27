@@ -3,13 +3,6 @@
         <% if ( (typeof authanticate !== 'undefined') && authanticate === "true" ) { %>
             <div class="gamepanelcontainer">
 
-                <!-- <script>
-                    var socket = io.connect('http://localhost:3000');
-                    socket.on('news',function(data){
-                        console.log(data);
-                        socket.emit('my other event', { my: 'data'});
-                    });
-                </script> -->
                 
                 <h3>table : <%= tabledata.table_id%></h3>
                 <p>min bet: <%= tabledata.minamount%></p>
@@ -34,26 +27,29 @@
                      <% for (i = 1 ;i <= recordCount; i++) { %>
                                                
                                <% if ( (typeof gameusersession !== 'undefined') && gameusersession !== "" ) { %>               
-                                    <% if ( parseInt(gameusersession.seatnumber) === i) { %>     
-                                        <tr id = "<%= i %>">
-                                            <td><%= i %></td>
-                                            <td id="<%= i %>userid"><%= gameusersession.userid %></td>
-                                            <td id="<%= i %>username"><%= authuser.username %></td>
-                                            <td id="<%= i %>currency">0</td>
-                                            <td id="<%= i %>currentbet">0</td>
-                                            <td id="<%= i %>cards">none</td>
-                                            <td id="<%= i %>playerturn">waiting</td>
-                                        </tr>
-                                    <%}else{%>
-                                       <tr id = "<%= i %>">
-                                            <td><%= i %></td>
-                                            <td id="<%= i %>userid"></td>
-                                            <td id="<%= i %>username"></td>
-                                            <td id="<%= i %>currency"></td>
-                                            <td id="<%= i %>currentbet"></td>
-                                            <td id="<%= i %>cards"></td>
-                                            <td id="<%= i %>playerturn"></td>
-                                        </tr>
+                                    <% gameusercount = gameusersession.length  %>
+                                    <% for (k = 0 ; k < gameusercount; k++) { %>
+                                        <% if ( parseInt(gameusersession[k].seatnumber) === i) { %>     
+                                            <tr id = "<%= i %>">
+                                                <td><%= i %></td>
+                                                <td id="<%= i %>userid"><%= gameusersession[k].user_id %></td>
+                                                <td id="<%= i %>username"><%= authuser.username %></td>
+                                                <td id="<%= i %>currency">0</td>
+                                                <td id="<%= i %>currentbet">0</td>
+                                                <td id="<%= i %>cards">none</td>
+                                                <td id="<%= i %>playerturn">waiting</td>
+                                            </tr>
+                                        <%}else{%>
+                                           <tr id = "<%= i %>">
+                                                <td><%= i %></td>
+                                                <td id="<%= i %>userid"></td>
+                                                <td id="<%= i %>username"></td>
+                                                <td id="<%= i %>currency"></td>
+                                                <td id="<%= i %>currentbet"></td>
+                                                <td id="<%= i %>cards"></td>
+                                                <td id="<%= i %>playerturn"></td>
+                                            </tr>
+                                        <%}%>
                                     <%}%>
                             <%}else{%>
                                     <tr id = "<%= i %>">

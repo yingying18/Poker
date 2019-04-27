@@ -1,8 +1,9 @@
+var colors = require('colors');
 module.exports = {
   insertUser: function (con, data, callback) {
     // whatever
 
-    console.log("sql catching the form:" + JSON.stringify(data));
+    console.log(colors.yellow("data paremeter passed to db call insertUser : "+JSON.stringify(data)));
     var returnValue;
     //date format 'YYYY-MM-DD'
     this.resulta = con.query(
@@ -29,7 +30,7 @@ module.exports = {
           callback(err);
           throw err;
         } else {
-          console.log("returning response from db insertUser :  " + JSON.stringify(result));
+          console.log(colors.yellow("returning response from db insertUser :  " + JSON.stringify(result)));
           callback(result);
         }
         //con.release();
@@ -37,88 +38,106 @@ module.exports = {
     );
   },
   getUsers: function (con, data, callback) {
+    console.log(colors.yellow("data paremeter passed to db call getUsers : "+JSON.stringify(data)));
     let result = con.query("Select * from user ;", 
       function ( err, result,  fields ) {
       if (err) throw err;
-      console.log("returning response from db getUsers :  " + JSON.stringify(result));
+      console.log(colors.yellow("returning response from db getUsers :  " + JSON.stringify(result)));
       callback(result);
       //con.release();
     });
   },
   getUserEmailandUserNameCount: function (con, data, callback) {
+    console.log(colors.yellow("data paremeter passed to db call getUserEmailandUserNameCount : "+JSON.stringify(data)));
     let result = con.query( "select count(*) as count from user where (username = '" +  data.registername +  "' or email='" +  data.registeremail + "' ); ",
       function (err, result, fields) {
         if (err) throw err;
-        console.log("returning response from db getUserEmailandUserNameCount :  " + JSON.stringify(result));
+        console.log(colors.yellow("returning response from db getUserEmailandUserNameCount :  " + JSON.stringify(result)));
         callback(result);
         //con.release();
       }
     );
   },
   getUserByEmail: function (con, data, callback) {
+    console.log(colors.yellow("data paremeter passed to db call getUserByEmail : "+JSON.stringify(data)));
     let result = con.query( "select * from user where (email='" + data.registeremail +  "' ); ",
       function (err, result, fields) {
         if (err) throw err;
-        console.log("returning response from db getUserByEmail :  " + JSON.stringify(result));
+        console.log(colors.yellow("returning response from db getUserByEmail :  " + JSON.stringify(result)));
         callback(result);
         //con.release();
       }
     );
   },
   checkLoginUser: function (con, data, callback) {
+    console.log(colors.yellow("data paremeter passed to db call checkLoginUser : "+JSON.stringify(data)));
     let result = con.query( "select * from user where (username = '" +  data.username +  "' and password ='" +   data.password +  "' ); ",
       function (err, result, fields) {
         if (err) throw err;
-        console.log("returning response from db checkLoginUser :  " + JSON.stringify(result));
+        console.log(colors.yellow("returning response from db checkLoginUser :  " + JSON.stringify(result)));
         callback(result);
         //con.release();
       }
     );
   },
   updateUser: function (con, data, callback) {
+    console.log(colors.yellow("data paremeter passed to db call updateUser : "+JSON.stringify(data)));
     let result = con.query( "update user set username = '" + data.name + "' where id = " + data.id, 
       function (err, result, fields) {  
         if (err) throw err;
-        console.log("returning response from db updateUser : " + JSON.stringify(result));
+        console.log(colors.yellow("returning response from db updateUser : " + JSON.stringify(result)));
         callback(result);
         //con.release();
       }
     );
   },
   getAllTables: function (con, data, callback) {
+    console.log(colors.yellow("data paremeter passed to db call getAllTables : "+JSON.stringify(data)));
     let result = con.query( "select * from tables ;" , 
       function (err, result, fields) {
         if (err) throw err;
-        console.log("returning response from db getAllTables : " + JSON.stringify(result));
+        console.log(colors.yellow("returning response from db getAllTables : " + JSON.stringify(result)));
         callback(result);
         
       }
     );
   },
   getTableById: function (con, data, callback) {
-      console.log(data);
+
+      console.log(colors.yellow("data paremeter passed to db call getTableById : "+JSON.stringify(data)));
     let result = con.query(  "select * from tables where table_id = " +  data.tableid ,
       function (err, result, fields) {
         if (err) throw err;
-        console.log("returning response from db getTableById : " + JSON.stringify(result));
+        console.log(colors.yellow("returning response from db getTableById : " + JSON.stringify(result)));
         callback(result);
         
       }
     );
   },
   getGameTableSession: function (con, data, callback) {
-      console.log(data);
+    console.log(colors.yellow("data paremeter passed to db call getGameTableSession : "+JSON.stringify(data)));
     let result = con.query(  "select * from gametablesession where table_id = " +  data.tableid + " and state != 'ended' " ,
       function (err, result, fields) {
         if (err) throw err;
-        console.log("returning response from db getGameTableSession : " + JSON.stringify(result));
+        console.log(colors.yellow("returning response from db getGameTableSession : " + JSON.stringify(result)));
+        callback(result);
+        
+      }
+    );
+  },
+  getGameUserSessionForTable: function (con, data, callback) {
+      console.log(colors.yellow("data paremeter passed to db call getGameUserSessionForTable : "+JSON.stringify(data)));
+    let result = con.query(  "select * from gameusersession where gamesession_id = " +  data.gamesessionid  ,
+      function (err, result, fields) {
+        if (err) throw err;
+        console.log(colors.yellow("returning response from db getGameUserSessionForTable : " + JSON.stringify(result)));
         callback(result);
         
       }
     );
   },
   createGameTableSession: function (con, data, callback) {
-     console.log("createGameTableSession"+ JSON.stringify(data));
+      console.log(colors.yellow("data paremeter passed to db call createGameTableSession : "+JSON.stringify(data)));
     let result = con.query(  
       "insert into gametablesession "+
       "("+
@@ -141,14 +160,14 @@ module.exports = {
       ")",
       function (err, result, fields) {
         if (err) throw err;
-        console.log("returning response from db createGameTableSession : " + JSON.stringify(result));
+        console.log(colors.yellow("returning response from db createGameTableSession : " + JSON.stringify(result)));
         callback(result);
         
       }
     );
   },
   createGameUserSession: function (con, data, callback) {
-    console.log("createGameUserSession in db"+ JSON.stringify(data));
+    console.log(colors.yellow("data paremeter passed to db call createGameUserSession : "+JSON.stringify(data)));
     let result = con.query(  
       "insert into gameusersession "+
       "("+
@@ -165,7 +184,7 @@ module.exports = {
       ")",
       function (err, result, fields) {
         if (err) throw err;
-        console.log("returning response from db createGameUserSession : " + JSON.stringify(result));
+        console.log(colors.yellow("returning response from db createGameUserSession : " + JSON.stringify(result)));
         callback(result);
         
       }
