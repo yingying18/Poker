@@ -92,17 +92,25 @@ app.use(function (req, res, next) {
   //console.log('example middleware');
   next();
 });
-
+var connectCounter = 0;
 
 io.on('connection', function(socket){
-    console.log('connection established');
+  socket.on('connect', function() { connectCounter++; });
+  socket.on('disconnect', function() { connectCounter--; });
+  // console.log("connection established with total: " + connectCounter);
+
     socket.on('initCall', function(data){
       console.log("initCall called" + data);
       io.emit('testEvent', 'goodbye');
     });
 
+
+
+
     socket.on('send message', function(data){
       console.log("This is the message contents: " + data);
+      //socket.broadcast.emit('relay message', data);
+      console.log("connection established with total: " + connectCounter);
       io.emit('relay message', data);
     });
 

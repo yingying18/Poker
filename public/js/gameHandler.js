@@ -13,19 +13,3 @@ function createGame(){
 }
 
 
-function sendMessage(){
-    var socket = io.connect('http://localhost:3000');
-    var message = document.getElementById("chatinputbox").value;
-    document.getElementById("chatinputbox").value = "";
-    console.log(message);
-
-    socket.emit('send message', message);
-    socket.on('relay message', function(data){
-        console.log("This is the data: ");
-        var content = "";
-        content = document.getElementById('chat').innerHTML;
-        document.getElementById('chat').innerHTML = content + "<br>" + data;
-        socket.disconnect();
-        //document.getElementById('chat').innerHTML = "<br>" + data;
-    });
-}
