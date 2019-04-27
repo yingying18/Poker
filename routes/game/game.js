@@ -1,3 +1,4 @@
+var colors = require('colors');
 module.exports = function (app,dbRequest,dbconn) {
 
 	app.get('/game',(req, res) =>{
@@ -23,6 +24,7 @@ module.exports = function (app,dbRequest,dbconn) {
                   }else {
 
                   	if (result.length === 0){
+                  		console.log(colors.red("reult.length : "+result.length));
           				/*
           					below section handles : if there is no game session for the selected table
 								-create a session in gametablesession
@@ -40,9 +42,9 @@ module.exports = function (app,dbRequest,dbconn) {
 									                  if (typeof result.code !== "undefined" || result === "") {
 									                   	res.send("we encountered an error while getting the game table session.");
 									                  } else {
-									                  	console.log("colecting last record "+ JSON.stringify(result[0]));
+									                  	console.log("colecting record getGameTableSession"+ JSON.stringify(result[0]));
 									                  	data.gametablesession = result[0];
-
+									                  	data.gamesessionid =result[0].id;
 									                  	dbRequest.createGameUserSession(dbconn, data, function (result) {
 
 												                  if (typeof result.code !== "undefined" || result === "") {
@@ -50,12 +52,22 @@ module.exports = function (app,dbRequest,dbconn) {
 												                  } else {
 												                  	console.log("colecting last record "+ JSON.stringify(result));
 												                  	//data.gametablesession = result[0];
-												                    res.render('game/game',{
-												                    		authanticate : req.session.authanticate, 
-												                    		authuser : req.session.authuser, 
-												                    		tabledata: req.body.tabledata,
-												                    		gametablesession :data.gametablesession, 
-												                    		gameusersession:{gamesession_id : data.gametablesession.id,seatnumber: data.seatno,userid: data.userid }});
+												                  	dbRequest.getGameUserSessionForTable(dbconn, data, function (result) {
+
+															                  if (typeof result.code !== "undefined" || result === "") {
+															                   	res.send("we encountered an error while creating the game user session.");
+															                  } else {
+															                  	console.log("colecting last record "+ JSON.stringify(result));
+															                  	//data.gametablesession = result[0];
+															                    res.render('game/game',{
+															                    		authanticate : req.session.authanticate, 
+															                    		authuser : req.session.authuser, 
+															                    		tabledata: req.body.tabledata,
+															                    		gametablesession :data.gametablesession, 
+															                    		gameusersession: result
+															                    	});
+															                  }
+															        });	
 												                  }
 												        });	
 									       
@@ -67,6 +79,7 @@ module.exports = function (app,dbRequest,dbconn) {
 
                   	}else{
                   		data.gametablesession = result[0];
+                  		data.gamesessionid = result[0].id;
                   		/*
                   			below section handles : if there is already a game session for the selected table 
                   				-add user to gameusersession
@@ -76,14 +89,23 @@ module.exports = function (app,dbRequest,dbconn) {
 				                  if (typeof result.code !== "undefined" || result === "") {
 				                   	res.send("we encountered an error while creating the game user session.");
 				                  } else {
-				                  	console.log("colecting last record "+ JSON.stringify(result));
-				                  	//data.gametablesession = result[0];
-				                    res.render('game/game',{
-				                    		authanticate : req.session.authanticate, 
-				                    		authuser : req.session.authuser, 
-				                    		tabledata: req.body.tabledata,
-				                    		gametablesession :data.gametablesession, 
-				                    		gameusersession:{gamesession_id : data.gametablesession.id,seatnumber: data.seatno,userid: data.userid }});
+
+										dbRequest.getGameUserSessionForTable(dbconn, data, function (result) {
+
+								                  if (typeof result.code !== "undefined" || result === "") {
+								                   	res.send("we encountered an error while creating the game user session.");
+								                  } else {
+								                  	console.log("colecting last record "+ JSON.stringify(result));
+								                  	//data.gametablesession = result[0];
+								                    res.render('game/game',{
+								                    		authanticate : req.session.authanticate, 
+								                    		authuser : req.session.authuser, 
+								                    		tabledata: req.body.tabledata,
+								                    		gametablesession :data.gametablesession, 
+								                    		gameusersession: result
+								                    	});
+								                  }
+								        });	
 				                  }
 				        });	
 

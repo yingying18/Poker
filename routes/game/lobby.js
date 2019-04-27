@@ -43,7 +43,7 @@ module.exports = function (app,dbRequest,dbconn) {
 			authanticate : req.body.authanticate,
 			tableid : req.body.tableid
 		};
-		console.log(colors.red("error :"+data.tableid));
+		
 		dbRequest.getTableById(dbconn, data, function (result) {
         //returns [{"table_id":1,"minamount":1,"active":1,"maxplayer":4}]
 
