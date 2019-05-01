@@ -1,4 +1,4 @@
-function initDeck(){
+function deckEx1(){
     cards.init({table:'#card-table'});
  
     //Create a new deck of cards
@@ -18,8 +18,66 @@ function initDeck(){
     discardPile = new cards.Deck({faceUp:true});
     discardPile.x += 50;
  }
+
+
+
+function deckEx2(){
+    upperhand = new cards.Hand({faceUp:false, y:50});
+    lowerhand = new cards.Hand({faceUp:true, y:350});
+    lefthand = new cards.Hand({faceUp:false, y:50});
+    righthand = new cards.Hand({faceUp:true, y:250});
+    centerhand = new cards.Hand({faceUp:true, y:300})
+    deck.deal(2, [upperhand, lowerhand, lefthand, righthand], 50);
+    deck.deal(3, [centerhand], 100);
+    console.log("This is getting the hands");
+}
+
+function deckEx3(){
+    console.log("gameboard 3");
+}
+
+function deckEx4(){
+    console.log("gameboard 4");
+}
+
+function deckEx5(){
+    upperhand = new cards.Hand({faceUp:false, y:50});
+    lowerhand = new cards.Hand({faceUp:true, y:350});
+    deck.deal(5, [upperhand, lowerhand], 50)
+}
+
+function deckEx6(){
+    upperhand = new cards.Hand({faceUp:false, y:50});
+    lowerhand = new cards.Hand({faceUp:true, y:350});
+    deck.deal(5, [upperhand, lowerhand], 50)
+}
+
+
+
+deck.click(function(card){
+    if(card === deck.topCard()){
+        lowerhand.addCard(deck.topCard());
+        lowerhand.render();
+    }
+});
  
- 
+
+
+/*
+Cheat sheet:
+
+move the deck:
+deck.x -= || += "number"
+deck.y
+deck.render
+
+DECKVAR
+
+
+
+*/
+
+
  //Now lets create a couple of hands, one face down, one face up.
  // upperhand = new cards.Hand({faceUp:false, y:60});
  // lowerhand = new cards.Hand({faceUp:true, y:340});
