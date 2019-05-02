@@ -4,63 +4,54 @@ function deckEx1(){
     //Create a new deck of cards
     deck = new cards.Deck();
     //By default it's in the middle of the container, put it slightly to the side
-    deck.x -= 50;
+    deck.y -= 100;
  
     //cards.all contains all cards, put them all in the deck
     deck.addCards(cards.all);
     //No animation here, just get the deck onto the table.
     deck.render({immediate:true});
     console.log("Init Deck!");
- 
-    upperhand = new cards.Hand({faceUp:false, y:60});
-    lowerhand = new cards.Hand({faceUp:true, y:340});
- 
-    discardPile = new cards.Deck({faceUp:true});
-    discardPile.x += 50;
- }
+}
 
 
 
 function deckEx2(){
     upperhand = new cards.Hand({faceUp:false, y:50});
-    lowerhand = new cards.Hand({faceUp:true, y:350});
-    lefthand = new cards.Hand({faceUp:false, y:50});
-    righthand = new cards.Hand({faceUp:true, y:250});
-    centerhand = new cards.Hand({faceUp:true, y:300})
+    lowerhand = new cards.Hand({faceUp:true, y:550});
+    lefthand = new cards.Hand({faceUp:false, y:300});
+    lefthand.x -= 250;
+    righthand = new cards.Hand({faceUp:false, y:300});
+    righthand.x += 250;
+    house = new cards.Hand({faceUp:true, y:300})
     deck.deal(2, [upperhand, lowerhand, lefthand, righthand], 50);
-    deck.deal(3, [centerhand], 100);
+    deck.deal(3, [house], 50);
     console.log("This is getting the hands");
 }
 
 function deckEx3(){
-    console.log("gameboard 3");
+    deck.deal(1, [house], 50);
+    console.log("adding 4th card to center");
 }
 
 function deckEx4(){
-    console.log("gameboard 4");
+    deck.deal(1, [house], 50);
+    console.log("adding 5th card to center");
 }
 
 function deckEx5(){
-    upperhand = new cards.Hand({faceUp:false, y:50});
-    lowerhand = new cards.Hand({faceUp:true, y:350});
-    deck.deal(5, [upperhand, lowerhand], 50)
+    upperhand.faceUp = true;
+    lefthand.faceUp = true;
+    righthand.faceUp = true;
+    upperhand.render();
+    lefthand.render();
+    righthand.render();
+    console.log("revealing cards");
 }
 
 function deckEx6(){
-    upperhand = new cards.Hand({faceUp:false, y:50});
-    lowerhand = new cards.Hand({faceUp:true, y:350});
-    deck.deal(5, [upperhand, lowerhand], 50)
+    
+    console.log("reshuffle cards back to deck");
 }
-
-
-
-deck.click(function(card){
-    if(card === deck.topCard()){
-        lowerhand.addCard(deck.topCard());
-        lowerhand.render();
-    }
-});
- 
 
 
 /*
