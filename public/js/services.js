@@ -1,7 +1,10 @@
 //method : post,get,put,delete
 //urlaction: link to catch request
+
+var socket = io.connect('http://localhost:3000');
 var usera = null;
 var timercheck = null;
+
 function postData(method, urlaction, data, destinationdiv,callback) {
   console.log("data json post called");
  

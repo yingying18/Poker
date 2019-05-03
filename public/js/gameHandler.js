@@ -1,3 +1,4 @@
+
 function callMe(){
     alert("hello world");
 }
@@ -13,3 +14,11 @@ function createGame(){
 }
 
 
+function sendAuthInfoToSocket(authuser){
+
+	console.log("socket call : sendAuthInfoToSocket");
+    console.log("socket disconnected");
+    socket.emit('socketUserAuthInfo', authuser );
+
+    
+}
