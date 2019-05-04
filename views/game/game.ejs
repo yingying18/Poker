@@ -2,13 +2,21 @@
     <div class="innercube"  id="innercube">
         <% if ( (typeof authanticate !== 'undefined') && authanticate === "true" ) { %>
             <div class="gamepanelcontainer">
-
-                <h3>logged user : <%= authuser.username%></h3>
+            <div>
+            <h3>logged user : <%= authuser.username%></h3>
                 <h3>table : <%= tabledata.table_id%></h3>
                 <p>min bet: <%= tabledata.minamount%></p>
                 <p>max seat <%= tabledata.maxplayer%></p>
                 <p>table pot: </p>
                 <p>dealer cards: </p>
+            </div>
+                <table id="gameTableR" class="gameTableR" >
+                    <div id="user1" class="gameTableUser1" ></div>
+                    <div id="user2" class="gameTableUser2" ></div>
+                    <div id="user3" class="gameTableUser3" ></div>
+                    <div id="user4" class="gameTableUser4" ></div>
+                </div>
+                
 
 
                 <table id="gameTable" class="table table-striped" width="800px">

@@ -1,5 +1,6 @@
 var colors = require('colors');
 module.exports = function (server,socket,dbRequest, dbconn ) {
+var sockettracker = new Map();
 
 let io = socket(server);
 
@@ -15,7 +16,14 @@ io.on('connection', function(socket){
 	});
 
 	socket.on('socketUserAuthInfo', function(usersession){
-		console.log(colors.cyan("socket event : socketUserAuthInfo -> " + JSON.stringify(usersession)));
+		user = {};
+		user = JSON.parse(usersession); 
+		console.log(colors.cyan("socket event : socketUserAuthInfo -> " + (user.userid)));
+		sockettracker.set(user.userid, socket.id);
+
+		for (var value of sockettracker.values()) {
+  			console.log(colors.cyan("socket lists : al socket ids -> " + value));
+		}
 
     
 	});
