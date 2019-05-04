@@ -22,3 +22,12 @@ function sendAuthInfoToSocket(authuser){
 
     
 }
+
+socket.on('be_startgame', function(data){
+      
+       prepareDeck();
+       dealHands();
+       
+       
+        //socket.disconnect();
+    });

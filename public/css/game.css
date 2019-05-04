@@ -1,5 +1,5 @@
 .gameTableR{
-    background: black;
+    
     width : 800px;
     height : 800px;
     background-image: url("../images/table/table31.png");
@@ -18,8 +18,8 @@
 	z-index: 50;
 	float: left;
 	
-	left:150px;
-	top:450px;
+	left:100px;
+	top:150px;
 }
 .gameTableUser2{
 	cursor: pointer;
@@ -30,12 +30,12 @@
 	
 	z-index: 51;
 	
-	left:600px;
-	top:450px;
+	left:550px;
+	top:150px;
 }
 .gameTableUser3{
 	cursor: pointer;
-	background: cyan;
+	background: gray;
 	width: 150px;
 	height : 150px;
 	position: absolute;
@@ -43,8 +43,8 @@
 	z-index: 52;
 	float: left;
 	
-	left:150px;
-	top:750px;
+	left:550px;
+	top:450px;
 }
 .gameTableUser4{
 	cursor: pointer;
@@ -56,6 +56,6 @@
 	z-index: 53;
 	float: left;
 	
-	left:600px;
-	top:750px;
+	left:100px;
+	top:450px;
 }

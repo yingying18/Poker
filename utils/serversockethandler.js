@@ -15,6 +15,16 @@ io.on('connection', function(socket){
 		console.log("socket disconnected : "+socket.id);
 	});
 
+
+	socket.on('fe_startgame', function(data){
+		user = {};
+		//user = JSON.parse(data); 
+		console.log(colors.cyan("socket event : startgame -> " ));
+		io.sockets.emit('be_startgame', data);
+
+    
+	});
+
 	socket.on('socketUserAuthInfo', function(usersession){
 		user = {};
 		user = JSON.parse(usersession); 
