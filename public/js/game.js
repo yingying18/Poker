@@ -2,10 +2,11 @@
 
 function checkgamesession() {
  
-
+  console.log("checkgame session fe->be  startgame socket ");
   let data = {};
    console.log('checking started: '+usera);
-  //postData('post', 'lobby/showgame/checkgamesession', data, 'updatableMiddleContainer',reseizeOpaqueDiv);
+  socket.emit('fe_startgame', data );
+  clearInterval(timercheck);
 
 }
 
@@ -22,7 +23,7 @@ function joingame(userid, seatno , tabledata){
   data.userid = userid;
   data.seatno = seatno;
   data.tabledata = tabledata;
-  alert('join game : '+userid + ' seat no : '+ seatno + ' tableid : ' + JSON.stringify(tabledata));
+  //alert('join game : '+userid + ' seat no : '+ seatno + ' tableid : ' + JSON.stringify(tabledata));
   postData('post', 'game/joingamesession', data, 'updatableMiddleContainer',reseizeOpaqueDiv);
 }
 
@@ -30,7 +31,7 @@ function leavegame(userid , gamesession){
   let data = {};
   data.userid = userid;
   data.gamesessionid = gamesession;
-  alert('leave game :'+ userid + 'gamesession' + gamesession);
+  //alert('leave game :'+ userid + 'gamesession' + gamesession);
   postData('post', 'game/leavetablesession', data, 'updatableMiddleContainer',reseizeOpaqueDiv);
 }
 

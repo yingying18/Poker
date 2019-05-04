@@ -1,9 +1,9 @@
 // var socketChatGlobal = io.connect('http://localhost:3000');
-let socket = io.connect('http://localhost:3000');
-function sendMessage(user){
-    // var socket = io.connect('http://localhost:3000');
-    //socket = socketChatGlobal;
 
+function sendMessage(user){
+    
+    
+    
     var message = document.getElementById("chatinputbox").value;
     
     document.getElementById("chatinputbox").value = "";
