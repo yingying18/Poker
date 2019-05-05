@@ -3,17 +3,19 @@
 function checkgamesession() {
  
   console.log("checkgame session fe->be  startgame socket ");
-  let data = {};
-   console.log('checking started: '+usera);
-  socket.emit('fe_startgame', data );
+  var data;
+  console.log('checking started: '+usera);
+  console.log("timer check : "+ timercheck);
   clearInterval(timercheck);
+  
+  socket.emit('fe_startgame');
 
 }
 
 function startcounter(time , functiontocall,user){
   usera = user;
   timercheck = setInterval(functiontocall, time);
-  console.log("timer check : "+ timercheck);
+ 
 
 
 }
@@ -49,3 +51,44 @@ function foldgame(userid){
 
   alert('fold game :'+userid);
 }
+
+//front end game socket calls
+
+function callMe(){
+    alert("hello world");
+}
+
+function createGame(){
+    // Client-side socket creation
+    console.log("create game function called");
+   
+    socket.emit('initCall', "client responded");
+
+}
+
+
+function sendAuthInfoToSocket(authuser){
+
+  console.log("socket call : sendAuthInfoToSocket");
+    console.log("socket disconnected");
+    socket.emit('socketUserAuthInfo', authuser );
+
+    
+}
+
+socket.on('be_startgame', function(data){
+      //prepareDeck(data);
+       prepareDeck();
+       dealHands();
+       
+       
+        //socket.disconnect();
+});
+
+socket.on('be_setDeck', function(data){
+      //prepareDeck(data);
+      // dealHands(data);
+       
+       
+        //socket.disconnect();
+});

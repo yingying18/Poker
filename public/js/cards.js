@@ -150,14 +150,18 @@ var cards = (function() {
 		},
 		
 		addCards : function(cards) {
+
 			for (var i = 0; i < cards.length;i++) {
 				var card = cards[i];
 				if (card.container) {
 					card.container.removeCard(card);
 				}
+
 				this.push(card);
+				
 				card.container = this;
 			}
+			
 		},
 		
 		removeCard : function(card) {

@@ -1,9 +1,24 @@
 //method : post,get,put,delete
 //urlaction: link to catch request
 
-var socket = io.connect('http://localhost:3000');
-var usera = null;
-var timercheck = null;
+let socket = io.connect('http://localhost:3000');
+let gameSessionData = {
+  thisuser : "",
+  users : "",
+  deck : "",
+  gamesessionid : "",
+  housecards : "",
+  usercards : "",
+  socketroom : "",
+  gamestatus : "",
+  userstatus : "",
+  gamecycle : "",
+  userturn: ""
+
+};
+
+let usera = null;
+let timercheck = null;
 
 function postData(method, urlaction, data, destinationdiv,callback) {
   console.log("data json post called");

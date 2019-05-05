@@ -5,22 +5,19 @@ var sockettracker = new Map();
 let io = socket(server);
 
 io.on('connection', function(socket){
-	
-	socket.on('connect', function() { 
-		console.log("socket connected : "+socket.id);
-	});
+	console.log(colors.cyan("------socket connected : "+socket.id));
+
 	
 	socket.on('disconnect', function() {
 		
-		console.log("socket disconnected : "+socket.id);
+		console.log(colors.cyan("socket disconnected : "+socket.id));
 	});
 
 
 	socket.on('fe_startgame', function(data){
-		user = {};
-		//user = JSON.parse(data); 
-		console.log(colors.cyan("socket event : startgame -> " ));
-		io.sockets.emit('be_startgame', data);
+		 
+		console.log(colors.cyan("socket event serverside : fe_startgame -> " ));
+		io.emit('be_startgame', '');
 
     
 	});
@@ -38,10 +35,16 @@ io.on('connection', function(socket){
     
 	});
 
+	socket.on('fe_setDeck', function(data){
+		console.log(colors.cyan("socket event serverside : fe_setDeck -> " ));
+		io.emit('be_setDeck', '');
+    
+	});
+
   	//message part
 	socket.on('send message', function(data){
 	
-		io.sockets.emit('relay message', data);
+		io.emit('relay message', data);
     
 	});
 
