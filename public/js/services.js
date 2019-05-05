@@ -2,20 +2,30 @@
 //urlaction: link to catch request
 
 let socket = io.connect('http://localhost:3000');
-let gameSessionData = {
-  thisuser : "",
-  users : "",
-  deck : "",
-  gamesessionid : "",
-  housecards : "",
-  usercards : "",
-  socketroom : "",
+var gameSessionData = {
+  thisuser : 0,
+  thissocketid : "",
+  thiscards : [],
+  thisseatno : 0 ,
+  thisbet : 0,
+  seatstaken : [],
+  users : [],
+  deck : [],
+  gamesessionid : 0,
+  housecards : [],
+  usercards : [],
+  socketroom : 0,
+  socketids : [] ,
   gamestatus : "",
   userstatus : "",
-  gamecycle : "",
-  userturn: ""
+  gamecycle : 0,
+  userturn: 0,
+  tableid : 0,
+  usersinsocketroom : [],
+  tablemoney : 0
 
 };
+
 
 let usera = null;
 let timercheck = null;
@@ -47,7 +57,15 @@ function postData(method, urlaction, data, destinationdiv,callback) {
 
   }).done(function(){
            if ((typeof callback !== "undefined") && ( callback !=="")){
+            
+            if (callback.name === 'reseizeOpaqueDiv') {
+              
              callback(urlaction,destinationdiv);
+            }else{
+              
+              callback();
+
+            }
           }
       });
  

@@ -10,7 +10,7 @@ var session = require('express-session');
 var multer = require("multer");
 var upload = multer({ dest: "public/images/userimages/" });
 const socket = require('socket.io');
-
+var poker = require('poker-hands');
 
 
 const dbconn = require("./utils/dbconn.js");
@@ -55,7 +55,7 @@ require("./routes/main.js")(app, dbRequest, dbconn);
 
 require("./routes/game/howtoplay.js")(app, dbRequest, dbconn);
 require("./routes/game/lobby.js")(app, dbRequest, dbconn);
-require("./routes/game/game.js")(app, dbRequest, dbconn);
+require("./routes/game/game.js")(app, dbRequest, dbconn, poker);
 require("./routes/admin/adminpanel.js")(app, dbRequest, dbconn);
 
 require("./routes/user/login.js")(app, dbRequest, dbconn);
@@ -75,5 +75,5 @@ var server = app.listen(3000, () => {
   console.log("listening on port 3000");
 });
 server.timeout =0 ;
-require("./utils/serversockethandler.js")(server, socket,dbRequest, dbconn);
+require("./utils/serversocketgame.js")(server, socket,dbRequest, dbconn);
 

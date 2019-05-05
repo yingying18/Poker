@@ -59,3 +59,76 @@
 	left:100px;
 	top:450px;
 }
+
+.gameTableUserCard1{
+	cursor: pointer;
+	background: red;
+	width: 100px;
+	height : 50px;
+	position: absolute;
+ 	
+	z-index: 54;
+	float: left;
+	
+	left:250px;
+	top:300px;
+
+}
+.gameTableUserCard2{
+	cursor: pointer;
+	background: blue;
+	width: 100px;
+	height : 50px;
+	position: absolute;
+ 	
+	z-index: 54;
+	float: left;
+
+	left:450px;
+	top:300px;
+
+}
+.gameTableUserCard3{
+	cursor: pointer;
+	background: gray;
+	width: 100px;
+	height : 50px;
+	position: absolute;
+ 	
+	z-index: 54;
+	float: left;
+	
+	left:450px;
+	top:425px;
+
+}
+.gameTableUserCard4{
+	cursor: pointer;
+	background: magenta;
+	width: 100px;
+	height : 50px;
+	position: absolute;
+ 	
+	z-index: 54;
+	float: left;
+	
+	left:250px;
+	top:425px;
+
+
+}
+.housecards{
+	cursor: pointer;
+	background: #00FF00;
+	width: 100px;
+	height : 50px;
+	position: absolute;
+ 	
+	z-index: 54;
+	float: left;
+	
+	left:350px;
+	top:260px;
+
+
+}
