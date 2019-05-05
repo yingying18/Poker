@@ -9,19 +9,9 @@ var fs = require("fs");
 var session = require('express-session');
 var multer = require("multer");
 var upload = multer({ dest: "public/images/userimages/" });
-var socket = require('socket.io');
+const socket = require('socket.io');
+var poker = require('poker-hands');
 
-//const login = require('./routes/login');
-//const home = require('./routes/home');
-//const main = require('./routes/main')(app);
-//const howtoplay= require('./routes/howtoplay');
-//const about = require('./routes/about');
-//const game = require('./routes/game');
-//const lobby = require('./routes/lobby');
-
-//const userprofile = require('./routes/userprofile');
-
-//const adminpanel = require('./routes/admin/adminpanel');
 
 const dbconn = require("./utils/dbconn.js");
 const dbRequest = require("./utils/dbrequest.js");
@@ -56,19 +46,7 @@ app.use(function (req, res, next) {
   next();
 })
 
-
-//app.use(fileUpload());
-
-//app.use('/',main);
-//app.use('/howtoplay',howtoplay);
-//app.use('/about', about);
-//app.use('/game', game);
-//app.use('/lobby', lobby);
-//app.use('/register', register);
-//app.use('/userprofile', userprofile);
-//app.use('/adminpanel', adminpanel);
-//app.use('/login',login);
-//app.use('/main',main);
+//var cards = require('./public/js/cards.js');
 
 //admin pages
 
@@ -77,7 +55,7 @@ require("./routes/main.js")(app, dbRequest, dbconn);
 
 require("./routes/game/howtoplay.js")(app, dbRequest, dbconn);
 require("./routes/game/lobby.js")(app, dbRequest, dbconn);
-require("./routes/game/game.js")(app, dbRequest, dbconn);
+require("./routes/game/game.js")(app, dbRequest, dbconn, poker);
 require("./routes/admin/adminpanel.js")(app, dbRequest, dbconn);
 
 require("./routes/user/login.js")(app, dbRequest, dbconn);
@@ -85,16 +63,11 @@ require("./routes/user/register.js")(app, dbRequest, dbconn, upload, fs);
 require("./routes/user/userprofile.js")(app, dbRequest, dbconn);
 require("./routes/about.js")(app, dbRequest, dbconn);
 
-//require('./routes/register.js')(app,dbRequest,dbconn);
-//require('./routes/howtoplay.js')(app,dbRequest,dbconn);
-//require('./routes/admin/adminpanel.js')(app,dbRequest,dbconn);
 
 app.use(function (req, res, next) {
   //console.log('example middleware');
   next();
 });
-
-
 
 // Start listening on port 3000
 
@@ -102,5 +75,5 @@ var server = app.listen(3000, () => {
   console.log("listening on port 3000");
 });
 server.timeout =0 ;
-require("./utils/serversockethandler.js")(server, socket,dbRequest, dbconn);
+require("./utils/serversocketgame.js")(server, socket,dbRequest, dbconn);
 

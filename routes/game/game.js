@@ -1,5 +1,5 @@
 var colors = require('colors');
-module.exports = function (app,dbRequest,dbconn) {
+module.exports = function (app,dbRequest,dbconn , poker) {
 
 	app.get('/game',(req, res) =>{
 		console.log("game called");
