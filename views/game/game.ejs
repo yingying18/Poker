@@ -17,7 +17,7 @@
 
                 <div id="card-table" class="gameTableR" >
                     <div id = "housecards"  class="housecards">house</div>
-                    
+                            
                             <%let recordCount = tabledata.maxplayer%>
                             <%let userfound = 0 %>
                             <% for (i = 1 ;i <= recordCount; i++) { %>
@@ -25,7 +25,8 @@
                                         <% if ( (typeof gameusersession !== 'undefined') && gameusersession !== "" ) { %>               
                                             <% gameusercount = gameusersession.length  %>
                                             <% for (k = 0 ; k < gameusercount; k++) { %>
-                                                <% if ( parseInt(gameusersession[k].seatnumber) === i) { %>     
+                                                <% if ( parseInt(gameusersession[k].seatnumber) === i) { %>  
+                                                    <div id = "usertimer<%= i %>" class = "usertimer<%= i %>"><%= i %></div>
                                                     <div id = "user<%= i %>" class="gameTableUser<%= i %>">
                                                        <%= i %>
                                                         userid : <%= gameusersession[k].user_id %>
@@ -52,6 +53,7 @@
 
                                             <%}%>
                                                 <% if (userfound === 0 ) {%>
+                                                 <div id = "usertimer<%= i %>" class = "usertimer<%= i %>"><%= i %></div>
                                                         <div id = "user<%= i %>" class="gameTableUser<%= i %>">
                                                            <%= i %>
                                                             userid : 

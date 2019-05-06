@@ -8,6 +8,8 @@ var gameSessionData = {
   thiscards : [],
   thisseatno : 0 ,
   thisbet : 0,
+  thistimer : 5,
+  usersbet : [],
   seatstaken : [],
   users : [],
   deck : [],
@@ -22,7 +24,8 @@ var gameSessionData = {
   userturn: 0,
   tableid : 0,
   usersinsocketroom : [],
-  tablemoney : 0
+  tablemoney : 0,
+  userstimer : []
 
 };
 

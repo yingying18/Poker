@@ -158,8 +158,14 @@ module.exports = {
     );
   },
   getGameUserSessionForTable: function (con, data, callback) {
+    if (data.hasOwnProperty('gamesessionid')){
+      sessionid = data.gamesessionid;
+    }else{
+     sessionid = data.gametablesession.id;
+    }
       console.log(colors.yellow("data paremeter passed to db call getGameUserSessionForTable : "+JSON.stringify(data)+'\n'));
-    let result = con.query(  "select * from gameusersession gs inner join user us where gs.user_id = us.id and  gamesession_id = " +  data.gamesessionid  ,
+    
+    let result = con.query(  "select * from gameusersession gs inner join user us where gs.user_id = us.id and  gamesession_id = " +  sessionid  ,
       function (err, result, fields) {
         if (err) {
           console.log(colors.magenta("db error : getUserEmailandUserNameCount ->" + JSON.stringify(result)+ '\n'));
@@ -244,6 +250,36 @@ module.exports = {
           throw err;
         }
         console.log(colors.yellow("returning response from db deleteUserFromGameUserSession : " + JSON.stringify(result)+'\n'));
+        callback(result);
+        
+      }
+    );
+  },
+  get52Cards: function (con, data, callback) {
+      console.log(colors.yellow("data paremeter passed to db call get52Cards : "+JSON.stringify(data)+'\n'));
+    let result = con.query(  "select * from card ",
+      function (err, result, fields) {
+        if (err) {
+          console.log(colors.magenta("db error : get52Cards ->" + JSON.stringify(result)+ '\n'));
+          callback(err);
+          throw err;
+        }
+        console.log(colors.yellow("returning response from db get52Cards : " + JSON.stringify(result)+'\n'));
+        callback(result);
+        
+      }
+    );
+  },
+  getDeckLeftCards: function (con, data, callback) {
+      console.log(colors.yellow("data paremeter passed to db call getGameUserSessionForTable : "+JSON.stringify(data)+'\n'));
+    let result = con.query(  "select * from gameusersession gs inner join user us where gs.user_id = us.id and  gamesession_id = " +  data.gamesessionid  ,
+      function (err, result, fields) {
+        if (err) {
+          console.log(colors.magenta("db error : getUserEmailandUserNameCount ->" + JSON.stringify(result)+ '\n'));
+          callback(err);
+          throw err;
+        }
+        console.log(colors.yellow("returning response from db getGameUserSessionForTable : " + JSON.stringify(result)+'\n'));
         callback(result);
         
       }

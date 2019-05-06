@@ -2,7 +2,7 @@ var colors = require('colors');
 module.exports = function (app,dbRequest,dbconn) {
 
 	app.get('/lobby',(req, res) =>{
-		console.log("lobby called");
+		console.log("get /lobby called");
 		dbRequest.getAllTables(dbconn, null, function (result) {
                   
                   if (typeof result.code !== "undefined" || result === "") {
@@ -16,29 +16,10 @@ module.exports = function (app,dbRequest,dbconn) {
 			 		
 	});
 
-	/*
-		first check if table is in play 
-		each render needs to send these paremeters to game.ejs
-			authanticate : req.session.authanticate
-			authuser :	req.session.authuser				
-			tabledata : [{"table_id":1,"minamount":1,"active":1,"maxplayer":4}]
-			gameusersession : 
-			gametablesession :  [{"id":19,"table_id":1,"state":"waiting","userturn":168,"usercyclestarter":168,"totalbet":0,"cycle":1,"maxcycle":1}]
 
-
-			what authuser contains -->
-			authuser = {
-						userid: req.session.userid,
-						username: req.session.username,
-						useremail: req.session.useremail,
-						filetype: req.session.filetype,
-						picture: req.session.picture,
-						usertype: req.session.picture
-			}
-	*/
 	app.post('/lobby/showgame',(req, res) =>{
-		console.log(colors.green("lobby called"));
-		console.log(colors.green("lobby show game data  : "+JSON.stringify(req.body)));
+		console.log(colors.green(" post /lobby/showgame"));
+		console.log(colors.green("/lobby/showgame  data  : "+JSON.stringify(req.body)));
 		let data = {
 			authanticate : req.body.authanticate,
 			tableid : req.body.tableid
