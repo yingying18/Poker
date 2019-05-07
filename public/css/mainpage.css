@@ -3,7 +3,7 @@
   
   background-image: url("../images/background/5.jpg");
   width: 100%;
-  height: calc(100% - 40px);
+  height: calc(100%);
   margin:0 auto;
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
@@ -11,6 +11,12 @@
   font:white;
   background-color: black;
 
+}
+
+html, body {
+    max-width: 100%;
+    max-height: 100%;
+    overflow-x: hidden;
 }
 
 .mainhtml {
@@ -27,26 +33,25 @@
   width: 80%;
   height: 40px;
   margin-right: 10%;
-  margin-left: 10%;
+  margin-left: 0%;
 
 }
 
 .middleContainerOpaq{
 
-  width: 80%;
+  width: 100%;
   height:500px;
   background-color:#4d4d33;
   opacity:0.70;
   position: absolute;
-  z-index:-10;
   
 }
 
 .middleContainer{
 
 
-  text-align: center
-  dicplay:block;
+  text-align: left;
+  display:block;
   margin-top: 50px;
   margin-bottom: 50px;
   margin-left: 50px;
@@ -65,11 +70,10 @@
 .mainHolder{
 
   display:table;
-  width: 80%;
+  width: 100%;
   min-height:500px;
   margin-right:auto;
   margin-left:auto;
-  overflow: show;
  
   
 }
@@ -153,7 +157,7 @@
 }
 
 .innercube {
-    margin-left: auto;
+  margin-left: auto;
   margin-right: auto;
   min-width: 800px;
   min-height:500px;
