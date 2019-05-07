@@ -44,9 +44,13 @@
 
 .middleContainer{
 
+
   text-align: center
   dicplay:block;
-  border-spacing: 50px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
   width: 100%;
   min-height:500px;
   position: relative;
@@ -109,7 +113,8 @@
   overflow: auto;
   border-radius: 10px;
   background: #565648;
-  box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.3);     
+   -moz-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.3);
+  box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.3);
   display: table-row;
     margin-left: auto;
   margin-right: auto;

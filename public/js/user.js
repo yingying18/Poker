@@ -1,4 +1,4 @@
-/*let activeEditNo = -1;
+
 function makeUserEditable(id, name, password, usertype) {
   activeEditNo = id;
   document.getElementById("user" + id).innerHTML =
@@ -59,65 +59,65 @@ function logincheck() {
   data.password = password;
 
 
-  postData('post', 'login/authanticate', data, 'updatableMiddleContainer');
+  postData('post', 'login/authanticate', data, 'updatableMiddleContainer','reseizeOpaqueDiv');
 
 }
 
 function userregister() {
-  let user = document.getElementById("registername").value;
-  let email = document.getElementById("registeremail").value;
-  let pass = document.getElementById("registerpassword").value;
-  let repass = document.getElementById("registerrepassword").value;
-  let agree = document.getElementById("registeragree").checked;
-  let userimage = null;
-  let formdata = {
-    registername: "user name",
-    registeremail: "user email",
-    registerpassword: "password",
-    registeragree: "user agreement"
-  };
+  
+    let user = document.getElementById("registername").value;
+    let email = document.getElementById("registeremail").value;
+    let pass = document.getElementById("registerpassword").value;
+    let repass = document.getElementById("registerrepassword").value;
+    let agree = document.getElementById("registeragree").checked;
+    let userimage = null;
+    let formdata = {
+      registername: "user name",
+      registeremail: "user email",
+      registerpassword: "password",
+      registeragree: "user agreement"
+    };
 
-  var formaData = new FormData();
+    var formaData = new FormData();
 
-  var x = document.getElementById("registeruserimage");
-  userimage = x.files[0];
-  formaData.append("registeruserimage", userimage);
+    var x = document.getElementById("registeruserimage");
+    userimage = x.files[0];
+    formaData.append("registeruserimage", userimage);
 
-  let postdata = {
-    registername: user,
-    registeremail: email,
-    registerpassword: pass
-  };
-  formaData.append("postdata", JSON.stringify(postdata));
-  //formaData.append("postdata", JSON.stringify(postdata));
-  //alert(formaData.length);
-  console.log("file info : " + formaData["image"]);
-  let infotext = "";
-  //alert(agree);
-  if (user === "") {
-    infotext = infotext + " user field is empty <br>";
-  }
-  if (email === "") {
-    infotext = infotext + " email field is empty <br>";
-  }
-  if (pass === "") {
-    infotext = infotext + " password field is empty <br>";
-  }
-  if (repass === "") {
-    infotext = infotext + " re password field is empty <br>";
-  }
-  if (agree === false) {
-    infotext = infotext + " you need to agree the terms and conditions <br>";
-  }
-  if (pass !== repass) {
-    infotext = infotext + " pasword and repassword fields are not matching <br>";
-  }
+    let postdata = {
+      registername: user,
+      registeremail: email,
+      registerpassword: pass
+    };
+    formaData.append("postdata", JSON.stringify(postdata));
+    //formaData.append("postdata", JSON.stringify(postdata));
+    //alert(formaData.length);
+    console.log("file info : " + formaData["image"]);
+    let infotext = "";
+    //alert(agree);
+    if (user === "") {
+      infotext = infotext + " user field is empty <br>";
+    }
+    if (email === "") {
+      infotext = infotext + " email field is empty <br>";
+    }
+    if (pass === "") {
+      infotext = infotext + " password field is empty <br>";
+    }
+    if (repass === "") {
+      infotext = infotext + " re password field is empty <br>";
+    }
+    if (agree === false) {
+      infotext = infotext + " you need to agree the terms and conditions <br>";
+    }
+    if (pass !== repass) {
+      infotext = infotext + " pasword and repassword fields are not matching <br>";
+    }
 
-  if (infotext === "") {
-    postMultipartData("post", "registersave", formaData, "cube");
-  } else {
-    callInfoPopup("registration form", "report_problem", infotext);
-  }
+    if (infotext === "") {
+      postMultipartData("post", "registersave", formaData, "cube");
+    } else {
+      callInfoPopup("registration form", "report_problem", infotext);
+    }
 
 }
-*/
