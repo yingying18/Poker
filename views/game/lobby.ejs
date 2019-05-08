@@ -44,17 +44,6 @@
                 </div>
 
                 <div class="row">
-
-                    <div class="col-4">
-                        <div>
-                            <div style="background-color:white; min-width:200px; min-height:300px" id="chat">
-                            </div>
-                            <div>
-                                <input style="width:100px; height:30px;" type="text" id="chatinputbox">
-                                <button style="width:75px; height:30px;" id="sendMessage" placeholder="Send" onclick="sendMessage('<%= authuser.username%>');">Send</button>
-                            </div>
-                        </div>
-                    </div>
                     
                     <div class="card col-8" style="color:black; min-width:300px; min-height:300px; max-width:10000; max-height:10000;">
                         <div class="card-body">
@@ -71,7 +60,21 @@
                             <%}%>
                         </div>
                     </div>
+
+                    <div class="col-4">
+                        <div style="border-style:solid; background-color:black;">
+                            <div style="background-color:#225961; color:white; min-width:200px; min-height:300px; border-style: groove;" id="chat">
+                            Chat:
+                            </div>
+                            <div>
+                                <input style="width:100px; height:30px;" type="text" id="chatinputbox">
+                                <button style="width:90px; height:30px;" id="sendMessage" placeholder="Send" onclick="sendMessage('<%= authuser.username%>');">Send</button>
+                            </div>
+                        </div>
+                    </div>
+
                 <div>
+                
             <div>
         </div>
     </div>
