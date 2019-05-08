@@ -750,7 +750,7 @@ textarea,select{appearance:none;-webkit-appearance:none}
 .ie9 .pricing .item .ribbon,.ie8 .pricing .item .ribbon{top:0px;right:0px;height:60px}
 .ie9 .pricing .item .ribbon .text,.ie8 .pricing .item .ribbon .text{position:static;font-size:13px;width:auto;padding:5px}
 .ie9 .pricing .item .ribbon .text:before,.ie9 .pricing .item .ribbon .text:after,.ie8 .pricing .item .ribbon .text:before,.ie8 .pricing .item .ribbon .text:after{display:none}
-@media (max-width: 767.98px){.navbar-collapse{border-top:none;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;width:100%;left:0;top:15px;position:absolute;background:#253340}
+@media (max-width: 767.98px){.navbar-collapse{border-top:none;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;width:100%;left:0;top:15px;position:absolute;background:#253340;z-index:45}
 .navbar-collapse .nav{margin:0}
 .main-nav .navbar-collapse .navbar-nav{padding-top:15px;padding-bottom:30px}
 .blog-page .main-nav .navbar-collapse .navbar-nav{padding-bottom:15px}
