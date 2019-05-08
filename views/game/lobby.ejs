@@ -45,7 +45,7 @@
 
                 <div class="row">
                     
-                    <div class="card col-8" style="color:black; min-width:300px; min-height:300px; max-width:10000; max-height:10000;">
+                    <div class="card col-8" style="border-style:solid; color:black; min-width:300px; min-height:300px; max-width:10000; max-height:10000;">
                         <div class="card-body">
                             <h3 class="card-title;" style="text-decoration:underline"> Available tables: </h3>
                             <% if ( (typeof result !== 'undefined') && result !== "" ) { %>
@@ -62,13 +62,13 @@
                     </div>
 
                     <div class="col-4">
-                        <div style="border-style:solid; background-color:black;">
-                            <div style="background-color:#225961; color:white; min-width:200px; min-height:300px; border-style: groove;" id="chat">
+                        <div style="border-style:solid; background-color:black; border-radius: 12px;">
+                            <div style="background-color:#225961; color:white; min-width:200px; min-height:300px; border-style: groove; border-radius: 12px;" id="chat">
                             Chat:
                             </div>
                             <div>
-                                <input style="width:100px; height:30px;" type="text" id="chatinputbox">
-                                <button style="width:90px; height:30px;" id="sendMessage" placeholder="Send" onclick="sendMessage('<%= authuser.username%>');">Send</button>
+                                <input style="width:125px; height:30px;border-style: groove" type="text" id="chatinputbox">
+                                <button style="width:50px; height:30px; border-radius: 12px;" id="sendMessage" placeholder="Send" onclick="sendMessage('<%= authuser.username%>');">Send</button>
                             </div>
                         </div>
                     </div>
