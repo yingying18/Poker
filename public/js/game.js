@@ -4,9 +4,8 @@
 
 function startcounter(time , functiontocall,user){
   usera = user;
-  timercheck = setInterval(functiontocall, time);
+  startgametimercheck = setInterval(functiontocall, time);
  
-
 
 }
 
@@ -59,8 +58,8 @@ function timerdeduct(){
       console.log("checkgame session fe->be  startgame socket ");
       var data;
       console.log('checking started: '+usera);
-      console.log("timer check : "+ timercheck);
-      clearInterval(timercheck);
+      console.log("timer check : "+ startgametimercheck);
+      clearInterval(startgametimercheck);
       
       //socket.emit('fe_startgame');
 
@@ -75,11 +74,11 @@ function timerdeduct(){
     }
 
 
-    function sendAuthInfoToSocket(authuser){
+    function sendAuthInfoToSocket(sesionuser){
 
-      console.log("-------------------fe socket call --> sendAuthInfoToSocket" + JSON.stringify(authuser) );
+      console.log("-------------------fe socket call --> sendAuthInfoToSocket" + JSON.stringify(sesionuser) );
        
-        socket.emit('socketUserAuthInfo', authuser );
+        socket.emit('socketUserAuthInfo', sesionuser );
 
         
     }
@@ -128,23 +127,25 @@ function timerdeduct(){
 socket.on('be_setEnvForSocket', function(data){
   Object.keys(data).forEach(function(key){
    console.log(key + '=' + data[key]);
-   if ((key !== 'thisuser' ) && (key !== 'thissocketid' ) && (key !== 'thiscards' ) && (key !== 'thisbet' )){
-      if ((key === 'usersbet') || (key === 'seatstaken') || (key === 'users') || (key === 'usercards') || (key === 'socketids') || (key === 'usersinsocketroom' )){
-          gameSessionData[key] = (data[key]);
-      }else{
-          gameSessionData[key] = data[key];
-      }
-
-          
-
-      
-  }
-});
+    
+       if ((key !== 'thisuser' ) && (key !== 'thissocketid' ) && (key !== 'thiscards' ) && (key !== 'thisbet' ) && (key !== 'thisseatno')){
+          if ((key === 'usersbet') || (key === 'seatstaken') ||  (key === 'seatstaken') || (key === 'socketids') || (key === 'usercards' )){
+              gameSessionData[key] =  data[key];
+          }else{
+              gameSessionData[key] = data[key];
+          }
+        }
+  
+  });
   console.log("be_setEnvForSocket -> socket data :"+ JSON.stringify(data));
   console.log("be_setEnvForSocket -> local data :"+ JSON.stringify(gameSessionData));
  
- socket.emit('fe_checkTimerStarter', gameSessionData);
-      
+  //socket.emit('fe_checkTimerStarter', gameSessionData);
+  if (gameSessionData.thisuser == gameSessionData.userturn){
+    if (userturntimercheck == null){
+      userturntimercheck = setInterval(starttic, 2000);  
+    }
+  }
       
         
 });
@@ -154,27 +155,36 @@ socket.on('be_setDeck', function(data){
 
 });
 
-socket.on('be_checkplaystatus', function(){
+function starttic(){
 //alert(gameSessionData.thisseatno);
   console.log('server ischecking who plays');
  
    
-      if (gameSessionData.thisuser === gameSessionData.userturn){
-        document.getElementById('usertimer'+gameSessionData.thisseatno ).innerHTML = --gameSessionData.thistimer;
+      if (gameSessionData.thisuser == gameSessionData.userturn){
+        document.getElementById('usertimer'+gameSessionData.seatstaken[gameSessionData.thisuser]  ).innerHTML = --gameSessionData.thistimer;
+        socket.emit('fe_dispatchTimerTick', gameSessionData);
+        console.log("data timer check:-->"+gameSessionData.thistimer);
+
       }else{
-        let findseat = gameSessionData.seatstaken;
-        let findseatlen=(gameSessionData.seatstaken).length;
-        console.log("seat len "+findseatlen);
-        console.log("seat len "+JSON.stringify(gameSessionData.seatstaken));
-          for (let i =0 ; i < findseatlen ; i ++){
-              console.log(findseat[i].userid);
-              if (findseat[i].userid === gameSessionData.userturn) {
-                  document.getElementById('usertimer'+findseat[i].seatno ).innerHTML = --gameSessionData.thistimer;
-                  break;
-              }
-          }
+
+              
+             
+               
+         
+
+              
+          
       }
-    
+       
+      
   
   
-});
+};
+    socket.on('be_dispatchTimerTick', function(data){
+
+      gameSessionData.thistimer = data.thistimer;
+      console.log("timer update returnde :" +data.thisuser);
+       document.getElementById('usertimer'+gameSessionData.seatstaken[gameSessionData.userturn] ).innerHTML = gameSessionData.thistimer;
+
+      
+    });

@@ -30,6 +30,7 @@ let io = socket(server);
 	          if (typeof result.code !== "undefined" || result === "") {
 	           		throw new Error('error : fe_setEnvForSocket :getGameTableSession() -> result is empty or undefined');
 	          } else {
+	          	console.log(colors.blue(JSON.stringify(result)));
 	          	
 	          	let tempdata = result;
 	          	let tempdatalength = tempdata.length;
@@ -39,23 +40,13 @@ let io = socket(server);
 	          	}else {
 		          	
 		          		
-		          		data.gamesessionid = tempdata[tempdatalength-1].id;
+		          		data.gamesessionid = tempdata[0].id;
 		          		socket.join(data.gamesessionid);
-		          		data.socketroom = tempdata[tempdatalength-1].id;
-		          		data.userturn = parseInt(tempdata[tempdatalength-1].userturn);
+		          		data.socketroom = tempdata[0].id;
+		          		data.userturn = parseInt(tempdata[0].userturn);
 		          		data.thissocketid = socket.id;
-
-		          		if (!( data.usersinsocketroom.includes(parseInt(data.thisuser)) )){
-		          			data.usersinsocketroom.push(parseInt(data.thisuser));
-		          		}
-		          		if (!( data.socketids.includes((socket.id)) )){
-		          			data.socketids.push((socket.id));
-		          		}
-		          		if (!( rooms.includes((data.socketroom)) )) {
-		          			rooms.push((data.socketroom));
-		          			
-		          			
-		          		}
+	          			data.socketids[data.thisuser] = socket.id;
+		          		
 
 		          		
 
@@ -83,16 +74,12 @@ let io = socket(server);
 										          	let tempdata = result;
 										          	let tempdatalength = tempdata.length;
 										          	for (let i = 0 ; i <tempdatalength ; i++){
-										          		if (tempdata[i].id === data.thisuser){
-										          			data.thisseatno = tempdata[i].seatnumber;
-										          			data.thisbet = tempdata[i].userbet;
-										          			data.thiscards =  tempdata[i].usercards;
-										          		}else{
+										          		
 										          			data.users.push(tempdata[i].id );
-										          			data.usercards .push({"userid": tempdata[i].id , "usercards" : tempdata[i].usercards});
-										          			data.seatstaken.push({"userid": tempdata[i].id , "seatno" : tempdata[i].seatnumber});
-										          			data.usersbet .push({"userid": tempdata[i].id , "usersbet " : tempdata[i].userbet});
-										          		}
+										          			data.usercards[tempdata[i].id] = tempdata[i].usercards;
+										          			data.seatstaken[tempdata[i].id] = tempdata[i].seatnumber;
+										          			data.usersbet[tempdata[i].id] = tempdata[i].userbet;
+										          		
 											          		
 										          	}
 										          			console.log(colors.cyan("data ---> serverside fe_setEnvForSocket :" + JSON.stringify(data)));
@@ -148,17 +135,27 @@ let io = socket(server);
 
 
 		socket.on('fe_checkTimerStarter', function(data){
-		
-						if (!(roomsinterval.has(data.socketroom))) {
+		console.log(colors.cyan("user "+data.thisuser +"is in room :" +io.sockets.adapter.sids[socket.id]));
+						
 
 								let intervalid = setInterval(() => {
-									    for (var i = 0 ; i< rooms.length ; i++){
-									    	io.to(rooms[i]).emit('be_checkplaystatus');
-										}
+									   
+
+									    	io.to(data.socketroom).emit('be_checkplaystatus');
+										
 									}, 3000);
 								roomsinterval.set(data.socketroom , intervalid)	;
 												
-							}
+							
+	    
+		});
+
+
+		socket.on('fe_dispatchTimerTick', function(data){
+			console.log(colors.cyan("dispatching to the room :" +JSON.stringify(io.sockets.adapter.sids[socket.id])));
+		
+			io.to("45").emit('be_dispatchTimerTick',data);
+
 	    
 		});
 
