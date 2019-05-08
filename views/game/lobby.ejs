@@ -9,7 +9,7 @@
                     <div class="col-8">
                         <div>
                             <div style="color:white;">
-                                <strong>User: <%= authuser.username %>></strong>
+                                <strong>User: <%= authuser.username %></strong>
                             </div>
                             <div >
                                 <img style="width:100px;height:100px;" src="<%= authuser.img%>" class="rounded">
@@ -41,13 +41,13 @@
                             </dl>
                         </div>
                     </div>
-                <div>
+                </div>
 
                 <div class="row">
 
                     <div class="col-4">
                         <div>
-                            <div style="background-color:white; overflow:auto; display:inline-block; width:200px; height:300px" id="chat">
+                            <div style="background-color:white; min-width:200px; min-height:300px" id="chat">
                             </div>
                             <div>
                                 <input style="width:100px; height:30px;" type="text" id="chatinputbox">
@@ -55,8 +55,8 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="card col-8" style="color:black; min-width:300px; min-height:300px; ">
+                    
+                    <div class="card col-8" style="color:black; min-width:300px; min-height:300px; max-width:10000; max-height:10000;">
                         <div class="card-body">
                             <h3 class="card-title;" style="text-decoration:underline"> Available tables: </h3>
                             <% if ( (typeof result !== 'undefined') && result !== "" ) { %>
@@ -72,7 +72,6 @@
                         </div>
                     </div>
                 <div>
-
             <div>
         </div>
     </div>
