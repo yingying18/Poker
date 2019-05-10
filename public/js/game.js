@@ -146,7 +146,7 @@ socket.on('be_setEnvForSocket', function(data){
       userturntimercheck = setInterval(starttic, 2000);  
     }
   }
-      
+     
         
 });
 
@@ -189,11 +189,21 @@ function starttic(){
 
     socket.on('be_dealcards', function(data){
 
-          console.log(JSON.stringify(data));
+      dealcards(data);
+
+
+
+      
+    });
+
+
+    function dealcards(data){
+                console.log(JSON.stringify(data));
           gameSessionData.deck = data.deck;
           gameSessionData.usercards = data.usercards;
           gameSessionData.usersbet = data.usersbet;
           gameSessionData.tablemoney = data.tablemoney; 
+          alert(countJson(data.usercards));
           let cards = "";
 
           console.log("be_dealcards :" +data.thisuser);
@@ -208,7 +218,14 @@ function starttic(){
               document.getElementById('card'+gameSessionData.seatstaken[gameSessionData.users[i]] ).innerHTML +=  "<img width=\"24\" height=\"34\" src=\"images/deck1/"+cards[k]+".jpg\" >" ;
             }
           }
+    }
 
-
-      
-    });
+    function countJson(obj) {
+      var count=0;
+        for(var prop in obj) {
+          if (obj.hasOwnProperty(prop)) {
+             ++count;
+          }
+        }
+      return count;
+    }

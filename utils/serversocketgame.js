@@ -80,6 +80,7 @@ let io = socket(server);
 										          			if (tempdata[i].usercards === null){
 										          				data.usercards[tempdata[i].id] = [];
 										          			}else{
+										          				data.usercards[tempdata[i].id] = [];
 										          				data.usercards[tempdata[i].id].push(tempdata[i].usercards);
 										          			}
 										          			data.seatstaken[tempdata[i].id] = tempdata[i].seatnumber;
@@ -192,6 +193,21 @@ let io = socket(server);
     			}
 
     		}
+    		
+    							          	dbRequest.updateAlUsersCards(dbconn, data, function (result) {
+			      		
+										      
+										          	console.log(colors.cyan("colecting db record : fe_dealcards :  "+ JSON.stringify(result)));
+										          	let tempdata = result;
+										          	let tempdatalength = tempdata.length;
+
+										          	console.log(colors.cyan("data ---> serverside fe_dealcards :" + JSON.stringify(data)));
+											        //io.to(data.socketroom).emit('be_setEnvForSocket',data);
+
+																							          	
+										          
+										    });	
+										    
     		console.log(colors.cyan("fe_dealcards : deck left : " + JSON.stringify(data.deck)));
 			io.to(data.gamesessionid).emit('be_dealcards',data);
 

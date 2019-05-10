@@ -284,5 +284,27 @@ module.exports = {
         
       }
     );
+  },
+  updateAlUsersCards: function (con, data, callback) {
+      console.log(colors.yellow("data paremeter passed to db call insertAlUsersCards : "+JSON.stringify(data)+'\n'));
+    let result = con.query(  
+      " UPDATE gameusersession gus JOIN (" +
+      "    SELECT 165 as user_id, 5 as new_cards"+
+      "    UNION ALL"+
+      "    SELECT 168, 10"+
+      "    UNION ALL"+
+      ") vals ON gus.user_id = vals.user_id"+
+      "SET usercards = new_cards; "  ,
+      function (err, result, fields) {
+        if (err) {
+          console.log(colors.magenta("db error : insertAlUsersCards ->" + JSON.stringify(result)+ '\n'));
+          callback(err);
+          throw err;
+        }
+        console.log(colors.yellow("returning response from db insertAlUsersCards : " + JSON.stringify(result)+'\n'));
+        callback(result);
+        
+      }
+    );
   }
 };
