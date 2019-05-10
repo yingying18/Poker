@@ -196,7 +196,9 @@ let io = socket(server);
     		
     							          	dbRequest.updateAlUsersCards(dbconn, data, function (result) {
 			      		
-										      
+										          if (typeof result.code !== "undefined" || result === "") {
+										           		throw new Error('fe_dealcards : -> result is empty or undefined');
+										          } else {
 										          	console.log(colors.cyan("colecting db record : fe_dealcards :  "+ JSON.stringify(result)));
 										          	let tempdata = result;
 										          	let tempdatalength = tempdata.length;
@@ -205,7 +207,7 @@ let io = socket(server);
 											        //io.to(data.socketroom).emit('be_setEnvForSocket',data);
 
 																							          	
-										          
+										          }
 										    });	
 										    
     		console.log(colors.cyan("fe_dealcards : deck left : " + JSON.stringify(data.deck)));
