@@ -4,6 +4,7 @@
 
 function startcounter(time , functiontocall,user){
   usera = user;
+  //alert(startgametimercheck);
   startgametimercheck = setInterval(functiontocall, time);
  
 
@@ -60,6 +61,7 @@ function timerdeduct(){
       console.log('checking started: '+usera);
       console.log("timer check : "+ startgametimercheck);
       clearInterval(startgametimercheck);
+      startgametimercheck =null;
       
       //socket.emit('fe_startgame');
 
@@ -170,6 +172,10 @@ function starttic(){
         socket.emit('fe_dispatchTimerTick', gameSessionData);
         console.log("data timer check:-->"+gameSessionData.thistimer);
 
+      }else{
+        document.getElementById('usertimer'+gameSessionData.seatstaken[gameSessionData.userturn]  ).innerHTML = --gameSessionData.thistimer;
+        socket.emit('fe_dispatchTimerTick', gameSessionData);
+        console.log("data timer check:-->"+gameSessionData.thistimer);
       }
        
       
@@ -182,10 +188,14 @@ function starttic(){
         console.log("timer update returnde :" +data.thisuser);
         document.getElementById('usertimer'+gameSessionData.seatstaken[gameSessionData.userturn] ).innerHTML = gameSessionData.thistimer;
      }else{
-        clearInterval(userturntimercheck);
-        if (gameSessionData.thisuser == gameSessionData.userturn)
+        //clearInterval(userturntimercheck);
+        //userturntimercheck = null;
+        gameSessionData.thistimer = 5;
+        //if (gameSessionData.thisuser == gameSessionData.userturn){
         socket.emit('fe_dealcards', gameSessionData);
-
+        
+        socket.emit('fe_switchToNetUser', gameSessionData);
+        
      }
 
       
@@ -223,7 +233,23 @@ function starttic(){
               document.getElementById('card'+gameSessionData.seatstaken[gameSessionData.users[i]] ).innerHTML +=  "<img width=\"24\" height=\"34\" src=\"images/deck1/"+cards[k]+".jpg\" >" ;
             }
           }
+          //userturntimercheck 
+          
     }
+
+    socket.on('be_switchToNetUser', function(data){
+      gameSessionData.userturn = data.userturn;
+      gameSessionData.thistimer = data.thistimer;
+      //dealcards(gameSessionData);
+      //alert("be_switchToNetUse : "+userturntimercheck);
+       
+
+     
+
+
+
+      
+    });
 
     function countJson(obj) {
       var count=0;

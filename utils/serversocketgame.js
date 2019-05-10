@@ -220,6 +220,15 @@ let io = socket(server);
 	    
 		});
 
+		socket.on('fe_switchToNetUser', function(data){
+			console.log(colors.cyan("switch to next user called -> backend handling :" +JSON.stringify(io.sockets.adapter.sids[socket.id])));
+			data.userturn = 165;
+			data.thistimer = 5;
+			io.to(data.gamesessionid).emit('be_switchToNetUser',data);
+
+	    
+		});
+
 	});
 
 
