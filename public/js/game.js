@@ -145,6 +145,11 @@ socket.on('be_setEnvForSocket', function(data){
     if (userturntimercheck == null){
       userturntimercheck = setInterval(starttic, 2000);  
     }
+  }else {
+    if (! (gameSessionData.users.includes(gameSessionData.thisuser))){
+        dealcards(gameSessionData);
+    }
+
   }
      
         
@@ -203,7 +208,7 @@ function starttic(){
           gameSessionData.usercards = data.usercards;
           gameSessionData.usersbet = data.usersbet;
           gameSessionData.tablemoney = data.tablemoney; 
-          alert(countJson(data.usercards));
+          //alert(countJson(data.usercards));
           let cards = "";
 
           console.log("be_dealcards :" +data.thisuser);

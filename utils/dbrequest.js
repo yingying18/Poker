@@ -1,5 +1,7 @@
 var colors = require('colors');
+var utilities =  require("./generalfunctions.js");
 module.exports = {
+
   insertUser: function (con, data, callback) {
     // whatever
 
@@ -286,13 +288,33 @@ module.exports = {
     );
   },
   updateAlUsersCards: function (con, data, callback) {
+      //console.log("oooooooooooooooooooooo"+(data.usercards[0] ));
+      let countuserwithcards = utilities.countJson(data.usercards );
+      let tempquery = "";
+      let partialquery = "";
+      let cnt = 1;
+        for(var key in data.usercards) {
+          if ( (cnt<countuserwithcards) && (cnt ===1) ){
+            partialquery = " SELECT "+key+" as user_id, '"+data.usercards[key]+"' as new_cards ";
+            partialquery = partialquery + "    UNION ALL ";
+          }else if (cnt !== countuserwithcards){
+            partialquery = partialquery +  "    SELECT "+key+", '" +data.usercards[key]+"' "; 
+            partialquery = partialquery + "    UNION ALL ";
+
+          }else{
+            partialquery = partialquery +  "    SELECT "+key+",'" +data.usercards[key]+"'"; 
+          }
+          console.log("oooooooooooooooooooooo"+(key));
+          cnt++;
+        }
+        console.log("oooooooooooooooooooooo"+(partialquery));
       console.log(colors.yellow("data paremeter passed to db call insertAlUsersCards : "+JSON.stringify(data)+'\n'));
-      let tempquery = " UPDATE gameusersession gus JOIN ( " +
-      "    SELECT 165 as user_id, 5 as new_cards "+
-      "    UNION ALL "+
-      "    SELECT 168, 10 "+
-      " ) vals ON gus.user_id = vals.user_id "+
-      " SET usercards = new_cards "
+
+      if (countuserwithcards>1){
+        tempquery = " UPDATE gameusersession gus JOIN ( " +partialquery+
+        " ) vals ON gus.user_id = vals.user_id "+
+        " SET usercards = new_cards ";
+      }
     let result = con.query(  tempquery ,
       function (err, result, fields) {
         if (err) {

@@ -1,5 +1,6 @@
 var colors = require('colors');
 module.exports = function (server,socket,dbRequest, dbconn ) {
+
 var sockettracker = new Map();
 var roomsinterval = new Map();
 var rooms = [];
@@ -81,7 +82,10 @@ let io = socket(server);
 										          				data.usercards[tempdata[i].id] = [];
 										          			}else{
 										          				data.usercards[tempdata[i].id] = [];
-										          				data.usercards[tempdata[i].id].push(tempdata[i].usercards);
+										          				let parr = tempdata[i].usercards.split(',');
+										          				for (let arr =0 ; arr< parr.length ; arr++){
+										          					data.usercards[tempdata[i].id].push((parr[arr]));
+										          				}
 										          			}
 										          			data.seatstaken[tempdata[i].id] = tempdata[i].seatnumber;
 										          			data.usersbet[tempdata[i].id] = tempdata[i].userbet;
