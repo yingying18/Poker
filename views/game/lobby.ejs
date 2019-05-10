@@ -6,14 +6,15 @@
             <div class="container">
 
                 <div class="row">
-                    <div class="col-8">
+                    <div class="col-2">
                         <div>
-                            <div style="color:white;">
-                                <strong>User: <%= authuser.username %></strong>
-                            </div>
-                            <div >
-                                <img style="width:100px;height:100px;" src="<%= authuser.img%>" class="rounded">
-                            </div>
+                            <img style="width:100px;height:100px;" src="<%= authuser %>" class="rounded">
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div style="color:white;">
+                            <strong>User: <%= authuser.username %></strong>
                         </div>
                     </div>
 
@@ -48,16 +49,36 @@
                     <div class="card col-8" style="border-style:solid; color:black; min-width:300px; min-height:300px; max-width:10000; max-height:10000;">
                         <div class="card-body">
                             <h3 class="card-title;" style="text-decoration:underline"> Available tables: </h3>
-                            <% if ( (typeof result !== 'undefined') && result !== "" ) { %>
-                                <%  let recordCount = result.length 
-                                    let i = 0;
-                                %>
-                                <% for (i = 0 ;i < recordCount; i++) { %>
-                                        <a href="#" onclick="showgame(<%= result[i].table_id %>);startcounter(5000,checkgamesession,'<%= authuser.username%>');sendAuthInfoToSocket('<%= JSON.stringify(authuser) %>');setEnvForSocket('<%= JSON.stringify(result[i]) %>','<%= authuser.userid%>');"> Table #: <%= result[i].table_id %></a><br>
-                                <% } %>
-                            <%}else{%>
-                                <h6>No Tables Are Currently Available</h6>
-                            <%}%>
+                            <table style="width:100%; border: 1px solid black; text-align: center">
+                                <tr>
+                                    <th style="border: 1px solid black;">Table Name</th>
+                                    <th style="border: 1px solid black;">Available Seats</th>
+                                    <th style="border: 1px solid black;">Join</th>
+                                </tr>
+
+                                <% if ( (typeof result !== 'undefined') && result !== "" ) { %>
+                                    <%  let recordCount = result.length 
+                                        let i = 0;
+                                    %>
+                                    <% for (i = 0 ;i < recordCount; i++) { %>
+
+                                        <tr style="border: 1px solid black;">
+                                            <th>Table: <%= result[i].table_id %></th>
+                                            <th>X</th>
+                                            <th><a href="#" onclick="showgame(<%= result[i].table_id %>);startcounter(5000,checkgamesession,'<%= authuser.username%>');sendAuthInfoToSocket('<%= JSON.stringify(authuser) %>');setEnvForSocket('<%= JSON.stringify(result[i]) %>','<%= authuser.userid%>');"> Join</a></th>
+                                        </tr>
+                                    <% } %>
+                                <%}else{%>
+                                    <tr>
+                                        <th>No tables are Available</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                <%}%>
+
+                            </table>
+
+
                         </div>
                     </div>
 
