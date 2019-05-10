@@ -74,9 +74,14 @@ let io = socket(server);
 										          	let tempdata = result;
 										          	let tempdatalength = tempdata.length;
 										          	for (let i = 0 ; i <tempdatalength ; i++){
-										          		
-										          			data.users.push(tempdata[i].id );
-										          			data.usercards[tempdata[i].id] = tempdata[i].usercards;
+										          			if (!(data.users.includes(tempdata[i].id ))) {
+										          				data.users.push(tempdata[i].id );
+										          			}
+										          			if (tempdata[i].usercards === null){
+										          				data.usercards[tempdata[i].id] = [];
+										          			}else{
+										          				data.usercards[tempdata[i].id].push(tempdata[i].usercards);
+										          			}
 										          			data.seatstaken[tempdata[i].id] = tempdata[i].seatnumber;
 										          			data.usersbet[tempdata[i].id] = tempdata[i].userbet;
 										          		
@@ -154,7 +159,41 @@ let io = socket(server);
 		socket.on('fe_dispatchTimerTick', function(data){
 			console.log(colors.cyan("dispatching to the room :" +JSON.stringify(io.sockets.adapter.sids[socket.id])));
 		
-			io.to("45").emit('be_dispatchTimerTick',data);
+			io.to(data.gamesessionid).emit('be_dispatchTimerTick',data);
+
+	    
+		});
+
+		socket.on('fe_dealcards', function(data){
+			console.log(colors.cyan("dealing cards :" +JSON.stringify(io.sockets.adapter.sids[socket.id])));
+			
+			let min=1;
+			let max = -1;
+			let random = -1;
+			let removedindex = -1;
+			let card = "";
+			let userid = -1;
+			let indextemp = -1;
+			for (let i = 0 ; i< data.users.length; i++){
+				for (let i = 0 ; i< data.users.length; i++){ 
+    			max=data.deck.length;
+    			random =Math.floor(Math.random() * (+max - +min)) + +min; 
+    			indextemp = random-1;
+    			userid =  data.users[i];
+    			card = data.deck[indextemp];
+    			removedindex = data.deck.splice(indextemp , 1);
+    			if (data.usercards.hasOwnProperty(userid)){
+    				(data.usercards[userid]).push(card) ;
+    			}else
+    			{
+    				data.usercards[userid] = card ;
+    			}
+    			console.log(colors.cyan("fe_dealcards :randomno: "+ random +" deck size : " +max + " cards :" + JSON.stringify(data.usercards)));
+    			}
+
+    		}
+    		console.log(colors.cyan("fe_dealcards : deck left : " + JSON.stringify(data.deck)));
+			io.to(data.gamesessionid).emit('be_dealcards',data);
 
 	    
 		});

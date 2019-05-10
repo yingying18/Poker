@@ -165,15 +165,6 @@ function starttic(){
         socket.emit('fe_dispatchTimerTick', gameSessionData);
         console.log("data timer check:-->"+gameSessionData.thistimer);
 
-      }else{
-
-              
-             
-               
-         
-
-              
-          
       }
        
       
@@ -181,10 +172,43 @@ function starttic(){
   
 };
     socket.on('be_dispatchTimerTick', function(data){
+      if (data.thistimer >0){
+        gameSessionData.thistimer = data.thistimer;
+        console.log("timer update returnde :" +data.thisuser);
+        document.getElementById('usertimer'+gameSessionData.seatstaken[gameSessionData.userturn] ).innerHTML = gameSessionData.thistimer;
+     }else{
+        clearInterval(userturntimercheck);
+        if (gameSessionData.thisuser == gameSessionData.userturn)
+        socket.emit('fe_dealcards', gameSessionData);
 
-      gameSessionData.thistimer = data.thistimer;
-      console.log("timer update returnde :" +data.thisuser);
-       document.getElementById('usertimer'+gameSessionData.seatstaken[gameSessionData.userturn] ).innerHTML = gameSessionData.thistimer;
+     }
+
+      
+    });
+
+
+    socket.on('be_dealcards', function(data){
+
+          console.log(JSON.stringify(data));
+          gameSessionData.deck = data.deck;
+          gameSessionData.usercards = data.usercards;
+          gameSessionData.usersbet = data.usersbet;
+          gameSessionData.tablemoney = data.tablemoney; 
+          let cards = "";
+
+          console.log("be_dealcards :" +data.thisuser);
+          for (let i = 0 ; i< gameSessionData.users.length ; i++){
+            document.getElementById('card'+gameSessionData.seatstaken[gameSessionData.users[i]] ).innerHTML = "";
+          }
+          for (let i = 0 ; i< gameSessionData.users.length ; i++){
+            console.log("cards : "+ data.usercards[gameSessionData.users[i]]);
+            cards = data.usercards[gameSessionData.users[i]];
+            console.log(cards);
+            for (let k = 0 ; k< cards.length ; k++){
+              document.getElementById('card'+gameSessionData.seatstaken[gameSessionData.users[i]] ).innerHTML +=  "<img width=\"24\" height=\"34\" src=\"images/deck1/"+cards[k]+".jpg\" >" ;
+            }
+          }
+
 
       
     });
