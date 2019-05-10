@@ -204,27 +204,41 @@ let io = socket(server);
 										           		throw new Error('fe_dealcards : -> result is empty or undefined');
 										          } else {
 										          	console.log(colors.cyan("colecting db record : fe_dealcards :  "+ JSON.stringify(result)));
-										          	let tempdata = result;
-										          	let tempdatalength = tempdata.length;
+
 
 										          	console.log(colors.cyan("data ---> serverside fe_dealcards :" + JSON.stringify(data)));
-											        //io.to(data.socketroom).emit('be_setEnvForSocket',data);
+											        io.to(data.gamesessionid).emit('be_dealcards',data);
 
 																							          	
 										          }
 										    });	
 										    
     		console.log(colors.cyan("fe_dealcards : deck left : " + JSON.stringify(data.deck)));
-			io.to(data.gamesessionid).emit('be_dealcards',data);
+			//io.to(data.gamesessionid).emit('be_dealcards',data);
 
 	    
 		});
 
 		socket.on('fe_switchToNetUser', function(data){
 			console.log(colors.cyan("switch to next user called -> backend handling :" +JSON.stringify(io.sockets.adapter.sids[socket.id])));
-			data.userturn = 165;
+			data.userturn = 168;
 			data.thistimer = 5;
-			io.to(data.gamesessionid).emit('be_switchToNetUser',data);
+			console.log(JSON.stringify(data));
+				dbRequest.updateUserTurn(dbconn, data, function (result) {
+
+			          if (typeof result.code !== "undefined" || result === "") {
+			           		throw new Error('fe_switchToNetUser : -> result is empty or undefined');
+			          } else {
+			          	console.log(colors.cyan("colecting db record : fe_switchToNetUser :  "+ JSON.stringify(result)));
+
+
+			          	console.log(colors.cyan("data ---> serverside fe_switchToNetUser :" + JSON.stringify(data)));
+				       io.to(data.gamesessionid).emit('be_switchToNetUser',data);
+
+																          	
+			          }
+			    });	
+			//io.to(data.gamesessionid).emit('be_switchToNetUser',data);
 
 	    
 		});

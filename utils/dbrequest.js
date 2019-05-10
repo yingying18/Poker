@@ -327,5 +327,20 @@ module.exports = {
         
       }
     );
+  },
+  updateUserTurn: function (con, data, callback) {
+      console.log(colors.yellow("data paremeter passed to db call updateUserTurn : "+JSON.stringify(data)+'\n'));
+    let result = con.query(  "update gametablesession set userturn = "+data.userturn+" where id = " +  data.gamesessionid  ,
+      function (err, result, fields) {
+        if (err) {
+          console.log(colors.magenta("db error : updateUserTurn ->" + JSON.stringify(result)+ '\n'));
+          callback(err);
+          throw err;
+        }
+        console.log(colors.yellow("returning response from db updateUserTurn : " + JSON.stringify(result)+'\n'));
+        callback(result);
+        
+      }
+    );
   }
 };

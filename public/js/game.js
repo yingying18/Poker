@@ -149,7 +149,7 @@ socket.on('be_setEnvForSocket', function(data){
     }
   }else {
     if (! (gameSessionData.users.includes(gameSessionData.thisuser))){
-        dealcards(gameSessionData);
+        //dealcards(gameSessionData);
     }
 
   }
@@ -165,31 +165,21 @@ socket.on('be_setDeck', function(data){
 function starttic(){
 //alert(gameSessionData.thisseatno);
   console.log('server ischecking who plays');
- 
-   
-      if (gameSessionData.thisuser == gameSessionData.userturn){
-        document.getElementById('usertimer'+gameSessionData.seatstaken[gameSessionData.thisuser]  ).innerHTML = --gameSessionData.thistimer;
-        socket.emit('fe_dispatchTimerTick', gameSessionData);
-        console.log("data timer check:-->"+gameSessionData.thistimer);
-
-      }else{
         document.getElementById('usertimer'+gameSessionData.seatstaken[gameSessionData.userturn]  ).innerHTML = --gameSessionData.thistimer;
         socket.emit('fe_dispatchTimerTick', gameSessionData);
         console.log("data timer check:-->"+gameSessionData.thistimer);
-      }
-       
-      
-  
+
   
 };
+
     socket.on('be_dispatchTimerTick', function(data){
       if (data.thistimer >0){
         gameSessionData.thistimer = data.thistimer;
         console.log("timer update returnde :" +data.thisuser);
         document.getElementById('usertimer'+gameSessionData.seatstaken[gameSessionData.userturn] ).innerHTML = gameSessionData.thistimer;
      }else{
-        //clearInterval(userturntimercheck);
-        //userturntimercheck = null;
+        clearInterval(userturntimercheck);
+        userturntimercheck = null;
         gameSessionData.thistimer = 5;
         //if (gameSessionData.thisuser == gameSessionData.userturn){
         socket.emit('fe_dealcards', gameSessionData);
@@ -240,6 +230,9 @@ function starttic(){
     socket.on('be_switchToNetUser', function(data){
       gameSessionData.userturn = data.userturn;
       gameSessionData.thistimer = data.thistimer;
+      if ((userturntimercheck == null) && (gameSessionData.thisuser == gameSessionData.userturn)){
+        userturntimercheck = setInterval(starttic, 2000);  
+      }
       //dealcards(gameSessionData);
       //alert("be_switchToNetUse : "+userturntimercheck);
        
