@@ -1,9 +1,6 @@
 <div class = "innercube" id="innercube">
   <div id="loginForm" class="wrapper fadeInDown">
     <div id="formContent">
-      <div class="closelogin" onclick="cleanInsideDiv('updatableMiddleContainer');">
-            <i id="modalLogo" class="material-icons" style="font-size:25px;color:#820f0f;">cancel</i>
-        </div>
 
         <div class="fadeIn first loginlogo">
             <img src="https://cdn4.iconfinder.com/data/icons/gambling-13/614/7183_-_Online_Gambling-512.png" id="icon" alt="" style="width: 150px" />
@@ -11,8 +8,8 @@
         <form>
             <input type="text" id="registername" class="fadeIn second" placeholder="Username">
             <input type="text" id="registeremail" class="fadeIn second" placeholder="E-mail">
-            <input type="text" id="registerpassword" class="fadeIn second" placeholder="Password">
-            <input type="text" id="registerrepassword" class="fadeIn second" placeholder="Re-enter Password">
+            <input type="password" id="registerpassword" class="fadeIn second" placeholder="Password">
+            <input type="password" id="registerrepassword" class="fadeIn second" placeholder="Re-enter Password">
 
             <input onchange=" document.getElementById('filenameinput').innerHTML=this.files[0].name;" type="file"
               id="registeruserimage" name="registeruserimage" class="fadeIn third" />

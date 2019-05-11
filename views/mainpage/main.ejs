@@ -3,7 +3,6 @@
 
 <head>
   <% include ./head %>
-
 </head>
 
 <body class="mainbody" onload="reseizeOpaqueDiv(null,null);" onresize="reseizeOpaqueDiv(null,null);">
@@ -19,71 +18,79 @@
       <div id="cube" class="cube">
         <div class="innercube" id="innercube">
 
-            <% if ( (typeof authanticate !== 'undefined') && authanticate =="true" ) { %>
+          <% if ( (typeof authanticate !== 'undefined') && authanticate =="true" ) { %>
             <% if (authuser.picture === 0  ) { %>
-            <img src="images/userimages/person.png" style="width:50px;height:50px"><br>
+              <img src="images/userimages/person.png" style="width:120px;height:120px"><br>
             <%}else{%>
-            <img src="images/userimages/<%= authuser.userid %>.<%= authuser.filetype %>" "
-              style=" width:50px;height:50px"><br>
+            <img src="images/userimages/<%= authuser.userid %>.<%= authuser.filetype %>"
+              style=" width:120px;height:120px"><br>
             <%}%>
             <span>logged user : <%= authuser.username %> <span>
-              <%}%>
-          <br><br>
-          <h1>Register or Login to start playing.</h1>
-          <br><br><br>
-          <h2>Current Project Progress:</h2>
-          Main: Updating Progress
-          <br>
-          About: Need to format and add in information
-          <br>
-          How To Play: Update on details?
-          <br>
-          Register/Login: completed front-end (maybe format to be similar), working on back-end
-          <br>
-          Lobby: Implement data and reformat (both front-end and back-end)
-          <br>
-          Profile: completed front-end, working on back-end
-          <br>
-          Admin: working on game table (front-end and back-end), + users and admins completed front-end
-          <br>
-          Logout: need action
+          <%}%>
 
-                </div>
+          <div class="container">
+            <div class="jumbotron" style="background-color: black; color: white; padding: 50px 50px 50px 50px; border-radius: 25px;">
+              <h1>Bootstrap Tutorial</h1> 
+              <p>Bootstrap is the most popular HTML, CSS, and JS framework for developing
+              responsive, mobile-first projects on the web.</p> 
+            </div>
+          </div>
+
+          <div class="card col-12" style="background-color: #708090; color: white; padding: 50px 50px 50px 50px; border: 2px solid; margin: 10px; border-radius: 35px;">
+            <h2>I like peanuts</h2>
+            <h5>Truely Nutty Flavors</h5>
+            <%# <div class="fakeimg" style="height:200px;">Image</div> %>
+            <img src="images/userimages/person.png" style="width:150px; height:150px;">
+            <div class="content">
+              <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+            </div>
+          </div>
+          <div class="card col-12" style="background-color: #708090; color: white; padding: 50px 50px 50px 50px; border: 2px solid; margin: 10px; border-radius: 50px;">
+            <h2>I like peanuts</h2>
+            <h5>Truely Nutty Flavors</h5>
+            <%# <div class="fakeimg" style="height:200px;">Image</div> %>
+            <img src="images/userimages/person.png" style="width:150px; height:150px;">
+            <div class="content">
+              <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+            </div>
+          </div>
+            
+        </div>
       </div><!-- By default this div is injected-->
     </div>
 
-    <footer>
-      <% include ./footer %>
-            </footer>
+  <footer>
+    <% include ./footer %>
+  </footer>
 
-</body>
-
+  </body>
 </html>
-            <!-- Modal -->
-            <div class="modal fade" id="modalWindow" tabindex="-1" role="dialog" aria-labelledby="modalWindow"
-              aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <div style="float:left;">
-                      <i id="modalLogo" class="material-icons" style="font-size:90px;color:red;">report_problem</i>
-                    </div>
-                    <div id="modalMessage" style="float:right;text-align: center;">
-                      info window
-                    </div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalWindow" tabindex="-1" role="dialog" aria-labelledby="modalWindow"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div style="float:left;">
+          <i id="modalLogo" class="material-icons" style="font-size:90px;color:red;">report_problem</i>
+        </div>
+        <div id="modalMessage" style="float:right;text-align: center;">
+          info window
+        </div>
 
 
-                  </div>
-                  <div class="modal-footer">
+      </div>
+      <div class="modal-footer">
 
 
-                  </div>
-                </div>
-              </div>
-            </div>
+      </div>
+    </div>
+  </div>
+</div>
