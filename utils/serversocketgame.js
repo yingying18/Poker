@@ -211,7 +211,7 @@ let io = socket(server);
 
 			}else{
 				if (room){
-					if (room.length == data.calls){
+					if (room.length <= data.calls){
 						data.calls = 0;
 					}
 				}
