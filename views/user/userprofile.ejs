@@ -12,11 +12,11 @@
                Account
              </a>
              <a class="list-group-item list-group-item-action" data-toggle="list" href="#gameprofile" role="tab">
-              Game Profile
-              </a>
+               Game Profile
+             </a>
              <!-- NEED TO IMPLEMENT -->
              <a class="list-group-item list-group-item-action" data-toggle="list" href="#password" role="tab">
-              Change Password
+               Change Password
              </a>
              <!-- NEED TO IMPLEMENT -->
              <a class="list-group-item list-group-item-action" data-toggle="list" href="#" role="tab">
@@ -35,7 +35,7 @@
                    <div class="dropdown show">
                    </div>
                  </div>
-                 <h5 class="card-title mb-0" style="color:black">Public info</h5>
+                 <h5 class="card-title mb-0" style="color:black">Your personal info</h5>
                </div>
                <div class="card-body">
                  <form>
@@ -44,7 +44,6 @@
                        <div class="form-group">
                          <div class="card w-80 ">
                            <div class="card-body">
-                             <h5 class="card-title">Personal Info</h5>
                              <!-- Check if user is authenticated to see the data -->
                              <% if ( (typeof authanticate !== 'undefined') && authanticate == "true" ) { %>
                              <p class="card-text">Username : <%= authuser.username %></p>
@@ -62,18 +61,19 @@
                         </div>
                         <div class="col-md-4">
                           <div class="text-center">
-                            <img alt="User Profile Image" src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                              class="rounded-circle img-responsive mt-2" width="128" height="128">
-                              <button type="button" class="btn btn-primary" onclick=><i class="fas fa-portrait"></i> Edit Info</button>
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
- </div>
+                              <img src="images/userimages/<%= authuser.userid %>.<%= authuser.filetype %>"
+                             style="width:120px;height:120px"><br>
+                             <button type="button" class="btn btn-primary" onclick=><i class="fas fa-portrait"></i> Edit
+                               Info</button>
+                           </div>
+                         </div>
+                       </div>
+                 </form>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
  </div>
