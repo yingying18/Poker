@@ -1,45 +1,79 @@
  <div id="cube" class="cube">
-  <div class="innercube" id="innercube">
-    <div class="card" style="width: 15rem; height:18rem;float:left"">
-      <div class=" card-body" style="background-color:gray;">
-        <h5 class="card-title"></h5>
-        <img src="./images/userimages/person.png" width="50px" height="150" class="card-img-top" alt="...">
-        <p class="card-text" style="color:black"></p>
-        <i id="modalLogo" class="material-icons" style="font-size:25px;color:#1f5435;">account_circle</i>
-        <span style="color:black;"></span>
-      </div>
-    </div>
-    <div style="width:60% ;float:right;color:black;">
-      <div class="card w-80 " style="height:300px;">
-        <div class="card-body">
-          <h5 class="card-title">Personal info</h5>
+   <div class="innercube" id="innercube">
+     <div class="row" style="color:black;">
+       <div class="col-md-4 col-xl-4">
 
-          <% if ( (typeof authanticate !== 'undefined') && authanticate == "true" ) { %>
-            <p class="card-text">Username : <%= authuser.username %></p>
-            <p class="card-text">Email : <%= authuser.useremail %></p>
-            <%if (authuser.usertype == 0) {%>
-              <p class="card-text" >
-                Regular User
-              </p>
-              <% } else { %> Admin <% } %></p>
+         <div class="card">
+           <div class="card-header">
+             <h5 class="card-title mb-0">Profile Settings</h5>
+           </div>
+           <div class="list-group list-group-flush" role="tablist">
+             <a class="list-group-item list-group-item-action active" data-toggle="list" href="#account" role="tab">
+               Account
+             </a>
+             <a class="list-group-item list-group-item-action" data-toggle="list" href="#gameprofile" role="tab">
+              Game Profile
+              </a>
+             <!-- NEED TO IMPLEMENT -->
+             <a class="list-group-item list-group-item-action" data-toggle="list" href="#password" role="tab">
+              Change Password
+             </a>
+             <!-- NEED TO IMPLEMENT -->
+             <a class="list-group-item list-group-item-action" data-toggle="list" href="#" role="tab">
+               Delete account
+             </a>
+           </div>
+         </div>
+       </div>
 
-            <p class="card-text">Privilege Level : 
-
-            <p class="card-text">Last login : 04/05/2019 ===== Need to add date/timestamp of login logout</p>
-            <a href="#" class="btn btn-primary btn-sm">edit info</a>
-          <%}%>
-        </div>
-      </div>
-        <br>
-        <div class="card w-80">
-          <div class="card-body">
-            <h5 class="card-title">Game info</h5>
-            <p class="card-text">game played : 1000</p>
-            <p class="card-text">total win :100</p>
-            <p class="card-text">total coins : 5000 </p>
-            <p class="card-text">last login : 04/05/2019</p>
+       <div class="col-md-8 col-xl-8">
+         <div class="tab-content">
+           <div class="tab-pane fade show active" id="account" role="tabpanel">
+             <div class="card">
+               <div class="card-header">
+                 <div class="card-actions float-right">
+                   <div class="dropdown show">
+                   </div>
+                 </div>
+                 <h5 class="card-title mb-0" style="color:black">Public info</h5>
+               </div>
+               <div class="card-body">
+                 <form>
+                   <div class="row">
+                     <div class="col-md-8">
+                       <div class="form-group">
+                         <div class="card w-80 ">
+                           <div class="card-body">
+                             <h5 class="card-title">Personal Info</h5>
+                             <!-- Check if user is authenticated to see the data -->
+                             <% if ( (typeof authanticate !== 'undefined') && authanticate == "true" ) { %>
+                             <p class="card-text">Username : <%= authuser.username %></p>
+                             <p class="card-text">Email : <%= authuser.useremail %></p>
+                             <p class="card-text">Privilege Level :
+                               <% if (authuser.usertype == '0') { %> Regular User
+                               <% } else if (authuser.usertype == '1') { %> Admin User
+                               <% } %></p>
+                             <!-- Need to add date/timestamp of login logout -->
+                             <p class="card-text">Last login : 04/05/2019</p>
+                             <%}%>
+                                  </div>
+                                </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="text-center">
+                            <img alt="User Profile Image" src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                              class="rounded-circle img-responsive mt-2" width="128" height="128">
+                              <button type="button" class="btn btn-primary" onclick=><i class="fas fa-portrait"></i> Edit Info</button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-    </div>  
-  </div>
-</div>
+ </div>
+ </div>
