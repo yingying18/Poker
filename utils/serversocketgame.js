@@ -169,13 +169,14 @@ let io = socket(server);
 			
 			var room = io.sockets.adapter.rooms[data.gamesessionid];
 			if (room)
-			console.log(" ** ** ** ** **" +data.thisuser +"  " +room.length + " d l:" +  data.calls);
+			console.log(" ** ** ** ** ** uturn :" +data.userturn+"  "+data.thisuser +"  " +room.length + " d l:" +  data.calls);
 
 			console.log(colors.cyan("dispatching to the room :" +JSON.stringify(io.sockets.adapter.sids[socket.id])));
 			data.calls++;
-			if (data.calls <= 1){
+			if (data.calls <=1){
+					console.log("timer updated");
 					dbRequest.getTableSessionTimer(dbconn, data, function (result) {
-					let dbtimer = -1;
+					var dbtimer = -1;
 				          if (typeof result.code !== "undefined" || result === "") {
 				           		throw new Error('fe_dispatchTimerTick: getTableSessionTimer : -> result is empty or undefined');
 				          } else {
@@ -208,12 +209,15 @@ let io = socket(server);
 				          }
 				    });	
 
-
+					
 			}else{
 				if (room){
-					if (room.length <= data.calls){
+				console.log(" ** second part ** ** uturn :" +data.userturn+"  "+data.thisuser +"  " +room.length + " d l:" +  data.calls);
+				
+					
 						data.calls = 0;
-					}
+						 io.to(data.gamesessionid).emit('be_updateCallNo',data);
+					
 				}
 			}
 				

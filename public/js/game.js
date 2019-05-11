@@ -176,9 +176,10 @@ function starttic(){
 };
 
     socket.on('be_dispatchTimerTick', function(data){
-      gameSessionData.calls = data.calls;
-       gameSessionData.thistimer = data.thistimer;
-      if (data.thistimer > 0){
+        gameSessionData.calls = data.calls;
+        gameSessionData.thistimer = data.thistimer;
+        gameSessionData.userturn = data.userturn;
+      if (gameSessionData.thistimer > 0){
        
         console.log("timer update returnde :" +data.thisuser);
         document.getElementById('usertimer'+gameSessionData.seatstaken[gameSessionData.userturn] ).innerHTML = gameSessionData.thistimer;
@@ -201,6 +202,15 @@ function starttic(){
     socket.on('be_dealcards', function(data){
 
       dealcards(data);
+
+
+
+      
+    });
+
+    socket.on('be_updateCallNo', function(data){
+
+      gameSessionData.calls = data.calls;
 
 
 
