@@ -282,12 +282,12 @@ let io = socket(server);
 		
 			console.log(colors.cyan("switch to next user called -> backend handling :" +JSON.stringify(io.sockets.adapter.sids[socket.id])));
 			//data.userturn = 168;
-			data.thistimer = 5;
+			//data.thistimer = 5;
 			let actualseat = data.seatstaken[data.userturn];
 			let possiblenextseat = actualseat;
 			let changetouser = -1;
 			do {
-				actualseat = (actualseat+1) % 4;
+				actualseat = (actualseat+1) % 5;
 				possiblenextseat = actualseat;
 			 	for(var key in data.seatstaken) {
 	          		console.log("actual seat : "+actualseat +" key :"+key + "value : " + data.seatstaken[key]);
