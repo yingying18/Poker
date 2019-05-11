@@ -200,7 +200,7 @@ module.exports = {
       data.userid+ ","+
       "0,"+
       "1,"+
-      "1"+
+      "5"+
       ")",
       function (err, result, fields) {
         if (err) {
@@ -273,7 +273,8 @@ module.exports = {
     );
   },
   getDeckLeftCards: function (con, data, callback) {
-      console.log(colors.yellow("data paremeter passed to db call getGameUserSessionForTable : "+JSON.stringify(data)+'\n'));
+    //not used change if needed
+      console.log(colors.yellow("data paremeter passed to db call getDeckLeftCards : "+JSON.stringify(data)+'\n'));
     let result = con.query(  "select * from gameusersession gs inner join user us where gs.user_id = us.id and  gamesession_id = " +  data.gamesessionid  ,
       function (err, result, fields) {
         if (err) {
@@ -281,7 +282,7 @@ module.exports = {
           callback(err);
           throw err;
         }
-        console.log(colors.yellow("returning response from db getGameUserSessionForTable : " + JSON.stringify(result)+'\n'));
+        console.log(colors.yellow("returning response from db getDeckLeftCards : " + JSON.stringify(result)+'\n'));
         callback(result);
         
       }
@@ -338,6 +339,66 @@ module.exports = {
           throw err;
         }
         console.log(colors.yellow("returning response from db updateUserTurn : " + JSON.stringify(result)+'\n'));
+        callback(result);
+        
+      }
+    );
+  },
+  updateTableSessionTimer: function (con, data, callback) {
+    console.log(colors.yellow("data paremeter passed to db call updateTableSessionTimer : "+JSON.stringify(data)+'\n'));
+    let result = con.query(  "update gametablesession set timer = "+data.thistimer+" where table_id = " +  data.tableid  ,
+      function (err, result, fields) {
+       if (err) {
+          console.log(colors.magenta("db error : updateTableSessionTimer ->" + JSON.stringify(result)+ '\n'));
+          callback(err);
+          throw err;
+        }
+        console.log(colors.yellow("returning response from db updateTableSessionTimer : " + JSON.stringify(result)+'\n'));
+        callback(result);
+        
+      }
+    );
+  },
+  getTableSessionTimer: function (con, data, callback) {
+    console.log(colors.yellow("data paremeter passed to db call getTableSessionTimer : "+JSON.stringify(data)+'\n'));
+    let result = con.query(  "select * from gametablesession where table_id = " +  data.tableid  ,
+      function (err, result, fields) {
+       if (err) {
+          console.log(colors.magenta("db error : getTableSessionTimer ->" + JSON.stringify(result)+ '\n'));
+          callback(err);
+          throw err;
+        }
+        console.log(colors.yellow("returning response from db getTableSessionTimer : " + JSON.stringify(result)+'\n'));
+        callback(result);
+        
+      }
+    );
+  },
+  updateUserSessionPlayed: function (con, data, callback) {
+    console.log(colors.yellow("data paremeter passed to db call updateUserSessionPlayed : "+JSON.stringify(data)+'\n'));
+    let result = con.query(  "update gameusersession set played = "+ data.played +" where user_id = " +  data.thisuser  ,
+      function (err, result, fields) {
+       if (err) {
+          console.log(colors.magenta("db error : updateUserSessionPlayed ->" + JSON.stringify(result)+ '\n'));
+          callback(err);
+          throw err;
+        }
+        console.log(colors.yellow("returning response from db updateUserSessionPlayed : " + JSON.stringify(result)+'\n'));
+        callback(result);
+        
+      }
+    );
+  },
+  getUserSessionPlayed: function (con, data, callback) {
+    console.log(colors.yellow("data paremeter passed to db call updateUserSessionPlayed : "+JSON.stringify(data)+'\n'));
+    let result = con.query(  "select * from gameusersession where user_id = " +  data.thisuser  ,
+      function (err, result, fields) {
+       if (err) {
+          console.log(colors.magenta("db error : updateUserSessionPlayed ->" + JSON.stringify(result)+ '\n'));
+          callback(err);
+          throw err;
+        }
+        console.log(colors.yellow("returning response from db updateUserSessionPlayed : " + JSON.stringify(result)+'\n'));
         callback(result);
         
       }

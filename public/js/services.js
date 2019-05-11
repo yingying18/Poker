@@ -17,6 +17,7 @@ let gameSessionData = {
   seatstaken :{},
   socketids : {},
   usercards : {},
+  playedusers : {},
   users : [],
   deck : [],
   housecards : [],
@@ -24,10 +25,14 @@ let gameSessionData = {
   socketroom : 0,
   gamestatus : "",
   userstatus : "",
-  gamecycle : 0,
+  cycle : 0,
+  maxcycle : 0,
   userturn: 0,
   tableid : 0,
-  tablemoney : 0
+  tablemoney : 0,
+  played : 0,
+  calls : 0
+
 
 };
 
