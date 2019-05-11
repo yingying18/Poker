@@ -1,5 +1,6 @@
 var colors = require('colors');
 module.exports = function (server,socket,dbRequest, dbconn ) {
+
 var sockettracker = new Map();
 var roomsinterval = new Map();
 var rooms = [];
@@ -46,6 +47,9 @@ let io = socket(server);
 		          		data.userturn = parseInt(tempdata[0].userturn);
 		          		data.thissocketid = socket.id;
 	          			data.socketids[data.thisuser] = socket.id;
+	          			data.thistimer = tempdata[0].timer;
+	          			data.cycle = tempdata[0].cycle;
+	          			data.maxcycle =tempdata[0].maxcycle;
 		          		
 
 		          		
@@ -81,10 +85,14 @@ let io = socket(server);
 										          				data.usercards[tempdata[i].id] = [];
 										          			}else{
 										          				data.usercards[tempdata[i].id] = [];
-										          				data.usercards[tempdata[i].id].push(tempdata[i].usercards);
+										          				let parr = tempdata[i].usercards.split(',');
+										          				for (let arr =0 ; arr< parr.length ; arr++){
+										          					data.usercards[tempdata[i].id].push((parr[arr]));
+										          				}
 										          			}
 										          			data.seatstaken[tempdata[i].id] = tempdata[i].seatnumber;
 										          			data.usersbet[tempdata[i].id] = tempdata[i].userbet;
+										          			data.playedusers[tempdata[i].id] = tempdata[i].played;
 										          		
 											          		
 										          	}
@@ -138,7 +146,7 @@ let io = socket(server);
 			io.emit('relay message', data);
 	    
 		});
-
+/*
 
 		socket.on('fe_checkTimerStarter', function(data){
 		console.log(colors.cyan("user "+data.thisuser +"is in room :" +io.sockets.adapter.sids[socket.id]));
@@ -156,11 +164,66 @@ let io = socket(server);
 	    
 		});
 
-
+*/
 		socket.on('fe_dispatchTimerTick', function(data){
+			
+			var room = io.sockets.adapter.rooms[data.gamesessionid];
+			if (room)
+			console.log(" ** ** ** ** ** uturn :" +data.userturn+"  "+data.thisuser +"  " +room.length + " d l:" +  data.calls);
+
 			console.log(colors.cyan("dispatching to the room :" +JSON.stringify(io.sockets.adapter.sids[socket.id])));
+			data.calls++;
+			if (data.calls <=1){
+					console.log("timer updated");
+					dbRequest.getTableSessionTimer(dbconn, data, function (result) {
+					var dbtimer = -1;
+				          if (typeof result.code !== "undefined" || result === "") {
+				           		throw new Error('fe_dispatchTimerTick: getTableSessionTimer : -> result is empty or undefined');
+				          } else {
+				          	console.log(colors.cyan("colecting db record : fe_dispatchTimerTick : getTableSessionTimer:  "+ JSON.stringify(result)));
+
+				          	dbtimer = result[0].timer;
+				          	if (dbtimer <= 0 ){
+								dbtimer = 6 ;
+							}
+					      	data.thistimer = dbtimer-1;
+					      					
+
+					      						dbRequest.updateTableSessionTimer(dbconn, data, function (result) {
+	
+											          if (typeof result.code !== "undefined" || result === "") {
+											           		throw new Error('fe_dispatchTimerTick : -> result is empty or undefined');
+											          } else {
+											          	console.log(colors.cyan("colecting db record : fe_dispatchTimerTick :  "+ JSON.stringify(result)));
+
+
+											          
+												       io.to(data.gamesessionid).emit('be_dispatchTimerTick',data);
+
+																								          	
+											          }
+											    });	
+					      					
+
+																	          	
+				          }
+				    });	
+
+					
+			}else{
+				if (room){
+				console.log(" ** second part ** ** uturn :" +data.userturn+"  "+data.thisuser +"  " +room.length + " d l:" +  data.calls);
+				
+					
+						data.calls = 0;
+						 io.to(data.gamesessionid).emit('be_updateCallNo',data);
+					
+				}
+			}
+				
+
+			
 		
-			io.to(data.gamesessionid).emit('be_dispatchTimerTick',data);
 
 	    
 		});
@@ -200,19 +263,61 @@ let io = socket(server);
 										           		throw new Error('fe_dealcards : -> result is empty or undefined');
 										          } else {
 										          	console.log(colors.cyan("colecting db record : fe_dealcards :  "+ JSON.stringify(result)));
-										          	let tempdata = result;
-										          	let tempdatalength = tempdata.length;
+
 
 										          	console.log(colors.cyan("data ---> serverside fe_dealcards :" + JSON.stringify(data)));
-											        //io.to(data.socketroom).emit('be_setEnvForSocket',data);
+											        io.to(data.gamesessionid).emit('be_dealcards',data);
 
 																							          	
 										          }
 										    });	
 										    
     		console.log(colors.cyan("fe_dealcards : deck left : " + JSON.stringify(data.deck)));
-			io.to(data.gamesessionid).emit('be_dealcards',data);
+			//io.to(data.gamesessionid).emit('be_dealcards',data);
 
+	    
+		});
+
+		socket.on('fe_switchToNetUser', function(data){
+		
+			console.log(colors.cyan("switch to next user called -> backend handling :" +JSON.stringify(io.sockets.adapter.sids[socket.id])));
+			//data.userturn = 168;
+			//data.thistimer = 5;
+			let actualseat = data.seatstaken[data.userturn];
+			let possiblenextseat = actualseat;
+			let changetouser = -1;
+			do {
+				actualseat = (actualseat+1) % 5;
+				possiblenextseat = actualseat;
+			 	for(var key in data.seatstaken) {
+	          		console.log("actual seat : "+actualseat +" key :"+key + "value : " + data.seatstaken[key]);
+	          		if (possiblenextseat == data.seatstaken[key]){
+	          			changetouser =key;
+	          			break;
+	          		}
+	        	}
+	        	if (changetouser >=1){
+	        		break;
+	        	}
+	    	}while(true);
+	    	data.userturn = changetouser;
+			console.log(JSON.stringify(data));
+				dbRequest.updateUserTurn(dbconn, data, function (result) {
+
+			          if (typeof result.code !== "undefined" || result === "") {
+			           		throw new Error('fe_switchToNetUser : -> result is empty or undefined');
+			          } else {
+			          	console.log(colors.cyan("colecting db record : fe_switchToNetUser :  "+ JSON.stringify(result)));
+
+
+			          	console.log(colors.cyan("data ---> serverside fe_switchToNetUser :" + JSON.stringify(data)));
+				       io.to(data.gamesessionid).emit('be_switchToNetUser',data);
+
+																          	
+			          }
+			    });	
+			//io.to(data.gamesessionid).emit('be_switchToNetUser',data);
+		
 	    
 		});
 

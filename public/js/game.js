@@ -4,6 +4,7 @@
 
 function startcounter(time , functiontocall,user){
   usera = user;
+  //alert(startgametimercheck);
   startgametimercheck = setInterval(functiontocall, time);
  
 
@@ -60,6 +61,7 @@ function timerdeduct(){
       console.log('checking started: '+usera);
       console.log("timer check : "+ startgametimercheck);
       clearInterval(startgametimercheck);
+      startgametimercheck =null;
       
       //socket.emit('fe_startgame');
 
@@ -130,7 +132,7 @@ socket.on('be_setEnvForSocket', function(data){
     
        if ((key !== 'thisuser' ) && (key !== 'thissocketid' ) && (key !== 'thiscards' ) && (key !== 'thisbet' ) && (key !== 'thisseatno')){
           if ((key === 'usersbet') || (key === 'seatstaken') ||  (key === 'seatstaken') || (key === 'socketids') || (key === 'usercards' )){
-              gameSessionData[key] =  data[key];
+              gameSessionData[key] = data[key];
           }else{
               gameSessionData[key] = data[key];
           }
@@ -145,6 +147,14 @@ socket.on('be_setEnvForSocket', function(data){
     if (userturntimercheck == null){
       userturntimercheck = setInterval(starttic, 2000);  
     }
+  }else {
+    if (userturntimercheck == null){
+      userturntimercheck = setInterval(starttic, 2000);  
+    }
+    if (! (gameSessionData.users.includes(gameSessionData.thisuser))){
+        //dealcards(gameSessionData);
+    }
+
   }
      
         
@@ -158,29 +168,31 @@ socket.on('be_setDeck', function(data){
 function starttic(){
 //alert(gameSessionData.thisseatno);
   console.log('server ischecking who plays');
- 
-   
-      if (gameSessionData.thisuser == gameSessionData.userturn){
-        document.getElementById('usertimer'+gameSessionData.seatstaken[gameSessionData.thisuser]  ).innerHTML = --gameSessionData.thistimer;
+        //document.getElementById('usertimer'+gameSessionData.seatstaken[gameSessionData.userturn]  ).innerHTML = --gameSessionData.thistimer;
         socket.emit('fe_dispatchTimerTick', gameSessionData);
         console.log("data timer check:-->"+gameSessionData.thistimer);
 
-      }
-       
-      
-  
   
 };
+
     socket.on('be_dispatchTimerTick', function(data){
-      if (data.thistimer >0){
+        gameSessionData.calls = data.calls;
         gameSessionData.thistimer = data.thistimer;
+        gameSessionData.userturn = data.userturn;
+      if (gameSessionData.thistimer > 0){
+       
         console.log("timer update returnde :" +data.thisuser);
         document.getElementById('usertimer'+gameSessionData.seatstaken[gameSessionData.userturn] ).innerHTML = gameSessionData.thistimer;
-     }else{
+     }else if (data.thistimer == 0){
+        document.getElementById('usertimer'+gameSessionData.seatstaken[gameSessionData.userturn] ).innerHTML = gameSessionData.thistimer;
         clearInterval(userturntimercheck);
-        if (gameSessionData.thisuser == gameSessionData.userturn)
+        userturntimercheck = null;
+        //gameSessionData.thistimer = 5;
+        //if (gameSessionData.thisuser == gameSessionData.userturn){
         socket.emit('fe_dealcards', gameSessionData);
-
+        
+        socket.emit('fe_switchToNetUser', gameSessionData);
+        
      }
 
       
@@ -196,6 +208,15 @@ function starttic(){
       
     });
 
+    socket.on('be_updateCallNo', function(data){
+
+      gameSessionData.calls = data.calls;
+
+
+
+      
+    });
+
 
     function dealcards(data){
                 console.log(JSON.stringify(data));
@@ -203,7 +224,7 @@ function starttic(){
           gameSessionData.usercards = data.usercards;
           gameSessionData.usersbet = data.usersbet;
           gameSessionData.tablemoney = data.tablemoney; 
-          alert(countJson(data.usercards));
+          //alert(countJson(data.usercards));
           let cards = "";
 
           console.log("be_dealcards :" +data.thisuser);
@@ -218,7 +239,26 @@ function starttic(){
               document.getElementById('card'+gameSessionData.seatstaken[gameSessionData.users[i]] ).innerHTML +=  "<img width=\"24\" height=\"34\" src=\"images/deck1/"+cards[k]+".jpg\" >" ;
             }
           }
+          //userturntimercheck 
+          
     }
+
+    socket.on('be_switchToNetUser', function(data){
+      gameSessionData.userturn = data.userturn;
+      gameSessionData.thistimer = data.thistimer;
+      if ((userturntimercheck == null) ){
+        userturntimercheck = setInterval(starttic, 2000);  
+      }
+      //dealcards(gameSessionData);
+      //alert("be_switchToNetUse : "+userturntimercheck);
+       
+
+     
+
+
+
+      
+    });
 
     function countJson(obj) {
       var count=0;
