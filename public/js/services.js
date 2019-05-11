@@ -1,7 +1,35 @@
 //method : post,get,put,delete
 //urlaction: link to catch request
-var usera = null;
-var timercheck = null;
+
+let socket = io.connect('http://localhost:3000');
+var gameSessionData = {
+  thisuser : 0,
+  thissocketid : "",
+  thiscards : [],
+  thisseatno : 0 ,
+  thisbet : 0,
+  seatstaken : [],
+  users : [],
+  deck : [],
+  gamesessionid : 0,
+  housecards : [],
+  usercards : [],
+  socketroom : 0,
+  socketids : [] ,
+  gamestatus : "",
+  userstatus : "",
+  gamecycle : 0,
+  userturn: 0,
+  tableid : 0,
+  usersinsocketroom : [],
+  tablemoney : 0
+
+};
+
+
+let usera = null;
+let timercheck = null;
+
 function postData(method, urlaction, data, destinationdiv,callback) {
   console.log("data json post called");
  
@@ -29,7 +57,15 @@ function postData(method, urlaction, data, destinationdiv,callback) {
 
   }).done(function(){
            if ((typeof callback !== "undefined") && ( callback !=="")){
+            
+            if (callback.name === 'reseizeOpaqueDiv') {
+              
              callback(urlaction,destinationdiv);
+            }else{
+              
+              callback();
+
+            }
           }
       });
  

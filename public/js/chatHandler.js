@@ -1,18 +1,22 @@
 // var socketChatGlobal = io.connect('http://localhost:3000');
-var socket = io.connect('http://localhost:3000');
-function sendMessage(){
-    // var socket = io.connect('http://localhost:3000');
-    //socket = socketChatGlobal;
 
+function sendMessage(user){
+    
+    
+    
     var message = document.getElementById("chatinputbox").value;
+    
     document.getElementById("chatinputbox").value = "";
 
-    socket.emit('send message', message);
-    socket.on('relay message', function(data){
-        var content = "";
-        content = document.getElementById('chat').innerHTML;
-        document.getElementById('chat').innerHTML = content + "<br>" + data;
-        //socket.disconnect();
-    });
+    socket.emit('send message',user +" :" +message);
+
     console.log("socket disconnected");
 }
+
+socket.on('relay message', function(data){
+      
+       
+       
+        document.getElementById('chat').innerHTML +=  "<br>" + data;
+        //socket.disconnect();
+    });

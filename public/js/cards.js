@@ -1,7 +1,8 @@
 var cards = (function() {
 	//The global options
+
 	var opt = {
-		cardSize : {width:69,height:94, padding:18},
+		cardSize : {width:34,height:47, padding:19},
 		animationSpeed : 500,
 		table : 'body',
 		cardback : 'red',
@@ -13,6 +14,8 @@ var cards = (function() {
 	var zIndexCounter = 1;
 	var all = []; //All the cards created.
 	
+
+
 	function mouseEvent(ev) {
 		var card = $(this).data('card');
 		if (card.container) {
@@ -152,9 +155,12 @@ var cards = (function() {
 				if (card.container) {
 					card.container.removeCard(card);
 				}
+
 				this.push(card);
+				
 				card.container = this;
 			}
+			
 		},
 		
 		removeCard : function(card) {
@@ -229,7 +235,13 @@ var cards = (function() {
 		topCard : function() {
 			return this[this.length-1];
 		},
-		
+		getAllCardsByName :function(){
+			let arr = [];
+			for (var i = 0 ; i < this.length ; i++){
+					arr.push(this[i].name);
+			}
+			return arr ;
+		},		
 		toString: function() {
 			return 'Container';
 		}
