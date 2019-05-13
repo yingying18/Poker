@@ -2,13 +2,46 @@
 
 
 
-function startcounter(time , functiontocall,user){
-  usera = user;
+function startgamecounter(){
+  //usera = user;
   //alert(startgametimercheck);
-  startgametimercheck = setInterval(functiontocall, time);
+  startgametimercheck = setInterval(checkgamesession, 1000);
  
 
 }
+
+    function checkgamesession() {
+     
+      console.log("checkgamesession() fe->be  startgame wait counting ");
+      if (gameSessionData.gamestartinsec >=0){
+         socket.emit('fe_startgame', gameSessionData);
+        //document.getElementById('gameinfotimer').innerHTML = "starts in "+gameSessionData.gamestartinsec--;
+      }
+      //clearInterval(startgametimercheck);
+      //startgametimercheck =null;
+      
+      //socket.emit('fe_startgame');
+
+    }
+
+
+    socket.on('be_startgame', function(data){
+      gameSessionData.gamestartinsec = data.gamestartinsec;
+      gameSessionData.gamestatus = data.gamestatus ;
+      if (gameSessionData.gamestartinsec >=0){
+         
+        document.getElementById('gameinfotimer').innerHTML = "starts in "+ gameSessionData.gamestartinsec;
+      }else{
+        clearInterval(startgametimercheck);
+        startgametimercheck = null;
+        document.getElementById('gameinfotimer').innerHTML = gameSessionData.gamestatus;
+        startGame();
+      }
+
+
+
+      
+    });
 
 function joingame(userid, seatno , tabledata){
   let data = {};
@@ -53,19 +86,26 @@ function timerdeduct(){
 
 }
 //front end socket calls
+      function startGame(){
+       
+         console.log("fe socket call --> startgame" + JSON.stringify(gameSessionData));
+         document.getElementById('gameinfotimer').innerHTML = gameSessionData.gamestatus;
+             if (gameSessionData.thisuser == gameSessionData.userturn){
+                if (userturntimercheck == null){
+                  userturntimercheck = setInterval(starttic, 2000);  
+                }
+              }else {
+                if (userturntimercheck == null){
+                  userturntimercheck = setInterval(starttic, 2000);  
+                }
+                if (! (gameSessionData.users.includes(gameSessionData.thisuser))){
+                    //dealcards(gameSessionData);
+                }
 
-    function checkgamesession() {
-     
-      console.log("checkgame session fe->be  startgame socket ");
-      var data;
-      console.log('checking started: '+usera);
-      console.log("timer check : "+ startgametimercheck);
-      clearInterval(startgametimercheck);
-      startgametimercheck =null;
-      
-      //socket.emit('fe_startgame');
+              }
 
     }
+
 
     function createGame(){
         // Client-side socket creation
@@ -105,12 +145,7 @@ function timerdeduct(){
 
     }
 
-    function startGame(){
-       
-         console.log("fe socket call --> startgame" + JSON.stringify(gameSessionData));
-         socket.emit('fe_startGame', gameSessionData);
 
-    }
 
     function prepareDeck(){
         console.log("fe socket call --> prepareDeck" + JSON.stringify(gameSessionData));
@@ -141,22 +176,29 @@ socket.on('be_setEnvForSocket', function(data){
   });
   console.log("be_setEnvForSocket -> socket data :"+ JSON.stringify(data));
   console.log("be_setEnvForSocket -> local data :"+ JSON.stringify(gameSessionData));
- 
-  //socket.emit('fe_checkTimerStarter', gameSessionData);
-  if (gameSessionData.thisuser == gameSessionData.userturn){
-    if (userturntimercheck == null){
-      userturntimercheck = setInterval(starttic, 2000);  
-    }
-  }else {
-    if (userturntimercheck == null){
-      userturntimercheck = setInterval(starttic, 2000);  
-    }
-    if (! (gameSessionData.users.includes(gameSessionData.thisuser))){
-        //dealcards(gameSessionData);
-    }
+  if (gameSessionData.gamestatus === "inplay" ){
+    startGame();
+  }else if ("waiting"){
+
+    startgamecounter();
 
   }
-     
+  //socket.emit('fe_checkTimerStarter', gameSessionData);
+  /*
+    if (gameSessionData.thisuser == gameSessionData.userturn){
+      if (userturntimercheck == null){
+        userturntimercheck = setInterval(starttic, 1000);  
+      }
+    }else {
+      if (userturntimercheck == null){
+        userturntimercheck = setInterval(starttic, 1000);  
+      }
+      if (! (gameSessionData.users.includes(gameSessionData.thisuser))){
+          //dealcards(gameSessionData);
+      }
+
+    }
+     */
         
 });
 
@@ -176,7 +218,7 @@ function starttic(){
 };
 
     socket.on('be_dispatchTimerTick', function(data){
-        gameSessionData.calls = data.calls;
+        //gameSessionData.calls = data.calls;
         gameSessionData.thistimer = data.thistimer;
         gameSessionData.userturn = data.userturn;
       if (gameSessionData.thistimer > 0){
@@ -200,7 +242,7 @@ function starttic(){
 
 
     socket.on('be_dealcards', function(data){
-
+       gameSessionData.calls = data.calls;
       dealcards(data);
 
 
@@ -223,6 +265,7 @@ function starttic(){
           gameSessionData.deck = data.deck;
           gameSessionData.usercards = data.usercards;
           gameSessionData.usersbet = data.usersbet;
+          gameSessionData.housecards = data.housecards;
           gameSessionData.tablemoney = data.tablemoney; 
           //alert(countJson(data.usercards));
           let cards = "";
@@ -231,6 +274,7 @@ function starttic(){
           for (let i = 0 ; i< gameSessionData.users.length ; i++){
             document.getElementById('card'+gameSessionData.seatstaken[gameSessionData.users[i]] ).innerHTML = "";
           }
+          document.getElementById('housecards').innerHTML = "";
           for (let i = 0 ; i< gameSessionData.users.length ; i++){
             console.log("cards : "+ data.usercards[gameSessionData.users[i]]);
             cards = data.usercards[gameSessionData.users[i]];
@@ -239,6 +283,10 @@ function starttic(){
               document.getElementById('card'+gameSessionData.seatstaken[gameSessionData.users[i]] ).innerHTML +=  "<img width=\"24\" height=\"34\" src=\"images/deck1/"+cards[k]+".jpg\" >" ;
             }
           }
+          cards = gameSessionData.housecards;
+           for (let i = 0 ; i< cards.length ; i++){
+            document.getElementById('housecards').innerHTML +=  "<img width=\"24\" height=\"34\" src=\"images/deck1/"+cards[i]+".jpg\" >" ;
+           }
           //userturntimercheck 
           
     }

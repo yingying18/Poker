@@ -309,21 +309,29 @@ module.exports = {
           cnt++;
         }
         console.log("oooooooooooooooooooooo"+(partialquery));
-      console.log(colors.yellow("data paremeter passed to db call insertAlUsersCards : "+JSON.stringify(data)+'\n'));
+      console.log(colors.yellow("data paremeter passed to db call updateAlUsersCards : "+JSON.stringify(data)+'\n'));
 
       if (countuserwithcards>1){
         tempquery = " UPDATE gameusersession gus JOIN ( " +partialquery+
         " ) vals ON gus.user_id = vals.user_id "+
-        " SET usercards = new_cards ";
+        " SET usercards = new_cards where gamesession_id = "+data.gamesessionid;
+      }else{
+        let user = null;
+        let cards = null;
+        for(var key in data.usercards) {
+          user = key;
+          cards = data.usercards[key];
+        }
+        tempquery = "update gameusersession set usercards = '"+cards+"' where user_id = " + user + " and gamesession_id = "+ data.gamesessionid;
       }
     let result = con.query(  tempquery ,
       function (err, result, fields) {
         if (err) {
-          console.log(colors.magenta("db error : insertAlUsersCards ->" + JSON.stringify(result)+ '\n'));
+          console.log(colors.magenta("db error : updateAlUsersCards ->" + JSON.stringify(result)+ '\n'));
           callback(err);
           throw err;
         }
-        console.log(colors.yellow("returning response from db insertAlUsersCards : " + JSON.stringify(result)+'\n'));
+        console.log(colors.yellow("returning response from db updateAlUsersCards : " + JSON.stringify(result)+'\n'));
         callback(result);
         
       }
@@ -399,6 +407,21 @@ module.exports = {
           throw err;
         }
         console.log(colors.yellow("returning response from db updateUserSessionPlayed : " + JSON.stringify(result)+'\n'));
+        callback(result);
+        
+      }
+    );
+  },
+  updateGameStartInTimer: function (con, data, callback) {
+    console.log(colors.yellow("data paremeter passed to db call updateGameStartInTimer : "+JSON.stringify(data)+'\n'));
+    let result = con.query(  "update gametablesession set gamestartin = "+ data.gamestartinsec +" where id = " +  data.gamesessionid   ,
+      function (err, result, fields) {
+       if (err) {
+          console.log(colors.magenta("db error : updateGameStartInTimer ->" + JSON.stringify(result)+ '\n'));
+          callback(err);
+          throw err;
+        }
+        console.log(colors.yellow("returning response from db updateGameStartInTimer : " + JSON.stringify(result)+'\n'));
         callback(result);
         
       }

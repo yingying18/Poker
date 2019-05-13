@@ -50,7 +50,7 @@ let io = socket(server);
 	          			data.thistimer = tempdata[0].timer;
 	          			data.cycle = tempdata[0].cycle;
 	          			data.maxcycle =tempdata[0].maxcycle;
-		          		
+		          		data.gamestatus = tempdata[0].state;
 
 		          		
 
@@ -114,9 +114,34 @@ let io = socket(server);
 		});
 
 		socket.on('fe_startgame', function(data){
-			 
+			 let control=null;
 			console.log(colors.cyan("socket event serverside : fe_startgame -> " ));
-			io.emit('be_startgame', '');
+				control  == data.gamestartinsec--;
+
+				if (data.gamestartinsec <0){
+					data.gamestartinsec = 10;
+				}
+					dbRequest.updateGameStartInTimer(dbconn, data, function (result) {
+
+				          if (typeof result.code !== "undefined" || result === "") {
+				           		throw new Error('fe_startgame : -> result is empty or undefined');
+				          } else {
+				          	console.log(colors.cyan("colecting db record : fe_startgame :  "+ JSON.stringify(result)));
+
+
+				           if (data.gamestartinsec >0){
+					       		io.to(data.gamesessionid).emit('be_startgame',data);
+					   		}else{
+					   			data.gamestartinsec = -1;
+					   			data.gamestatus = 'inplay';
+								io.to(data.gamesessionid).emit('be_startgame',data);
+					   		}
+
+																	          	
+				          }
+				    });	
+				
+			//io.emit('be_startgame', '');
 
 	    
 		});
@@ -167,7 +192,7 @@ let io = socket(server);
 */
 		socket.on('fe_dispatchTimerTick', function(data){
 			
-			var room = io.sockets.adapter.rooms[data.gamesessionid];
+			let room = io.sockets.adapter.rooms[data.gamesessionid];
 			if (room)
 			console.log(" ** ** ** ** ** uturn :" +data.userturn+"  "+data.thisuser +"  " +room.length + " d l:" +  data.calls);
 
@@ -203,8 +228,6 @@ let io = socket(server);
 																								          	
 											          }
 											    });	
-					      					
-
 																	          	
 				          }
 				    });	
@@ -229,52 +252,70 @@ let io = socket(server);
 		});
 
 		socket.on('fe_dealcards', function(data){
-			console.log(colors.cyan("dealing cards :" +JSON.stringify(io.sockets.adapter.sids[socket.id])));
-			
-			let min=1;
-			let max = -1;
-			let random = -1;
-			let removedindex = -1;
-			let card = "";
-			let userid = -1;
-			let indextemp = -1;
-			for (let i = 0 ; i< data.users.length; i++){
-				for (let i = 0 ; i< data.users.length; i++){ 
-    			max=data.deck.length;
-    			random =Math.floor(Math.random() * (+max - +min)) + +min; 
-    			indextemp = random-1;
-    			userid =  data.users[i];
-    			card = data.deck[indextemp];
-    			removedindex = data.deck.splice(indextemp , 1);
-    			if (data.usercards.hasOwnProperty(userid)){
-    				(data.usercards[userid]).push(card) ;
-    			}else
-    			{
-    				data.usercards[userid] = card ;
-    			}
-    			console.log(colors.cyan("fe_dealcards :randomno: "+ random +" deck size : " +max + " cards :" + JSON.stringify(data.usercards)));
-    			}
+			console.log("cals: ------------------- "+data.calls);
+			data.calls++;
+			if (data.calls <=1){
+				console.log(colors.cyan("dealing cards :" +JSON.stringify(io.sockets.adapter.sids[socket.id])));
+				let dealcardnumber = -1;
+				let min=1;
+				let max = -1;
+				let random = -1;
+				let removedindex = -1;
+				let card = "";
+				let userid = -1;
+				let indextemp = -1;
+				if (data.usercards[data.users[0]].length >= 2 ){
+					dealcardnumber = 1;
+				}else{
+					dealcardnumber =2;
+				}
 
-    		}
-    		
-    							          	dbRequest.updateAlUsersCards(dbconn, data, function (result) {
-			      		
-										          if (typeof result.code !== "undefined" || result === "") {
-										           		throw new Error('fe_dealcards : -> result is empty or undefined');
-										          } else {
-										          	console.log(colors.cyan("colecting db record : fe_dealcards :  "+ JSON.stringify(result)));
+				for (let i = 0 ; i< dealcardnumber; i++){
+					for (let i = 0 ; i<= data.users.length; i++){ 
+						
+			    			max=data.deck.length;
+			    			random =Math.floor(Math.random() * (+max - +min)) + +min; 
+			    			indextemp = random-1;
+			    			card = data.deck[indextemp];
+			    			removedindex = data.deck.splice(indextemp , 1);
+			    		if (i<data.users.length){
+			    			userid =  data.users[i];
+			    			if (data.usercards.hasOwnProperty(userid)){
+			    				(data.usercards[userid]).push(card) ;
+			    			}else
+			    			{
+			    				data.usercards[userid] = card ;
+			    			}
+			    		}else{
+			    				data.housecards.push(card);
+
+			    			console.log(colors.cyan("fe_dealcards :randomno: "+ random +" deck size : " +max + " cards :" + JSON.stringify(data.usercards)));
+			    		}
+	    			}
+
+	    		}
+	    		
+	    							          	dbRequest.updateAlUsersCards(dbconn, data, function (result) {
+				      		
+											          if (typeof result.code !== "undefined" || result === "") {
+											           		throw new Error('fe_dealcards : -> result is empty or undefined');
+											          } else {
+											          	console.log(colors.cyan("colecting db record : fe_dealcards :  "+ JSON.stringify(result)));
 
 
-										          	console.log(colors.cyan("data ---> serverside fe_dealcards :" + JSON.stringify(data)));
-											        io.to(data.gamesessionid).emit('be_dealcards',data);
+											          	console.log(colors.cyan("data ---> serverside fe_dealcards :" + JSON.stringify(data)));
+												        io.to(data.gamesessionid).emit('be_dealcards',data);
 
-																							          	
-										          }
-										    });	
-										    
-    		console.log(colors.cyan("fe_dealcards : deck left : " + JSON.stringify(data.deck)));
-			//io.to(data.gamesessionid).emit('be_dealcards',data);
-
+																								          	
+											          }
+											    });	
+											    
+	    		console.log(colors.cyan("fe_dealcards : deck left : " + JSON.stringify(data.deck)));
+				//io.to(data.gamesessionid).emit('be_dealcards',data);
+			}else{
+				data.calls = 0;
+						 io.to(data.gamesessionid).emit('be_dealcards',data);
+			}	
 	    
 		});
 

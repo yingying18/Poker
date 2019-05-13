@@ -31,7 +31,8 @@ let gameSessionData = {
   tableid : 0,
   tablemoney : 0,
   played : 0,
-  calls : 0
+  calls : 0,
+  gamestartinsec:10
 
 
 };
@@ -153,12 +154,3 @@ function reseizeOpaqueDiv(urlaction,divtochecksize){
    
 }
 
-    function countJson(obj) {
-      var count=0;
-        for(var prop in obj) {
-          if (obj.hasOwnProperty(prop)) {
-             ++count;
-          }
-        }
-      return count;
-    }
