@@ -51,7 +51,7 @@ let io = socket(server);
 	          			data.cycle = tempdata[0].cycle;
 	          			data.maxcycle =tempdata[0].maxcycle;
 		          		data.gamestatus = tempdata[0].state;
-
+		          		data.housecards = (tempdata[0].housecards).split(',');
 		          		
 
 
@@ -295,22 +295,36 @@ let io = socket(server);
 
 	    		}
 	    		
-	    							          	dbRequest.updateAlUsersCards(dbconn, data, function (result) {
-				      		
-											          if (typeof result.code !== "undefined" || result === "") {
-											           		throw new Error('fe_dealcards : -> result is empty or undefined');
-											          } else {
-											          	console.log(colors.cyan("colecting db record : fe_dealcards :  "+ JSON.stringify(result)));
+			          	dbRequest.updateAlUsersCards(dbconn, data, function (result) {
+		
+					          if (typeof result.code !== "undefined" || result === "") {
+					           		throw new Error('fe_dealcards : -> result is empty or undefined');
+					          } else {
+					          	console.log(colors.cyan("colecting db record : updateAlUsersCards :  "+ JSON.stringify(result)));
 
 
-											          	console.log(colors.cyan("data ---> serverside fe_dealcards :" + JSON.stringify(data)));
-												        io.to(data.gamesessionid).emit('be_dealcards',data);
+					          	console.log(colors.cyan("data ---> serverside updateAlUsersCards :" + JSON.stringify(data)));
+						        	
+						        	dbRequest.updateHouseCards(dbconn, data, function (result) {
+		
+								          if (typeof result.code !== "undefined" || result === "") {
+								           		throw new Error('updateHouseCards : -> result is empty or undefined');
+								          } else {
+								          	console.log(colors.cyan("colecting db record : updateHouseCards :  "+ JSON.stringify(result)));
 
-																								          	
-											          }
-											    });	
+
+								          	console.log(colors.cyan("data ---> serverside updateHouseCards :" + JSON.stringify(data)));
+									        io.to(data.gamesessionid).emit('be_dealcards',data);
+
+																					          	
+								          }
+								    });	
+
+																		          	
+					          }
+					    });	
 											    
-	    		console.log(colors.cyan("fe_dealcards : deck left : " + JSON.stringify(data.deck)));
+	    		//console.log(colors.cyan("fe_dealcards : deck left : " + JSON.stringify(data.deck)));
 				//io.to(data.gamesessionid).emit('be_dealcards',data);
 			}else{
 				data.calls = 0;
@@ -320,7 +334,8 @@ let io = socket(server);
 		});
 
 		socket.on('fe_switchToNetUser', function(data){
-		
+		data.calls++;
+		if (data.calls <=1){
 			console.log(colors.cyan("switch to next user called -> backend handling :" +JSON.stringify(io.sockets.adapter.sids[socket.id])));
 			//data.userturn = 168;
 			//data.thistimer = 5;
@@ -358,7 +373,10 @@ let io = socket(server);
 			          }
 			    });	
 			//io.to(data.gamesessionid).emit('be_switchToNetUser',data);
-		
+		}else{
+				data.calls = 0;
+						 io.to(data.gamesessionid).emit('be_switchToNetUser',data);
+			}	
 	    
 		});
 

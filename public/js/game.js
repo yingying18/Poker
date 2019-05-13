@@ -2,6 +2,9 @@
 
 
 
+
+
+
 function startgamecounter(){
   //usera = user;
   //alert(startgametimercheck);
@@ -177,28 +180,20 @@ socket.on('be_setEnvForSocket', function(data){
   console.log("be_setEnvForSocket -> socket data :"+ JSON.stringify(data));
   console.log("be_setEnvForSocket -> local data :"+ JSON.stringify(gameSessionData));
   if (gameSessionData.gamestatus === "inplay" ){
-    startGame();
+     waitForEl("#gameinfotimer", function() {
+      
+       startGame();
+    });
+   
   }else if ("waiting"){
+    waitForEl("#gameinfotimer", function() {
+     
+      startgamecounter();
+    });
 
-    startgamecounter();
 
   }
-  //socket.emit('fe_checkTimerStarter', gameSessionData);
-  /*
-    if (gameSessionData.thisuser == gameSessionData.userturn){
-      if (userturntimercheck == null){
-        userturntimercheck = setInterval(starttic, 1000);  
-      }
-    }else {
-      if (userturntimercheck == null){
-        userturntimercheck = setInterval(starttic, 1000);  
-      }
-      if (! (gameSessionData.users.includes(gameSessionData.thisuser))){
-          //dealcards(gameSessionData);
-      }
 
-    }
-     */
         
 });
 
@@ -300,20 +295,6 @@ function starttic(){
       //dealcards(gameSessionData);
       //alert("be_switchToNetUse : "+userturntimercheck);
        
-
-     
-
-
-
-      
+   
     });
 
-    function countJson(obj) {
-      var count=0;
-        for(var prop in obj) {
-          if (obj.hasOwnProperty(prop)) {
-             ++count;
-          }
-        }
-      return count;
-    }

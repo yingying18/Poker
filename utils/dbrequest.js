@@ -314,7 +314,7 @@ module.exports = {
       if (countuserwithcards>1){
         tempquery = " UPDATE gameusersession gus JOIN ( " +partialquery+
         " ) vals ON gus.user_id = vals.user_id "+
-        " SET usercards = new_cards where gamesession_id = "+data.gamesessionid;
+        " SET usercards = new_cards where gamesession_id = "+data.gamesessionid ;
       }else{
         let user = null;
         let cards = null;
@@ -426,5 +426,20 @@ module.exports = {
         
       }
     );
-  }
+  },
+  updateHouseCards: function (con, data, callback) {
+      console.log(colors.yellow("data paremeter passed to db call updateHouseCards : "+JSON.stringify(data)+'\n'));
+    let result = con.query(  "update gametablesession set housecards = '"+data.housecards+"' where id = "+data.gamesessionid ,
+      function (err, result, fields) {
+        if (err) {
+          console.log(colors.magenta("db error : updateHouseCards ->" + JSON.stringify(result)+ '\n'));
+          callback(err);
+          throw err;
+        }
+        console.log(colors.yellow("returning response from db updateHouseCards : " + JSON.stringify(result)+'\n'));
+        callback(result);
+        
+      }
+    );
+  },
 };
