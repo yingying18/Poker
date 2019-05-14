@@ -458,6 +458,22 @@ module.exports = {
       }
     );
   },
+  setNullHouseCards: function (con, data, callback) {
+    //not used change if needed
+      console.log(colors.yellow("data paremeter passed to db call setNullHouseCards : "+JSON.stringify(data)+'\n'));
+    let result = con.query(  "update  gametablesession set housecards = NULL where id = " +  data.gamesessionid ,
+      function (err, result, fields) {
+        if (err) {
+          console.log(colors.magenta("db error : setNullHouseCards ->" + JSON.stringify(result)+ '\n'));
+          callback(err);
+          throw err;
+        }
+        console.log(colors.yellow("returning response from db setNullHouseCards : " + JSON.stringify(result)+'\n'));
+        callback(result);
+        
+      }
+    );
+  },
   updatePlayeduser: function (con, data, callback) {
 
     
@@ -493,5 +509,50 @@ module.exports = {
         
       }
     );
-  }
+  },
+  updateTableState: function (con, data, callback) {
+      console.log(colors.yellow("data paremeter passed to db call updateTableState : "+JSON.stringify(data)+'\n'));
+    let result = con.query(  "update gametablesession set state = '"+data.gamestatus+"' where id = " +  data.gamesessionid  ,
+      function (err, result, fields) {
+        if (err) {
+          console.log(colors.magenta("db error : updateTableState ->" + JSON.stringify(result)+ '\n'));
+          callback(err);
+          throw err;
+        }
+        console.log(colors.yellow("returning response from db updateTableState : " + JSON.stringify(result)+'\n'));
+        callback(result);
+        
+      }
+    );
+  },
+  getTableState: function (con, data, callback) {
+      console.log(colors.yellow("data paremeter passed to db call updateTableState : "+JSON.stringify(data)+'\n'));
+    let result = con.query(  "select state from gametablesession where id = " +  data.gamesessionid  ,
+      function (err, result, fields) {
+        if (err) {
+          console.log(colors.magenta("db error : updateTableState ->" + JSON.stringify(result)+ '\n'));
+          callback(err);
+          throw err;
+        }
+        console.log(colors.yellow("returning response from db updateTableState : " + JSON.stringify(result)+'\n'));
+        callback(result);
+        
+      }
+    );
+  },
+  updateCycle: function (con, data, callback) {
+      console.log(colors.yellow("data paremeter passed to db call updateCycle : "+JSON.stringify(data)+'\n'));
+    let result = con.query(  "update gametablesession set cycle = "+data.cycle+" where id = " +  data.gamesessionid  ,
+      function (err, result, fields) {
+        if (err) {
+          console.log(colors.magenta("db error : updateCycle ->" + JSON.stringify(result)+ '\n'));
+          callback(err);
+          throw err;
+        }
+        console.log(colors.yellow("returning response from db updateCycle : " + JSON.stringify(result)+'\n'));
+        callback(result);
+        
+      }
+    );
+  },
 };

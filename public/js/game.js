@@ -1,42 +1,51 @@
 
-    function startgamecounter(){
 
-      if (startgametimercheck == null){
-          startgametimercheck = setInterval(checkgamesession, 2000);
-        }
-     
-
-    }
-
-    function checkgamesession() {
-
-      if (gameSessionData.gamestartinsec >=0){
-         socket.emit('fe_startgame', gameSessionData);
-
-      }
-    }
 
 
     socket.on('be_startgame', function(data){
 
       gameSessionData.gamestartinsec = data.gamestartinsec;
       gameSessionData.gamestatus = data.gamestatus ;
-      gameSessionData.calls = data.calls;
-      
-      if (gameSessionData.gamestartinsec >=0){
-         
-        document.getElementById('gameinfotimer').innerHTML = "starts in "+ gameSessionData.gamestartinsec;
-      
+     
+      if (gameSessionData.gamestatus == 'inplay'){
+
+          startGame();
+
       }else{
-      
-        clearInterval(startgametimercheck);
-        startgametimercheck = null;
-        document.getElementById('gameinfotimer').innerHTML = gameSessionData.gamestatus;
-        startGame();
-      
+          updateData(data);
+          if (gameSessionData.gamestartinsec >=0){
+             
+            document.getElementById('gameinfotimer').innerHTML = "starts in "+ gameSessionData.gamestartinsec;
+                if (gameSessionData.gamestartinsec == 5){
+                        for (let i = 0 ; i< gameSessionData.users.length ; i++){
+                document.getElementById('card'+gameSessionData.seatstaken[gameSessionData.users[i]] ).innerHTML = "";
+                }
+                document.getElementById('housecards').innerHTML = "";
+            }
+          
+          }else{
+          
+            document.getElementById('gameinfotimer').innerHTML = gameSessionData.gamestatus;
+            startGame();
+          
+          }
+
       }
 
     });
+
+    function updateData(data){
+
+          Object.keys(data).forEach(function(key){
+          
+             if ((key !== 'thisuser' ) && (key !== 'thissocketid' ) && (key !== 'thiscards' ) && (key !== 'thisbet' ) && (key !== 'thisseatno')){
+
+                    gameSessionData[key] = data[key];
+
+              }
+        
+        });
+    }
 
 function joingame(userid, seatno , tabledata){
 
@@ -128,19 +137,7 @@ function foldgame(userid){
         
         });
 
-        if (gameSessionData.gamestatus === "inplay" ){
-
-          waitForEl("#gameinfotimer", function() {
-            startGame();
-          });
-         
-        }else if ("waiting"){
-        
-            waitForEl("#gameinfotimer", function() {
-              startgamecounter();
-            });
-
-        }
+         socket.emit('fe_startgame', gameSessionData);
 
             
     });
@@ -258,8 +255,10 @@ function foldgame(userid){
       gameSessionData.gamestartinsec =  data.gamestartinsec;
       gameSessionData.gamestatus = data.gamestatus;
 
-      clearInterval(userturntimercheck);
-      userturntimercheck == null;
-      startgamecounter();
+      gameSessionData.gamestatus = 'waiting';
+      socket.emit('fe_startgame', gameSessionData);
+     
+     
+     
    
     });
