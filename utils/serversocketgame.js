@@ -7,6 +7,137 @@ var rooms = [];
 var intervaltrack = new Map();
 var gamestartintervaltrack = new Map();
 
+
+function refreshdata(data){
+
+			console.log(colors.red("on loby enter" + JSON.stringify(data)));
+			/*data : {"thisuser":168,"thissocketid":"","thiscards":[],"thisseatno":0,"thisbet":0,
+			"seatstaken":[],"users":[],"deck":[],"gamesessionid":0,"housecards":[],"usercards":[],
+			"socketroom":0,"socketids":[],"gamestatus":"","userstatus":"","gamecycle":0,
+			"userturn":0,"tableid":null,"usersinsocketroom":[],"tablemoney":0,"timer":5}
+			*/
+			let gamesessionid = null;
+			
+	      	dbRequest.getGameTableSession(dbconn, data, function (result) {
+	      	// [{"id":45,"table_id":1,"state":"waiting","userturn":168,"usercyclestarter":168,"totalbet":0,"cycle":1,"maxcycle":1}]
+
+	          if (typeof result.code !== "undefined" || result === "") {
+	           		throw new Error('error : fe_setEnvForSocket :getGameTableSession() -> result is empty or undefined');
+	          } else {
+
+	          	
+	          	let tempdata = result;
+	          	let tempdatalength = tempdata.length;
+	          	
+	          	if (tempdatalength <=0 ){
+	          		console.log(colors.red(" nothing to refresh "));
+	          	}else {
+		          	
+		          		
+		          		data.gamesessionid = tempdata[0].id;
+		          		data.deck = [];
+		          		data.socketroom = tempdata[0].id;
+		          		data.userturn = parseInt(tempdata[0].userturn);
+		          		data.thissocketid = socket.id;
+	          			data.socketids[data.thisuser] = socket.id;
+	          			data.thistimer = tempdata[0].timer;
+	          			data.cycle = tempdata[0].cycle;
+	          			data.maxcycle =tempdata[0].maxcycle;
+		          		data.gamestatus = tempdata[0].state;
+		          		data.tableid = tempdata[0].table_id;
+		          		data.seatstaken = {};
+		          		data.playedusers = {};
+		          		data.housecards = [];
+		          		data.usercards = {};
+
+		          		      	dbRequest.get52Cards(dbconn, null, function (result) {
+						      		
+							          if (typeof result.code !== "undefined" || result === "") {
+							           		throw new Error('fe_setEnvForSocket : get52Cards() -> result is empty or undefined');
+							          } else {
+							          	
+								          	let tempdata = result;
+								          	let tempdatalength = tempdata.length;
+								          	for (let i = 0 ; i <tempdatalength ; i++){
+								          		data.deck.push(tempdata[i].id);
+									          		
+								          	}
+						          			
+							          		
+					          				dbRequest.getGameUserSessionForTable(dbconn, data, function (result) {
+			      		
+										          if (typeof result.code !== "undefined" || result === "") {
+										           		throw new Error('fe_setEnvForSocket : getGameUserSessionForTable() -> result is empty or undefined');
+										          } else {
+										          	
+										          	let tempdata = result;
+										          	let tempdatalength = tempdata.length;
+										          	data.users=[];
+										          	for (let i = 0 ; i <tempdatalength ; i++){
+										          				data.users.push(tempdata[i].id );
+										          				
+										          			data.usercards[tempdata[i].id ]=[];
+										          			data.seatstaken[tempdata[i].id] = tempdata[i].seatnumber;
+										          			data.playedusers[tempdata[i].id] = tempdata[i].played;
+										          		
+											          		
+										          	}
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          			console.log(colors.cyan("%%%%%%%%%%% serverside sends refresh data :" + JSON.stringify(data)));
+											          		
+
+																							          	
+										          }
+										    });	
+							          	
+							          }
+							    });	
+
+	          	}
+	          }
+		    });	
+	return data;
+
+}
+
+
+
 let io = socket(server);
 
 	io.on('connection', function(socket){
@@ -19,7 +150,6 @@ let io = socket(server);
 		});
 
 		socket.on('fe_setEnvForSocket', function(data){
-			
 			
 		
 			console.log(colors.red("on loby enter" + JSON.stringify(data)));
@@ -61,6 +191,7 @@ let io = socket(server);
 	          			data.cycle = tempdata[0].cycle;
 	          			data.maxcycle =tempdata[0].maxcycle;
 		          		data.gamestatus = tempdata[0].state;
+		          		
 
 		          		if (tempdata[0].housecards !== null){
 		          			data.housecards = (tempdata[0].housecards).split(',');	
@@ -138,15 +269,18 @@ let io = socket(server);
 					clearInterval(intervaltrack.get(data.gamesessionid));
 					intervaltrack.set(data.gamesessionid, 'undefined');
 				}
-
+				data = refreshdata(data);
 				if ((typeof gamestartintervaltrack.get(data.gamesessionid) === 'undefined') || (gamestartintervaltrack.get(data.gamesessionid) == 'undefined')){	
 					
 						gamestartintervaltrack.set(data.gamesessionid ,  setInterval(function(data){
 					
 								data.gamestartinsec--;
+								refreshdata(data);
 
 								if (data.gamestartinsec <0){
 									data.gamestartinsec = 10;
+									
+									io.to(data.gamesessionid).emit('be_updateData',data);
 								}
 								dbRequest.updateGameStartInTimer(dbconn, data, function (result) {
 
@@ -430,7 +564,8 @@ let io = socket(server);
 								          } else {
 								          	console.log(colors.cyan("colecting db record : updatePlayeduser :  "+ JSON.stringify(result)));
 
-									      		io.to(data.gamesessionid).emit('be_cycleover',data);
+									      		
+	      				          		      	 io.to(data.gamesessionid).emit('be_cycleover',data);
 																					          	
 								          }
 								    });	
