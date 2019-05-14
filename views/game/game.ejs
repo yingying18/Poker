@@ -8,8 +8,8 @@
                             <h3>table : <%= tabledata.table_id%></h3>
                             <p>min bet: <%= tabledata.minamount%></p>
                             <p>max seat <%= tabledata.maxplayer%></p>
-                            <p>table pot: </p>
-                            <p>dealer cards: </p>
+                            <p>game status : </p> <p id="gameinfotimer"></p>
+                           
                 </div>
 
                 
@@ -66,7 +66,7 @@
                                                                     <button style="color:white;background-color:#3CB371;" type="button" onclick="joingame('<%= authuser.userid%>',<%= i %>,<%= JSON.stringify(tabledata) %>);" class="btn btn-secondary btn-sm">Join Game</button>
                                                               
                                                         </div>
-                                                        <div id = "card<%= i %>"  class="gameTableUserCard<%= i %>">caca</div>
+                                                        <div id = "card<%= i %>"  class="gameTableUserCard<%= i %>">player <%= i %></div>
                                                 <%}%>
                                     <%}else{%>
                                      <div id = "user<%= i %>" class="gameTableUser<%= i %>">

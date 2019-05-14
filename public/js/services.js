@@ -31,18 +31,28 @@ let gameSessionData = {
   tableid : 0,
   tablemoney : 0,
   played : 0,
-  calls : 0
+  calls : 0,
+  gamestartinsec:10
 
 
 };
 
-
+var waitForEl = function(selector, callback) {
+  if (jQuery(selector).length) {
+    callback();
+  } else {
+    setTimeout(function() {
+      waitForEl(selector, callback);
+    }, 100);
+  }
+};
 
 function postData(method, urlaction, data, destinationdiv,callback) {
   console.log("data json post called");
- 
+  let control = false;
   let senddata = {};
   if (typeof data !== "undefined" && data !== "") {
+    control == true;
     senddata = data;
   }
 
@@ -54,6 +64,7 @@ function postData(method, urlaction, data, destinationdiv,callback) {
     contentType: "application/json; charset=utf-8",
     success: function (data) {
       console.log("success: data sent ");
+     if (typeof data !== "undefined" && data !== "") 
       document.getElementById(destinationdiv).innerHTML = data;
      
       if ((urlaction == "login/authanticate") || (urlaction == "/logout")) {
@@ -141,7 +152,7 @@ function reseizeOpaqueDiv(urlaction,divtochecksize){
 
 
    
-    console.log(urlaction);
+    //console.log(urlaction);
     let calcwidth =parseInt( ((document.getElementById("updatableMiddleContainer").offsetWidth  ) - (document.getElementById("innercube").offsetWidth) )/2);
     document.getElementById("middleContainerOpaq").style.height = document.getElementById('updatableMiddleContainer').clientHeight +100+ "px";
     document.getElementById("updatableMiddleContainer").style.paddingLeft = calcwidth-50 + "px";
