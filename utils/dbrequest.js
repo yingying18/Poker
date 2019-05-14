@@ -170,11 +170,28 @@ module.exports = {
     let result = con.query(  "select * from gameusersession gs inner join user us where gs.user_id = us.id and  gamesession_id = " +  sessionid  ,
       function (err, result, fields) {
         if (err) {
-          console.log(colors.magenta("db error : getUserEmailandUserNameCount ->" + JSON.stringify(result)+ '\n'));
+          console.log(colors.magenta("db error : getGameUserSessionForTable ->" + JSON.stringify(result)+ '\n'));
           callback(err);
           throw err;
         }
         console.log(colors.yellow("returning response from db getGameUserSessionForTable : " + JSON.stringify(result)+'\n'));
+        callback(result);
+        
+      }
+    );
+  },
+    getGameUserUniqueSessionForTable: function (con, data, callback) {
+
+      console.log(colors.yellow("data paremeter passed to db call getGameUserUniqueSessionForTable : "+JSON.stringify(data)+'\n'));
+    
+    let result = con.query(  "select * from gameusersession gus inner join gametablesession gts where gus.gamesession_id = gts.id and  gus.user_id = " +  data.userid + " and gts.state != 'ended' " ,
+      function (err, result, fields) {
+        if (err) {
+          console.log(colors.magenta("db error : getGameUserUniqueSessionForTable ->" + JSON.stringify(result)+ '\n'));
+          callback(err);
+          throw err;
+        }
+        console.log(colors.yellow("returning response from db getGameUserUniqueSessionForTable : " + JSON.stringify(result)+'\n'));
         callback(result);
         
       }
@@ -204,7 +221,7 @@ module.exports = {
       ")",
       function (err, result, fields) {
         if (err) {
-          console.log(colors.magenta("db error : getUserEmailandUserNameCount ->" + JSON.stringify(result)+ '\n'));
+          console.log(colors.magenta("db error : createGameTableSession ->" + JSON.stringify(result)+ '\n'));
           callback(err);
           throw err;
         }
@@ -232,7 +249,7 @@ module.exports = {
       ")",
       function (err, result, fields) {
         if (err) {
-          console.log(colors.magenta("db error : getUserEmailandUserNameCount ->" + JSON.stringify(result)+ '\n'));
+          console.log(colors.magenta("db error : createGameUserSession ->" + JSON.stringify(result)+ '\n'));
           callback(err);
           throw err;
         }
@@ -278,7 +295,7 @@ module.exports = {
     let result = con.query(  "select * from gameusersession gs inner join user us where gs.user_id = us.id and  gamesession_id = " +  data.gamesessionid  ,
       function (err, result, fields) {
         if (err) {
-          console.log(colors.magenta("db error : getUserEmailandUserNameCount ->" + JSON.stringify(result)+ '\n'));
+          console.log(colors.magenta("db error : getDeckLeftCards ->" + JSON.stringify(result)+ '\n'));
           callback(err);
           throw err;
         }

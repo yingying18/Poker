@@ -63,9 +63,22 @@ function postData(method, urlaction, data, destinationdiv,callback) {
 
     contentType: "application/json; charset=utf-8",
     success: function (data) {
+      try {
+        console.log(data);
+        if (typeof data.error !== 'undefined'){
+          callInfoPopup("can't join table", "report_problem", data.error);
+          
+          //alert(data.error);
+          return false;
+        }
+      } catch (e) {
+        
+      }
       console.log("success: data sent ");
-     if (typeof data !== "undefined" && data !== "") 
-      document.getElementById(destinationdiv).innerHTML = data;
+     if (typeof data !== "undefined" && data !== "") {
+        document.getElementById(destinationdiv).innerHTML = data;
+      }
+      
      
       if ((urlaction == "login/authanticate") || (urlaction == "/logout")) {
         gotoMenu('get', '/navbar', '', 'header','');

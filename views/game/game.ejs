@@ -1,7 +1,9 @@
 <div id="cube" class="cube">
     <div class="innercube"  id="innercube">
         <% if ( (typeof authanticate !== 'undefined') && authanticate === "true" ) { %>
-       
+             <% if ( (typeof error !== 'undefined') && error !== "" ) { %>
+                <script>alert('')</script>
+             <%}%>
             <div class="gamepanelcontainer">
                 <div>
                                 <h3>logged user : <%= authuser.username%></h3>
