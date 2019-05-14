@@ -24,19 +24,21 @@ module.exports = function (app,dbRequest,dbconn) {
 			authanticate : req.body.authanticate,
 			tableid : req.body.tableid
 		};
-		
+		 console.log(colors.red("/lobby/showgame getTableById passed data  : "+JSON.stringify(data)));
 		dbRequest.getTableById(dbconn, data, function (result) {
         //returns [{"table_id":1,"minamount":1,"active":1,"maxplayer":4}]
+       console.log(colors.red("/lobby/showgame getTableById result data  : "+JSON.stringify(result)));
 
                   if (typeof result.code !== "undefined" || result === "") {
-                    res.send("we encountered an error while calling the db getTableById.");
+                    throw new Error('getTableById : getTableById() -> result is empty or undefined');
                   } else {
+                  	console.log(colors.red("getTableById  result data  : "+JSON.stringify(result)));
                   		data.tabledata = result[0];
                   				dbRequest.getGameTableSession(dbconn, data, function (result) {
                   				//returns  [{"id":19,"table_id":1,"state":"waiting","userturn":168,"usercyclestarter":168,"totalbet":0,"cycle":1,"maxcycle":1}]
-
+                  				console.log(colors.red("getGameTableSession  result data  : "+JSON.stringify(data)));
 						                  if (typeof result.code !== "undefined" || result === "") {
-						                    res.send("we encountered an error while calling db getGameTableSession.");
+						                    throw new Error('getGameTableSession : getGameTableSession() -> result is empty or undefined');
 						                  } else {
 						                  		
 							                  	if (result.length === 0){
@@ -60,7 +62,7 @@ module.exports = function (app,dbRequest,dbconn) {
 
 
 											                  if (typeof result.code !== "undefined" || result === "") {
-											                    res.send("we encountered an error while calling db getGameUserSessionForTable.");
+											                     throw new Error('getGameUserSessionForTable : getGameUserSessionForTable() -> result is empty or undefined');
 											                  } else {
 											                  	//data.gameusersession = result[0].id;
 												                  	

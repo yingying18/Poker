@@ -65,7 +65,7 @@
                                         <tr style="border: 1px solid black;">
                                             <th>Table: <%= result[i].table_id %></th>
                                             <th>X</th>
-                                            <th><a href="#" onclick="showgame(<%= result[i].table_id %>);sendAuthInfoToSocket('<%= JSON.stringify(authuser) %>');setEnvForSocket('<%= (result[i].table_id) %>','<%= authuser.userid%>', null);"> table <%= result[i].table_id %></a> Join</a></th>
+                                            <th><a href="#" onclick="showgame(<%= result[i].table_id %>);sendAuthInfoToSocket('<%= JSON.stringify(authuser) %>');setEnvForSocket(<%= JSON.stringify(result[i]) %>,'<%= authuser.userid%>', null);"> table <%= result[i].table_id %></a> Join</a></th>
                                         </tr>
                                     <% } %>
                                 <%}else{%>

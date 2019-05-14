@@ -73,7 +73,7 @@ module.exports = {
     let result = con.query( "select * from user where (email='" + data.registeremail +  "' ); ",
       function (err, result, fields) {
         if (err) {
-          console.log(colors.magenta("db error : getUserEmailandUserNameCount ->" + JSON.stringify(result)+ '\n'));
+          console.log(colors.magenta("db error : getUserByEmail ->" + JSON.stringify(result)+ '\n'));
           callback(err);
           throw err;
         }
@@ -88,7 +88,7 @@ module.exports = {
     let result = con.query( "select * from user where (username = '" +  data.username +  "' and password ='" +   data.password +  "' ); ",
       function (err, result, fields) {
        if (err) {
-          console.log(colors.magenta("db error : getUserEmailandUserNameCount ->" + JSON.stringify(result)+ '\n'));
+          console.log(colors.magenta("db error : checkLoginUser ->" + JSON.stringify(result)+ '\n'));
           callback(err);
           throw err;
         }
@@ -103,7 +103,7 @@ module.exports = {
     let result = con.query( "update user set username = '" + data.name + "' where id = " + data.id, 
       function (err, result, fields) {  
         if (err) {
-          console.log(colors.magenta("db error : getUserEmailandUserNameCount ->" + JSON.stringify(result)+ '\n'));
+          console.log(colors.magenta("db error : updateUser ->" + JSON.stringify(result)+ '\n'));
           callback(err);
           throw err;
         }
@@ -118,7 +118,7 @@ module.exports = {
     let result = con.query( "select * from tables ;" , 
       function (err, result, fields) {
         if (err) {
-          console.log(colors.magenta("db error : getUserEmailandUserNameCount ->" + JSON.stringify(result)+ '\n'));
+          console.log(colors.magenta("db error : getAllTables ->" + JSON.stringify(result)+ '\n'));
           callback(err);
           throw err;
         }
@@ -134,7 +134,7 @@ module.exports = {
     let result = con.query(  "select * from tables where table_id = " +  data.tableid ,
       function (err, result, fields) {
         if (err) {
-          console.log(colors.magenta("db error : getUserEmailandUserNameCount ->" + JSON.stringify(result)+ '\n'));
+          console.log(colors.magenta("db error : getTableById ->" + JSON.stringify(result)+ '\n'));
           callback(err);
           throw err;
         }
@@ -149,7 +149,7 @@ module.exports = {
     let result = con.query(  "select * from gametablesession where table_id = " +  data.tableid + " and state != 'ended' " ,
       function (err, result, fields) {
        if (err) {
-          console.log(colors.magenta("db error : getUserEmailandUserNameCount ->" + JSON.stringify(result)+ '\n'));
+          console.log(colors.magenta("db error : getGameTableSession ->" + JSON.stringify(result)+ '\n'));
           callback(err);
           throw err;
         }
@@ -442,4 +442,56 @@ module.exports = {
       }
     );
   },
+  setNullAllCards: function (con, data, callback) {
+    //not used change if needed
+      console.log(colors.yellow("data paremeter passed to db call setNullAllCards : "+JSON.stringify(data)+'\n'));
+    let result = con.query(  "update  gameusersession set usercards = NULL where gamesession_id = " +  data.gamesessionid ,
+      function (err, result, fields) {
+        if (err) {
+          console.log(colors.magenta("db error : setNullAllCards ->" + JSON.stringify(result)+ '\n'));
+          callback(err);
+          throw err;
+        }
+        console.log(colors.yellow("returning response from db setNullAllCards : " + JSON.stringify(result)+'\n'));
+        callback(result);
+        
+      }
+    );
+  },
+  updatePlayeduser: function (con, data, callback) {
+
+    
+      console.log(colors.yellow("data paremeter passed to db call updatePlayeduser : "+JSON.stringify(data)+'\n'));
+    let result = con.query(  "update gameusersession set played  = 1 where user_id = "+data.userturn ,
+      function (err, result, fields) {
+        if (err) {
+          console.log(colors.magenta("db error : updatePlayeduser ->" + JSON.stringify(result)+ '\n'));
+          callback(err);
+          throw err;
+        }
+        console.log(colors.yellow("returning response from db updatePlayeduser : " + JSON.stringify(result)+'\n'));
+        callback(result);
+        
+      }
+    );
+  },
+  clearAllPlayedUser: function (con, data, callback) {
+    console.log(data.users);
+    let users = (data.users).toString();
+    console.log("%%%%%%%%%%%%%%%%%%%%%%%%%% users : "+users); 
+    
+      console.log(colors.yellow("data paremeter passed to db call clearAllPlayedUser : "+JSON.stringify(data)+'\n'));
+    let result = con.query(  "update gameusersession set played  = 0 where user_id in  ( "+users+ " ) " ,
+      function (err, result, fields) {
+        if (err) {
+          console.log(colors.magenta("db error : clearAllPlayedUser ->" + JSON.stringify(result)+ '\n'));
+          callback(err);
+          throw err;
+        }
+        console.log(colors.yellow("returning response from db clearAllPlayedUser : " + JSON.stringify(result)+'\n'));
+        callback(result);
+        
+      }
+    );
+  }
 };
