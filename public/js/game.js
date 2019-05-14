@@ -3,6 +3,7 @@
 
 
     socket.on('be_startgame', function(data){
+      
 
       gameSessionData.gamestartinsec = data.gamestartinsec;
       gameSessionData.gamestatus = data.gamestatus ;
@@ -16,7 +17,8 @@
           if (gameSessionData.gamestartinsec >=0){
              
             document.getElementById('gameinfotimer').innerHTML = "starts in "+ gameSessionData.gamestartinsec;
-                if (gameSessionData.gamestartinsec == 5){
+                if (gameSessionData.gamestartinsec % 2 ==0){
+                     showgame(gameSessionData.tableid);
                         for (let i = 0 ; i< gameSessionData.users.length ; i++){
                 document.getElementById('card'+gameSessionData.seatstaken[gameSessionData.users[i]] ).innerHTML = "";
                 }
@@ -35,7 +37,7 @@
     });
 
     function updateData(data){
-
+          console.log("front end refresh data called"+JSON.stringify(data));
           Object.keys(data).forEach(function(key){
           
              if ((key !== 'thisuser' ) && (key !== 'thissocketid' ) && (key !== 'thiscards' ) && (key !== 'thisbet' ) && (key !== 'thisseatno')){
@@ -123,7 +125,6 @@ function foldgame(userid){
     }
 
 
-
     socket.on('be_setEnvForSocket', function(data){
     
 
@@ -136,10 +137,13 @@ function foldgame(userid){
               }
         
         });
-
-         socket.emit('fe_startgame', gameSessionData);
-
-            
+      
+        waitForEl('#gameinfotimer', function() {
+        
+          socket.emit('fe_startgame', gameSessionData);
+        
+        });
+         
     });
 
     socket.on('be_setDeck', function(data){
@@ -150,6 +154,7 @@ function foldgame(userid){
     function starttic(){
 
       socket.emit('fe_dispatchTimerTick', gameSessionData);
+      console.log("----"+JSON.stringify(gameSessionData))
      
     };
 
@@ -233,7 +238,7 @@ function foldgame(userid){
     }
 
     socket.on('be_cycleover', function(data){
-        
+       gameSessionData.deck = data.deck; 
        cycleover(data);
    
     });
@@ -252,13 +257,17 @@ function foldgame(userid){
       gameSessionData.playedusers = data.playedusers;
       gameSessionData.usercards = data.usercards;
       gameSessionData.housecards = data.housecards;
+      //gameSessionData.deck = data.deck;
       gameSessionData.gamestartinsec =  data.gamestartinsec;
       gameSessionData.gamestatus = data.gamestatus;
 
       gameSessionData.gamestatus = 'waiting';
       socket.emit('fe_startgame', gameSessionData);
      
-     
-     
-   
+    });
+
+    socket.on('be_updateData', function(data){
+
+        updateData(data);
+        
     });
