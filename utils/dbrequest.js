@@ -587,6 +587,21 @@ module.exports = {
       }
     );
   },
+    getAllUserForGameSessionIncludeSender: function (con, data, callback) {
+    console.log(colors.yellow("data paremeter passed to db call getAllUserForGameSessionIncludeSender : "+JSON.stringify(data)+'\n'));
+    let result = con.query(  "select * from gameusersession where gamesession_id = " +  data.gamesessionid  ,
+      function (err, result, fields) {
+       if (err) {
+          console.log(colors.magenta("db error : getAllUserForGameSessionIncludeSender ->" + JSON.stringify(result)+ '\n'));
+          callback(err);
+          throw err;
+        }
+        console.log(colors.yellow("returning response from db getAllUserForGameSessionIncludeSender : " + JSON.stringify(result)+'\n'));
+        callback(result);
+        
+      }
+    );
+  },
     deleteGameSession: function (con, data, callback) {
     console.log(colors.yellow("data paremeter passed to db call deleteGameSession : "+JSON.stringify(data)+'\n'));
     let result = con.query(  "delete from gametablesession where id = " +  data.gamesessionid  ,

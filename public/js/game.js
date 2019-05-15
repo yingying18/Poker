@@ -73,15 +73,16 @@ function leavegame(userid , gamesession){
   data.gamesessionid = parseInt(gamesession);
   //alert('leave game :'+ userid + 'gamesession' + gamesession);
   console.log(JSON.stringify(gameSessionData));
+  
   socket.emit('fe_userleft', gameSessionData );
-
   postData('post', 'game/leavetablesession', data, 'updatableMiddleContainer',reseizeOpaqueDiv);
 
 
+
 }
-function updatedata(){
+function updatedatacallserver(){
   
-  socket.emit('socketUserAuthInfo', fe_updatedata );
+  socket.emit('fe_updatedata', data );
 }
 function callgame(userid){
 
@@ -184,6 +185,7 @@ function foldgame(userid){
         
         if (gameSessionData.thistimer > 0){
             console.log("be_dispatchTimerTick data.thiis timer > 0");
+            showActionButtons("useraction");
             document.getElementById('usertimer'+gameSessionData.seatstaken[gameSessionData.userturn] ).innerHTML = gameSessionData.thistimer;
             starttic();
 
@@ -297,7 +299,7 @@ function foldgame(userid){
            arr = {1:join, 2:leave, 3:useraction};
         }
          if (option == "userac"){
-          arr = {1:userac};
+          arr = {1:useraction};
         }
         for (key in arr){
           for(let k = 0; k<arr[key].length;k++){
@@ -315,8 +317,8 @@ function foldgame(userid){
         if (option =="all"){
            arr = {1:join, 2:leave, 3:useraction};
         }
-         if (option == "useraction"){
-          arr = {1:userac};
+         if (option == "userac"){
+          arr = {1:useraction};
         }
          if (option == "generals"){
            arr = {1:join, 2:leave};

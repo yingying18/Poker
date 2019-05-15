@@ -164,25 +164,25 @@ module.exports = function (app,dbRequest,dbconn , poker) {
 			gamesessionid : req.body.gamesessionid
 
 		}
-		dbRequest.deleteUserFromGameUserSession(dbconn, data, function (result) {
+								dbRequest.deleteUserFromGameUserSession(dbconn, data, function (result) {
 
-                  if (typeof result.code !== "undefined" || result === "") {
-                   	res.send("we encountered an error while creating the game user session.");
-                  } else {
-                  	console.log("colecting last record "+ JSON.stringify(result));
+						                  if (typeof result.code !== "undefined" ) {
+						                   	res.send("we encountered an error while creating the game user session.");
+						                  } else {
+						                  	console.log("colecting last record "+ JSON.stringify(result));
 
-							dbRequest.getAllTables(dbconn, null, function (result) {
-                  
-					                  if (typeof result.code !== "undefined" || result === "") {
-					                    res.send("we encountered an error while calling the lobby.");
-					                  } else {
-					                  	console.log("lobby auth : "+req.session.authanticate);
-					                    res.render('game/lobby', {result : result, authanticate : req.session.authanticate, authuser : req.session.authuser});
-					                  }
-					         });
-							
-                  }
-        });	
+													dbRequest.getAllTables(dbconn, null, function (result) {
+						                  
+											                  if (typeof result.code !== "undefined" ) {
+											                    res.send("we encountered an error while calling the lobby.");
+											                  } else {
+											                  	console.log("lobby auth : "+req.session.authanticate);
+											                    res.render('game/lobby', {result : result, authanticate : req.session.authanticate, authuser : req.session.authuser});
+											                  }
+											         });
+													
+						                  }
+						        });	
 		
 		
 			 		
