@@ -48,7 +48,7 @@
     -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
     box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
     text-align: center;
-    background-color: #4d4d33;
+    background-color: #031D44;
 }
 
 #formFooter {
@@ -294,7 +294,7 @@ input[type=text]:placeholder {
 }
 
 .formFooter {
-    background-color:#595544;
+    background-color:#A9BCD0;
     height:30px;
     border-radius: 0px 0px 5px 5px;
 }
@@ -306,7 +306,7 @@ input[type=text]:placeholder {
 }
 
 .closelogin{
-   background-color: #595544;
+   background-color: #A9BCD0;
     width: 100%;
     height: 30px;
     text-align: right;
