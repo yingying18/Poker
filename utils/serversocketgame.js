@@ -21,7 +21,7 @@ function refreshdata(data){
 	      	dbRequest.getGameTableSession(dbconn, data, function (result) {
 	      	// [{"id":45,"table_id":1,"state":"waiting","userturn":168,"usercyclestarter":168,"totalbet":0,"cycle":1,"maxcycle":1}]
 
-	          if (typeof result.code !== "undefined" || result === "") {
+	          if (typeof result.code !== "undefined" ) {
 	           		throw new Error('error : fe_setEnvForSocket :getGameTableSession() -> result is empty or undefined');
 	          } else {
 
@@ -52,7 +52,7 @@ function refreshdata(data){
 
 		          		      	dbRequest.get52Cards(dbconn, null, function (result) {
 						      		
-							          if (typeof result.code !== "undefined" || result === "") {
+							          if (typeof result.code !== "undefined" ) {
 							           		throw new Error('fe_setEnvForSocket : get52Cards() -> result is empty or undefined');
 							          } else {
 							          	
@@ -66,7 +66,7 @@ function refreshdata(data){
 							          		
 					          				dbRequest.getGameUserSessionForTable(dbconn, data, function (result) {
 			      		
-										          if (typeof result.code !== "undefined" || result === "") {
+										          if (typeof result.code !== "undefined" ) {
 										           		throw new Error('fe_setEnvForSocket : getGameUserSessionForTable() -> result is empty or undefined');
 										          } else {
 										          	
@@ -82,43 +82,7 @@ function refreshdata(data){
 										          		
 											          		
 										          	}
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-										          	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+										          	
 										          			console.log(colors.cyan("%%%%%%%%%%% serverside sends refresh data :" + JSON.stringify(data)));
 											          		
 
@@ -149,6 +113,70 @@ let io = socket(server);
 			console.log(colors.cyan("---------socket disconnected : "+socket.id));
 		});
 
+		socket.on('fe_userleft', function(data) {
+			
+			//data = refreshdata(data);
+			console.log(colors.cyan("---------user_left : "+socket.id));
+			clearInterval(intervaltrack.get(data.gamesessionid));
+			intervaltrack.set(data.gamesessionid, 'undefined');
+			clearInterval(gamestartintervaltrack.get(data.gamesessionid));
+			gamestartintervaltrack.set(data.gamesessionid, 'undefined');
+			console.log("{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{ "+JSON.stringify(data));
+
+			    dbRequest.getAllUserForGameSession(dbconn, data, function (result) {
+
+			          if (typeof result.code !== "undefined" ) {
+			           		throw new Error('getGameSessionForUser : -> result is empty or undefined');
+			          } else {
+			          	console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "));
+			          		console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "));
+			          			console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "));
+
+			          				console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "));
+
+
+			          					console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "));
+			          						console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "+result.length));
+
+			          	console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "+ JSON.stringify(result)));
+
+			          		if (result.length==0){
+			          				    dbRequest.deleteGameSession(dbconn, data, function (result) {
+
+									          if (typeof result.code !== "undefined" ) {
+									           		throw new Error('deleteGameSession : -> result is empty or undefined');
+									          } else {
+									          	console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "));
+									          		console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "));
+									          			console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "));
+
+									          				console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "));
+
+
+									          					console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "));
+									          						console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "));
+
+									          	console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "+ JSON.stringify(result)));
+																						          	
+									          }
+									    });	
+			          	}else{
+			          			startGame(data);
+			          	}
+																          	
+			          }
+			    });	
+
+			//io.to(data.socketroom).emit('be_updateData',data);
+			
+		});
+
+		socket.on('fe_updatedata', function() {
+			data = refreshdata(data);
+			console.log(colors.cyan("---------socket disconnected : "+socket.id));
+			io.to(data.socketroom).emit('be_updateData',data);
+			
+		});
 		socket.on('fe_setEnvForSocket', function(data){
 			
 		
@@ -163,7 +191,7 @@ let io = socket(server);
 	      	dbRequest.getGameTableSession(dbconn, data, function (result) {
 	      		// [{"id":45,"table_id":1,"state":"waiting","userturn":168,"usercyclestarter":168,"totalbet":0,"cycle":1,"maxcycle":1}]
 
-	          if (typeof result.code !== "undefined" || result === "") {
+	          if (typeof result.code !== "undefined") {
 	           		throw new Error('error : fe_setEnvForSocket :getGameTableSession() -> result is empty or undefined');
 	          } else {
 	          	console.log(colors.blue(JSON.stringify(result)));
@@ -205,7 +233,7 @@ let io = socket(server);
 
 		          		      	dbRequest.get52Cards(dbconn, null, function (result) {
 						      		
-							          if (typeof result.code !== "undefined" || result === "") {
+							          if (typeof result.code !== "undefined" ) {
 							           		throw new Error('fe_setEnvForSocket : get52Cards() -> result is empty or undefined');
 							          } else {
 							          	
@@ -219,7 +247,7 @@ let io = socket(server);
 							          		
 					          				dbRequest.getGameUserSessionForTable(dbconn, data, function (result) {
 			      		
-										          if (typeof result.code !== "undefined" || result === "") {
+										          if (typeof result.code !== "undefined" ) {
 										           		throw new Error('fe_setEnvForSocket : getGameUserSessionForTable() -> result is empty or undefined');
 										          } else {
 										          	console.log(colors.cyan("colecting db record : fe_setEnvForSocket : getGameUserSessionForTable() "+ JSON.stringify(result)));
@@ -261,7 +289,7 @@ let io = socket(server);
 	   
 		});
 
-		socket.on('fe_startgame', function(data){
+		function startGame(data){
 			console.log('fe start game :' + data.gamestatus);
 			if (data.gamestatus == 'waiting' ){ 
 				
@@ -284,7 +312,7 @@ let io = socket(server);
 								}
 								dbRequest.updateGameStartInTimer(dbconn, data, function (result) {
 
-							          if (typeof result.code !== "undefined" || result === "") {
+							          if (typeof result.code !== "undefined" ) {
 							           		throw new Error('fe_startgame : updateGameStartInTimer-> result is empty or undefined');
 							          } else {
 							          	console.log(colors.cyan("colecting db record : fe_startgame :updateGameStartInTimer  "+ JSON.stringify(result)));
@@ -300,7 +328,7 @@ let io = socket(server);
 
 													dbRequest.updateTableState(dbconn, data, function (result) {
 		
-												          if (typeof result.code !== "undefined" || result === "") {
+												          if (typeof result.code !== "undefined" ) {
 												           		throw new Error('updateTableState : -> result is empty or undefined');
 												          } else {
 												          	console.log(colors.cyan("colecting db record : updateTableState :  "+ JSON.stringify(result)));
@@ -336,6 +364,10 @@ let io = socket(server);
 	    			io.to(data.gamesessionid).emit('be_startgame',data);
 
 	    	}
+		}
+
+		socket.on('fe_startgame', function(data){
+			startGame(data);
 		});
 
 		socket.on('socketUserAuthInfo', function(usersession){
@@ -381,27 +413,27 @@ let io = socket(server);
 			 	data.gamestatus = 'waiting';
 			 			dbRequest.setNullAllCards(dbconn, data, function (result) {
 		
-					          if (typeof result.code !== "undefined" || result === "") {
+					          if (typeof result.code !== "undefined" ) {
 					           		throw new Error('fe_dealcards : -> result is empty or undefined');
 					          } else {
-					          	console.log(colors.cyan("colecting db record : updateAlUsersCards :  "+ JSON.stringify(result)));
+					          	console.log(colors.cyan("colecting db record : setNullAllCards :  "+ JSON.stringify(result)));
 
 
-					          	console.log(colors.cyan("data ---> serverside updateAlUsersCards :" + JSON.stringify(data)));
+					          	console.log(colors.cyan("data ---> serverside setNullAllCards :" + JSON.stringify(data)));
 						        	
 						        	dbRequest.setNullHouseCards(dbconn, data, function (result) {
 		
-								          if (typeof result.code !== "undefined" || result === "") {
-								           		throw new Error('updateHouseCards : -> result is empty or undefined');
+								          if (typeof result.code !== "undefined" ) {
+								           		throw new Error('setNullHouseCards : -> result is empty or undefined');
 								          } else {
-								          	console.log(colors.cyan("colecting db record : updateHouseCards :  "+ JSON.stringify(result)));
+								          	console.log(colors.cyan("colecting db record : setNullHouseCards :  "+ JSON.stringify(result)));
 
 
-								          	console.log(colors.cyan("data ---> serverside updateHouseCards :" + JSON.stringify(data)));
+								          	console.log(colors.cyan("data ---> serverside setNullHouseCards :" + JSON.stringify(data)));
 									        		
 									        		dbRequest.updateTableState(dbconn, data, function (result) {
 		
-												          if (typeof result.code !== "undefined" || result === "") {
+												          if (typeof result.code !== "undefined" ) {
 												           		throw new Error('updateTableState : -> result is empty or undefined');
 												          } else {
 												          	console.log(colors.cyan("colecting db record : updateTableState :  "+ JSON.stringify(result)));
@@ -425,10 +457,10 @@ let io = socket(server);
 			 }else{
 				dbRequest.updateCycle(dbconn, data, function (result) {
 
-			          if (typeof result.code !== "undefined" || result === "") {
-			           		throw new Error('updatePlayeduser : -> result is empty or undefined');
+			          if (typeof result.code !== "undefined" ) {
+			           		throw new Error('updateCycle : -> result is empty or undefined');
 			          } else {
-			          	console.log(colors.cyan("colecting db record : updatePlayeduser :  "+ JSON.stringify(result)));
+			          	console.log(colors.cyan("colecting db record : updateCycle :  "+ JSON.stringify(result)));
 
 				      		io.to(data.gamesessionid).emit('be_incrementcycle',data);
 																          	
@@ -495,10 +527,10 @@ let io = socket(server);
 						      	//data.thistimer = dbtimer-1;
 						      	dbRequest.getTableSessionTimer(dbconn, data, function (result) {
 					
-								          if (typeof result.code !== "undefined" || result === "") {
-								           		throw new Error('updatePlayeduser : -> result is empty or undefined');
+								          if (typeof result.code !== "undefined" ) {
+								           		throw new Error('getTableSessionTimer : -> result is empty or undefined');
 								          } else {
-								          	console.log(colors.cyan("colecting db record : updatePlayeduser :  "+ JSON.stringify(result)));
+								          	console.log(colors.cyan("colecting db record : getTableSessionTimer :  "+ JSON.stringify(result)));
 
 								dbtimer = result[0].timer;
 								
@@ -518,16 +550,16 @@ let io = socket(server);
 
 						      						dbRequest.updateTableSessionTimer(dbconn, data, function (result) {
 		
-												          if (typeof result.code !== "undefined" || result === "") {
-												           		throw new Error('fe_dispatchTimerTick : -> result is empty or undefined');
+												          if (typeof result.code !== "undefined" ) {
+												           		throw new Error('updateTableSessionTimer : -> result is empty or undefined');
 												          } else {
-												          	console.log(colors.cyan("colecting db record : fe_dispatchTimerTick :  "+ JSON.stringify(result)));
+												          	console.log(colors.cyan("colecting db record : updateTableSessionTimer :  "+ JSON.stringify(result)));
 
 
 												          
 			   						      						dbRequest.updatePlayeduser(dbconn, data, function (result) {
 					
-															          if (typeof result.code !== "undefined" || result === "") {
+															          if (typeof result.code !== "undefined" ) {
 															           		throw new Error('updatePlayeduser : -> result is empty or undefined');
 															          } else {
 															          	console.log(colors.cyan("colecting db record : updatePlayeduser :  "+ JSON.stringify(result)));
@@ -552,17 +584,17 @@ let io = socket(server);
 				}else{
 					    dbRequest.clearAllPlayedUser(dbconn, data, function (result) {
 
-					          if (typeof result.code !== "undefined" || result === "") {
-					           		throw new Error('updatePlayeduser : -> result is empty or undefined');
+					          if (typeof result.code !== "undefined" ) {
+					           		throw new Error('clearAllPlayedUser : -> result is empty or undefined');
 					          } else {
-					          	console.log(colors.cyan("colecting db record : updatePlayeduser :  "+ JSON.stringify(result)));
+					          	console.log(colors.cyan("colecting db record : clearAllPlayedUser :  "+ JSON.stringify(result)));
 					          		data.cycle = 1;
 						      		dbRequest.updateCycle(dbconn, data, function (result) {
 
-								          if (typeof result.code !== "undefined" || result === "") {
-								           		throw new Error('updatePlayeduser : -> result is empty or undefined');
+								          if (typeof result.code !== "undefined" ) {
+								           		throw new Error('clearAllPlayedUser : -> result is empty or undefined');
 								          } else {
-								          	console.log(colors.cyan("colecting db record : updatePlayeduser :  "+ JSON.stringify(result)));
+								          	console.log(colors.cyan("colecting db record : clearAllPlayedUser :  "+ JSON.stringify(result)));
 
 									      		
 	      				          		      	 io.to(data.gamesessionid).emit('be_cycleover',data);

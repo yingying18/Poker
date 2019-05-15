@@ -572,4 +572,34 @@ module.exports = {
       }
     );
   },
+  getAllUserForGameSession: function (con, data, callback) {
+    console.log(colors.yellow("data paremeter passed to db call getGameSessionForUser : "+JSON.stringify(data)+'\n'));
+    let result = con.query(  "select * from gameusersession where gamesession_id = " +  data.gamesessionid + " and user_id != " + data.thisuser ,
+      function (err, result, fields) {
+       if (err) {
+          console.log(colors.magenta("db error : getGameSessionForUser ->" + JSON.stringify(result)+ '\n'));
+          callback(err);
+          throw err;
+        }
+        console.log(colors.yellow("returning response from db getGameSessionForUser : " + JSON.stringify(result)+'\n'));
+        callback(result);
+        
+      }
+    );
+  },
+    deleteGameSession: function (con, data, callback) {
+    console.log(colors.yellow("data paremeter passed to db call deleteGameSession : "+JSON.stringify(data)+'\n'));
+    let result = con.query(  "delete from gametablesession where id = " +  data.gamesessionid  ,
+      function (err, result, fields) {
+       if (err) {
+          console.log(colors.magenta("db error : deleteGameSession ->" + JSON.stringify(result)+ '\n'));
+          callback(err);
+          throw err;
+        }
+        console.log(colors.yellow("returning response from db deleteGameSession : " + JSON.stringify(result)+'\n'));
+        callback(result);
+        
+      }
+    );
+  }
 };

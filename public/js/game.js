@@ -7,24 +7,32 @@
 
       gameSessionData.gamestartinsec = data.gamestartinsec;
       gameSessionData.gamestatus = data.gamestatus ;
-     
+      
       if (gameSessionData.gamestatus == 'inplay'){
-
+          console.log("be_startgame inplay ");
+          hideActionButtons("all");
           startGame();
 
       }else{
+          console.log("be_startgame waiting ");
+          //postData('post', 'lobby/showgame', data, 'updatableMiddleContainer',reseizeOpaqueDiv);
+          //socket.emit('fe_userleft', gameSessionData);
+          
+          //console.log(gameSessionData.gamestatus);
           updateData(data);
+          showActionButtons("generals");
           if (gameSessionData.gamestartinsec >=0){
              
             document.getElementById('gameinfotimer').innerHTML = "starts in "+ gameSessionData.gamestartinsec;
                 if (gameSessionData.gamestartinsec % 2 ==0){
                      showgame(gameSessionData.tableid);
                         for (let i = 0 ; i< gameSessionData.users.length ; i++){
+                if (typeof gameSessionData.seatstaken[gameSessionData.users[i]] !=='undefined')
                 document.getElementById('card'+gameSessionData.seatstaken[gameSessionData.users[i]] ).innerHTML = "";
                 }
                 document.getElementById('housecards').innerHTML = "";
             }
-          
+             
           }else{
           
             document.getElementById('gameinfotimer').innerHTML = gameSessionData.gamestatus;
@@ -37,7 +45,7 @@
     });
 
     function updateData(data){
-          console.log("front end refresh data called"+JSON.stringify(data));
+          //console.log("front end refresh data called"+JSON.stringify(data));
           Object.keys(data).forEach(function(key){
           
              if ((key !== 'thisuser' ) && (key !== 'thissocketid' ) && (key !== 'thiscards' ) && (key !== 'thisbet' ) && (key !== 'thisseatno')){
@@ -64,9 +72,17 @@ function leavegame(userid , gamesession){
   data.userid = parseInt(userid);
   data.gamesessionid = parseInt(gamesession);
   //alert('leave game :'+ userid + 'gamesession' + gamesession);
-  postData('post', 'game/leavetablesession', data, 'updatableMiddleContainer',reseizeOpaqueDiv);
-}
+  console.log(JSON.stringify(gameSessionData));
+  socket.emit('fe_userleft', gameSessionData );
 
+  postData('post', 'game/leavetablesession', data, 'updatableMiddleContainer',reseizeOpaqueDiv);
+
+
+}
+function updatedata(){
+  
+  socket.emit('socketUserAuthInfo', fe_updatedata );
+}
 function callgame(userid){
 
   alert('call game :'+userid);
@@ -113,7 +129,7 @@ function foldgame(userid){
         }
 
         socket.emit('fe_setEnvForSocket', gameSessionData);
-        console.log("socket.emit('fe_setEnvForSocket', gameSessionData);");
+        //console.log("socket.emit('fe_setEnvForSocket', gameSessionData);");
     }
 
 
@@ -152,9 +168,9 @@ function foldgame(userid){
     });
 
     function starttic(){
-
+      console.log("starttic");
       socket.emit('fe_dispatchTimerTick', gameSessionData);
-      console.log("----"+JSON.stringify(gameSessionData))
+      //console.log("----"+JSON.stringify(gameSessionData))
      
     };
 
@@ -167,13 +183,13 @@ function foldgame(userid){
         
         
         if (gameSessionData.thistimer > 0){
-
+            console.log("be_dispatchTimerTick data.thiis timer > 0");
             document.getElementById('usertimer'+gameSessionData.seatstaken[gameSessionData.userturn] ).innerHTML = gameSessionData.thistimer;
             starttic();
 
         }else if (gameSessionData.thistimer <= 0){
             
-            console.log("data.thiis timer == 0");
+            console.log("be_dispatchTimerTick data.thiis timer <= 0");
             document.getElementById('usertimer'+gameSessionData.seatstaken[gameSessionData.userturn] ).innerHTML = gameSessionData.thistimer;
             socket.emit('fe_switchToNetUser', gameSessionData);
 
@@ -267,7 +283,51 @@ function foldgame(userid){
     });
 
     socket.on('be_updateData', function(data){
-
+        console.log("be_updateData");
         updateData(data);
         
     });
+        let join = document.getElementsByName("join");
+        let leave = document.getElementsByName("leave");
+        let useraction = document.getElementsByName("userac");
+    function hideActionButtons(option){
+        let arr = null;
+
+        if (option =="all"){
+           arr = {1:join, 2:leave, 3:useraction};
+        }
+         if (option == "userac"){
+          arr = {1:userac};
+        }
+        for (key in arr){
+          for(let k = 0; k<arr[key].length;k++){
+            arr[key][k].style.visibility = "hidden"; 
+          }
+        }
+
+
+
+    }
+
+    function showActionButtons(option){
+        let arr = null;
+        
+        if (option =="all"){
+           arr = {1:join, 2:leave, 3:useraction};
+        }
+         if (option == "useraction"){
+          arr = {1:userac};
+        }
+         if (option == "generals"){
+           arr = {1:join, 2:leave};
+        }
+        for (key in arr){
+          for(let k = 0; k<arr[key].length;k++){
+            arr[key][k].style.visibility = "show"; 
+          }
+
+        }
+
+
+
+    }
