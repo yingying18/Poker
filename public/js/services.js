@@ -1,15 +1,58 @@
 //method : post,get,put,delete
 //urlaction: link to catch request
 
-var socket = io.connect('http://localhost:3000');
-var usera = null;
-var timercheck = null;
+let usera = null;
+let startgametimercheck = null;
+let userturntimercheck = null;
+let socket = io.connect('http://localhost:3000');
+
+
+let gameSessionData = {
+  thisuser : 0,
+  thissocketid : "",
+  thisseatno : 0 ,
+  thisbet : 0,
+  thistimer : 5,
+  usersbet : {},
+  seatstaken :{},
+  socketids : {},
+  usercards : {},
+  playedusers : {},
+  users : [],
+  deck : [],
+  housecards : [],
+  gamesessionid : 0,
+  socketroom : 0,
+  gamestatus : "",
+  userstatus : "",
+  cycle : 0,
+  maxcycle : 0,
+  userturn: 0,
+  tableid : 0,
+  tablemoney : 0,
+  played : 0,
+  calls : 0,
+  gamestartinsec:10
+
+
+};
+
+var waitForEl = function(selector, callback) {
+  if (jQuery(selector).length) {
+    callback();
+  } else {
+    setTimeout(function() {
+      waitForEl(selector, callback);
+    }, 100);
+  }
+};
 
 function postData(method, urlaction, data, destinationdiv,callback) {
   console.log("data json post called");
- 
+  let control = false;
   let senddata = {};
   if (typeof data !== "undefined" && data !== "") {
+    control == true;
     senddata = data;
   }
 
@@ -20,8 +63,22 @@ function postData(method, urlaction, data, destinationdiv,callback) {
 
     contentType: "application/json; charset=utf-8",
     success: function (data) {
+      try {
+        console.log(data);
+        if (typeof data.error !== 'undefined'){
+          callInfoPopup("can't join table", "report_problem", data.error);
+          
+          //alert(data.error);
+          return false;
+        }
+      } catch (e) {
+        
+      }
       console.log("success: data sent ");
-      document.getElementById(destinationdiv).innerHTML = data;
+     if (typeof data !== "undefined" && data !== "") {
+        document.getElementById(destinationdiv).innerHTML = data;
+      }
+      
      
       if ((urlaction == "login/authanticate") || (urlaction == "/logout")) {
         gotoMenu('get', '/navbar', '', 'header','');
@@ -32,7 +89,15 @@ function postData(method, urlaction, data, destinationdiv,callback) {
 
   }).done(function(){
            if ((typeof callback !== "undefined") && ( callback !=="")){
+            
+            if (callback.name === 'reseizeOpaqueDiv') {
+              
              callback(urlaction,destinationdiv);
+            }else{
+              
+              callback();
+
+            }
           }
       });
  
@@ -100,7 +165,7 @@ function reseizeOpaqueDiv(urlaction,divtochecksize){
 
 
    
-    console.log(urlaction);
+    //console.log(urlaction);
     let calcwidth =parseInt( ((document.getElementById("updatableMiddleContainer").offsetWidth  ) - (document.getElementById("innercube").offsetWidth) )/2);
     document.getElementById("middleContainerOpaq").style.height = document.getElementById('updatableMiddleContainer').clientHeight +100+ "px";
     document.getElementById("updatableMiddleContainer").style.paddingLeft = calcwidth-50 + "px";
@@ -111,3 +176,13 @@ function reseizeOpaqueDiv(urlaction,divtochecksize){
    
    
 }
+
+    function countJson(obj) {
+      var count=0;
+        for(var prop in obj) {
+          if (obj.hasOwnProperty(prop)) {
+             ++count;
+          }
+        }
+      return count;
+    }

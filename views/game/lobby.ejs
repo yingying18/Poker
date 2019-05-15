@@ -1,172 +1,25 @@
 
 <div id="cube" class="cube">
     <div class="innercube"  id="innercube">
-        <div class="gamepanelcontainer">
+        <div class="" style="color:black;">
 
-            <!-- <%if ( typeof lobbyresult != 'undefined' ) { %>
-                <h3>Game Id: <%= lobbyresult.lobbyid %></h3>
-                <p>MinBet: <%= lobbyresult.minbet%> 
-                Seats available: <%= lobbyresult.seatsavailable%>
-                Current Pot: <%= lobbyresult.pot %>
-                </p>
-                <p>Card1: <%=lobbyresult.card1%></p>
-                <p>Card2: <%=lobbyresult.card2%></p>
-                <p>Card3: <%=lobbyresult.card3%></p>
-                <p>Card4: <%=lobbyresult.card4%></p>
-                <p>Card5: <%=lobbyresult.card5%></p>
-            <% } %>
-            
-            <h3>Game Id: 1</h3>
-            <p>Min Bet: x Seats available: y</p>
-            <p>Seats Available: 3</p>
-            <p>Current Pot: $2</p>
-            <p>Card1: Ace Hearts</p>
-            <p>Card2: Two Diamonds</p>
-            <p>Card3: Three Spades</p>
-            <p>Card4: Four Clover</p>
-            <p>Card5: HIDDEN</p>
-            <table id="gameTable" class="table table-striped" width="800px">
-                <tr>
-                <th scope="col">UserID</th>
-                <th scope="col">Username</th>
-                <th scope="col">Currency</th>
-                <th scope="col">Current Bet Amount</th>
-                <td scope="col">Card1</td>
-                <td scope="col">Card2</td>
-                <td scope="col">PlayerTurn?</td>
-                <td scope="col">Buttons</td>
-                </tr>
-            </table> -->
+            <div class="container">
 
-    <div class="container-fluid" style="color:black;">
-
-    <div class="chat-component">
-    <div style="overflow: auto; width:300px; height:200px; background-color:white; display:inline-block;" id="chat"></div>
-    <input style="width:300px; height:50px;" type="text" id="chatinputbox">
-    <button id="sendMessage" placeholder="Send" onclick="sendMessage('<%= authuser.username%>');">Send</button>
-    </div>
-            <div class="row">
-                <!-- <div> -->
-                <!-- <div class='GameButtons' onclick="">
-                <form id ="send-inside">
-                    <input size="35" id="messageinside">
-                    <input type="submit">
-                </form>
-                <form id="print-inside">
-                    <input type="submit">
-                </form>
-                    
-                <form id="game-inside">
-                    <button type="submit" id="createGame" placeholder="Create Game" onclick="">Create Game</button>
-                </form>
-                <form id="send-news">
-                    <input type="submit">
-                </form> -->
-                    
-                    
-                </div>
-                <!-- </div> -->
-            </div>
-            <!-- Start Top Row -->
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="row">
-                        <div class="col-md-12" style="color:white;">
-                            <strong>User Name Here</strong>
-                        </div>
-                        <div class="col-md-12">
-                            <img style="width:100px;height:100px;" src="https://s3.amazonaws.com/uifaces/faces/twitter/rogie/128.jpg" class="rounded">
+                <div class="row">
+                    <div class="col-2">
+                        <div>
+                            <img style="width:100px;height:100px;" src="<%= authuser.picture %>" class="rounded">
                         </div>
                     </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="row justify-content-end">
-                        <div class="col-md-8">
-                        </div>
-                        <div class="col-md-2">
 
-                            <button type="button" class="btn btn-success">
-                                My Account
-                            </button>
-                        </div>
-                        <div class="col-md-2">
-
-                            <button type="button" class="btn btn-success">
-                                Logout
-                            </button>
+                    <div class="col-6">
+                        <div style="color:white;">
+                            <strong>User: <%= authuser.username %></strong>
                         </div>
                     </div>
-                </div>
-            </div>
-            <!-- End Top Row -->
 
-            <!-- Start Bottom Row -->
-            <div class="row" style="color:white;">
-                <div class="col-md-12">
-                    <div class="row">
-                        <!-- Left Hand Column -->
-                        <div class="col-md-3">
-                            <div class="row">
-                                <!-- My Stats -->
-                                <div class="col-md-12">
-                                    <dl>
-                                        <h2>
-                                            My Statistics
-                                        </h2>
-                                        <dt>
-                                            Chips:
-                                        </dt>
-                                        <dt>
-                                            My Level:
-                                        </dt>
-                                        <dt>
-                                            Win Rate:
-                                        </dt>
-                                    </dl>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="row" style="color:black;width: 300px; ">
-                            <div class="col-md-12" style=" ">
-                                <div class="card" >
-                                    <div class="card-body" >
-                                        <h5 class="card-title">available tables</h3>
-                                        <% if ( (typeof result !== 'undefined') && result !== "" ) { %>
-                                            <%  let recordCount = result.length 
-                                                let i = 0;
-                                            %>
-                                            <% for (i = 0 ;i < recordCount; i++) { %>
-                                                <a href="#" onclick="showgame(<%= result[i].table_id %>);startcounter(5000,checkgamesession,'<%= authuser.username%>');sendAuthInfoToSocket('<%= JSON.stringify(authuser) %>');"> table <%= result[i].table_id %></a><br>
-                                            <% } %>
-                                        <%}else{%>
-                                            <h6> no available table</h6>
-                                        <%}%>
-
-                                    </div>
-                                    <!-- Expect to have dynamic pagination -->
-                                    <!-- <nav>
-                                            <ul class="pagination">
-                                                <li class="page-item">
-                                                    <a class="page-link" href="#">1</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="#">2</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="#">3</a>
-                                                </li>
-                                            </ul>
-                                        </nav> -->
-                                    <button type="button" class="btn btn-success">
-                                        New Table
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Right Hand Column -->
-                        <!-- Statistics -->
-                        <div class="col-md-9">
+                    <div class="col-4">
+                        <div>
                             <dl>
                                 <h2>
                                     Statistics
@@ -190,7 +43,57 @@
                         </div>
                     </div>
                 </div>
-            </div>
+
+                <div class="row">
+                    
+                    <div class="card col-8" style="border-style:solid; color:black; min-width:300px; min-height:300px; max-width:10000; max-height:10000;">
+                        <div class="card-body">
+                            <h3 class="card-title;" style="text-decoration:underline"> Available tables: </h3>
+                            <table style="width:100%; border: 1px solid black; text-align: center">
+                                <tr>
+                                    <th style="border: 1px solid black;">Table Name</th>
+                                    <th style="border: 1px solid black;">Available Seats</th>
+                                    <th style="border: 1px solid black;">Join</th>
+                                </tr>
+
+                                <% if ( (typeof result !== 'undefined') && result !== "" ) { %>
+                                    <%  let recordCount = result.length 
+                                        let i = 0;
+                                    %>
+                                    <% for (i = 0 ;i < recordCount; i++) { %>
+
+                                        <tr style="border: 1px solid black;">
+                                            <th>Table: <%= result[i].table_id %></th>
+                                            <th>X</th>
+                                            <th><a href="#" onclick="showgame(<%= result[i].table_id %>);sendAuthInfoToSocket('<%= JSON.stringify(authuser) %>');setEnvForSocket(<%= JSON.stringify(result[i]) %>,'<%= authuser.userid%>', null);"> table <%= result[i].table_id %></a> Join</a></th>
+                                        </tr>
+                                    <% } %>
+                                <%}else{%>
+                                    <tr>
+                                        <th>No tables are Available</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                <%}%>
+                            </table>
+                            <button type="button" class="btn btn-success">New Table</button>
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div style="border-style:solid; background-color:black; border-radius: 12px;">
+                            <div style="background-color:#225961; color:white; min-width:200px; min-height:300px; border-style: groove; border-radius: 12px;" id="chat">
+                            Chat:
+                            </div>
+                            <div>
+                                <input style="width:125px; height:30px;border-style: groove" type="text" id="chatinputbox">
+                                <button style="width:50px; height:30px; border-radius: 12px;" id="sendMessage" placeholder="Send" onclick="sendMessage('<%= authuser.username%>');">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                <div>
+
+            <div>
         </div>
     </div>
 </div>

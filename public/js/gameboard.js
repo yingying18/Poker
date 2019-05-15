@@ -1,28 +1,11 @@
-var  deck = null;
-var pl3 = null;
-var pl4 = null;
-var pl1 = null;
-var pl2 = null;
-var house = null;
-
-function startGame(){
-      cards.init({table:'#card-table'});
- 
-    //Create a new deck of cards
-     deck = new cards.Deck();
-
-}
-
-function prepareDeck(){
-
+function deckEx1(){
     cards.init({table:'#card-table'});
  
     //Create a new deck of cards
-     deck = new cards.Deck();
+    deck = new cards.Deck();
     //By default it's in the middle of the container, put it slightly to the side
     deck.y -= 100;
-    deck.x -=100;
-   
+ 
     //cards.all contains all cards, put them all in the deck
     deck.addCards(cards.all);
     //No animation here, just get the deck onto the table.
@@ -32,29 +15,22 @@ function prepareDeck(){
 
 
 
-function dealHands(playerno){
-    pl3 = new cards.Hand({faceUp:false, x: 500,y:500});
-    pl4 = new cards.Hand({faceUp:true,x :300 ,  y:500});
-    pl1 = new cards.Hand({faceUp:false,x: 250, y:350});
-    pl2 = new cards.Hand({faceUp:false,x:550, y:350});
-
+function deckEx2(){
+    upperhand = new cards.Hand({faceUp:false, y:50});
+    lowerhand = new cards.Hand({faceUp:true, y:550});
+    lefthand = new cards.Hand({faceUp:false, y:300});
+    lefthand.x -= 250;
+    righthand = new cards.Hand({faceUp:false, y:300});
+    righthand.x += 250;
     house = new cards.Hand({faceUp:true, y:300})
-    deck.deal(2, [pl3, pl4, pl1, pl2], 50);
+    deck.deal(2, [upperhand, lowerhand, lefthand, righthand], 50);
     deck.deal(3, [house], 50);
     console.log("This is getting the hands");
-   
-   
-
 }
 
 function deckEx3(){
     deck.deal(1, [house], 50);
     console.log("adding 4th card to center");
-    //alert( lowerhand[0]);
-    console.log(JSON.stringify( pl4.getAllCardsByName()));
-     console.log(JSON.stringify( deck.getAllCardsByName()));
-     
-     
 }
 
 function deckEx4(){
@@ -63,12 +39,12 @@ function deckEx4(){
 }
 
 function deckEx5(){
-    pl3.faceUp = true;
-    pl1.faceUp = true;
-    pl2.faceUp = true;
-    pl3.render();
-    pl1.render();
-    pl2.render();
+    upperhand.faceUp = true;
+    lefthand.faceUp = true;
+    righthand.faceUp = true;
+    upperhand.render();
+    lefthand.render();
+    righthand.render();
     console.log("revealing cards");
 }
 

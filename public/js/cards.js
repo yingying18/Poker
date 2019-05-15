@@ -155,9 +155,12 @@ var cards = (function() {
 				if (card.container) {
 					card.container.removeCard(card);
 				}
+
 				this.push(card);
+				
 				card.container = this;
 			}
+			
 		},
 		
 		removeCard : function(card) {
