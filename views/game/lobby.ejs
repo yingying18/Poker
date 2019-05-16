@@ -76,23 +76,21 @@
                                     </tr>
                                 <%}%>
                             </table>
-                            <button type="button" class="btn btn-success">New Table</button>
                         </div>
                     </div>
 
                     <div class="col-4">
                         <div style="border-style:solid; background-color:black; border-radius: 12px;">
-                            <div style="background-color:#225961; color:white; min-width:200px; min-height:300px; border-style: groove; border-radius: 12px;" id="chat">
+                            <div style="overflow-y:auto; background-color:#225961; color:white; min-width:200px; min-height:300px; max-height:300px; max-width:300px; border-style: groove; border-radius: 12px;" id="chat">
                             Chat:
                             </div>
                             <div>
-                                <input style="width:125px; height:30px;border-style: groove" type="text" id="chatinputbox">
+                                <input style="width:125px; height:30px; max-height:300px; border-style: groove" type="text" id="chatinputbox">
                                 <button style="width:50px; height:30px; border-radius: 12px;" id="sendMessage" placeholder="Send" onclick="sendMessage('<%= authuser.username%>');">Send</button>
                             </div>
                         </div>
                     </div>
                 <div>
-
             <div>
         </div>
     </div>
