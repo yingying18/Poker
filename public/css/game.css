@@ -10,7 +10,7 @@
 }
 .gameTableUser1{
 	cursor: pointer;
-	background: red;
+	
 	width: 150px;
 	height : 150px;
 	position: absolute;
@@ -18,24 +18,24 @@
 	z-index: 50;
 	float: left;
 	
-	left:100px;
+	left:90px;
 	top:150px;
 }
 .gameTableUser2{
 	cursor: pointer;
-	background: blue;
+	
 	width: 150px;
 	height : 150px;
 	position: absolute;
 	
 	z-index: 51;
 	
-	left:550px;
+	left:560px;
 	top:150px;
 }
 .gameTableUser3{
 	cursor: pointer;
-	background: gray;
+	
 	width: 150px;
 	height : 150px;
 	position: absolute;
@@ -43,12 +43,12 @@
 	z-index: 52;
 	float: left;
 	
-	left:550px;
-	top:450px;
+	left:570px;
+	top:420px;
 }
 .gameTableUser4{
 	cursor: pointer;
-	background: magenta;
+	
 	width: 150px;
 	height : 150px;
 	position: absolute;
@@ -56,13 +56,12 @@
 	z-index: 53;
 	float: left;
 	
-	left:100px;
-	top:450px;
+	left:80px;
+	top:420px;
 }
 
 .gameTableUserCard1{
 	cursor: pointer;
-	background: red;
 	width: 120px;
 	height : 50px;
 	position: absolute;
@@ -76,7 +75,7 @@
 }
 .gameTableUserCard2{
 	cursor: pointer;
-	background: blue;
+	
 	width: 120px;
 	height : 50px;
 	position: absolute;
@@ -84,13 +83,13 @@
 	z-index: 54;
 	float: left;
 
-	left:450px;
+	left:480px;
 	top:300px;
 
 }
 .gameTableUserCard3{
 	cursor: pointer;
-	background: gray;
+	
 	width: 120px;
 	height : 50px;
 	position: absolute;
@@ -104,7 +103,7 @@
 }
 .gameTableUserCard4{
 	cursor: pointer;
-	background: magenta;
+	
 	width: 120px;
 	height : 50px;
 	position: absolute;
@@ -119,7 +118,7 @@
 }
 .housecards{
 	cursor: pointer;
-	background: #00FF00;
+	
 	width: 120px;
 	height : 50px;
 	position: absolute;
@@ -180,3 +179,87 @@
 	top:600px;
 }
 
+.acbtns1{
+	position: absolute;
+	top:0px;
+	width: 100px;
+	float:left;
+	text-align: left;
+	left:150px;
+	
+}
+
+.acbtns2{
+	
+	position: absolute;
+	top:0px;
+	width: 100px;
+	float:right;
+	text-align: right;
+	left:-90px;
+	
+}
+
+.acbtns3{
+	
+	position: absolute;
+	top:50px;
+	width: 100px;
+	float:right;
+	text-align: right;
+	left:-90px;
+	
+}
+.acbtns4{
+	
+	position: absolute;
+	top:50px;
+	width: 100px;
+	float:left;
+	text-align: left;
+	left:140px;
+	
+}
+.userleave1{
+	position: absolute;
+	top:0px;
+	width: 100px;
+	float:left;
+	text-align: left;
+	left:150px;
+}
+.noseat1{
+	position: absolute;
+	top:70px;
+	width: 100px;
+	
+	
+	left:30px;
+}
+
+.noseat2{
+	position: absolute;
+	top:70px;
+	width: 100px;
+	
+	
+	left:30px;
+}
+
+.noseat3{
+	position: absolute;
+	top:70px;
+	width: 100px;
+	
+	
+	left:0px;
+}
+
+.noseat4{
+	position: absolute;
+	top:70px;
+	width: 100px;
+	
+	
+	left:40px;
+}

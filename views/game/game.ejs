@@ -1,9 +1,7 @@
 <div id="cube" class="cube">
     <div class="innercube"  id="innercube">
         <% if ( (typeof authanticate !== 'undefined') && authanticate === "true" ) { %>
-             <% if ( (typeof error !== 'undefined') && error !== "" ) { %>
-                <script>alert('')</script>
-             <%}%>
+
             <div class="gamepanelcontainer">
                 <div>
                                 <h3>logged user : <%= authuser.username%></h3>
@@ -32,21 +30,38 @@
                                                 <% if ( parseInt(gameusersession[k].seatnumber) === i) { %>  
                                                     <div id = "usertimer<%= i %>" class = "usertimer<%= i %>"><%= i %></div>
                                                     <div id = "user<%= i %>" class="gameTableUser<%= i %>">
-                                                        username : <%= gameusersession[k].username %><br>
+                                                        <%= gameusersession[k].username %><br>
                                                         bet : 0
 
                                               
                                                      <% if ( parseInt(gameusersession[k].user_id) === authuser.userid) { %> 
-                                                                
-                                                                <button name="leave" id="leave<%= authuser.userid%>" style="color:white;background-color:#d65151;" type="button" onclick="leavegame('<%= authuser.userid%>','<%= gameusersession[k].gamesession_id %>');" class="btn btn-secondary btn-sm">Leave Game</button>
-                                                                <button name="userac" id="call<%= authuser.userid%>" style="color:white;background-color:#3CB371;" type="button" onclick="callgame('<%= authuser.userid%>');" class="btn btn-secondary btn-sm">Call</button>
-                                                                <button name="userac" id="raise<%= authuser.userid%>" style="color:white;background-color:#4B0082;" type="button" onclick="raisegame('<%= authuser.userid%>');" class="btn btn-secondary btn-sm">Raise 10</button>
-                                                                <button name="userac" id="fold<%= authuser.userid%>" style="color:white;background-color:#d65151;" type="button" onclick="foldgame('<%= authuser.userid%>');" class="btn btn-secondary btn-sm">Fold</button>
+                                                                <div id="img<%= i %>">
+                                                                <% if (authuser.picture == 1) {%>
+                                                                    <img width="100" height="100" src="images/userimages/<%= authuser.userid%>.<%= authuser.filetype%>"/>
+                                                                 <%}else{%>
+                                                                <img width="100" height="100" src="images/userimages/person.png"/>
+                                                                <%}%>
+                                                                </div>
+                                                                <div id="acbtns<%= i %>" class="acbtns<%= i %>">
+                                                                <button name="leave" id="leave<%= authuser.userid%>" style="visibility:hidden;background-color:#d65151;" type="button" onclick="leavegame('<%= authuser.userid%>','<%= gameusersession[k].gamesession_id %>');" class="btn btn-secondary btn-sm">Leave Game</button>
+                                                                <button name="userac" id="call<%= authuser.userid%>" style="visibility:hidden;background-color:#3CB371;" type="button" onclick="callgame('<%= authuser.userid%>');" class="btn btn-secondary btn-sm">Call</button>
+                                                                <button name="userac" id="raise<%= authuser.userid%>" style="visibility:hidden;background-color:#4B0082;" type="button" onclick="raisegame('<%= authuser.userid%>');" class="btn btn-secondary btn-sm">Raise 10</button>
+                                                                <button name="userac" id="fold<%= authuser.userid%>" style="visibility:hidden;background-color:#d65151;" type="button" onclick="foldgame('<%= authuser.userid%>');" class="btn btn-secondary btn-sm">Fold</button>
+                                                                </div>
 
-                                                    <%}%>
+                                                    <%}else{%>
+                                                                <div>
+                                                                <% if (gameusersession[k].picture == 1) {%>
+                                                                    <img width="100" height="100" src="images/userimages/<%= gameusersession[k].user_id%>.<%= gameusersession[k].filetype%>"/>
+                                                                <%}else{%>
+                                                                <img width="100" height="100" src="images/userimages/person.png"/>
+                                                                <%}%>
+                                                                </div>
+                                                               
+                                                    <% } %>
                                                 <% userfound = 1 %>
                                                  </div>
-                                                  <div id = "card<%= i %>"  class="gameTableUserCard<%= i %>">caca</div>
+                                                  <div id = "card<%= i %>"  class="gameTableUserCard<%= i %>"></div>
                                                 <% break %>
                                                
                                                 <%}%>
@@ -55,17 +70,14 @@
                                                 <% if (userfound === 0 ) {%>
                                                  <div id = "usertimer<%= i %>" class = "usertimer<%= i %>"><%= i %></div>
                                                         <div id = "user<%= i %>" class="gameTableUser<%= i %>">
-                                                           <%= i %>
-
-
-                                                                    <button name="join" style="color:white;background-color:#3CB371;" type="button" onclick="joingame('<%= authuser.userid%>',<%= i %>,<%= JSON.stringify(tabledata) %>);" class="btn btn-secondary btn-sm">Join Game</button>
+                                                                    <button class="noseat<%= i %>" name="join" style="color:white;background-color:#3CB371;" type="button" onclick="joingame('<%= authuser.userid%>',<%= i %>,<%= JSON.stringify(tabledata) %>);" class="btn btn-secondary btn-sm">Join Game</button>
                                                               
                                                         </div>
                                                         <div id = "card<%= i %>"  class="gameTableUserCard<%= i %>">player <%= i %></div>
                                                 <%}%>
                                     <%}else{%>
                                      <div id = "user<%= i %>" class="gameTableUser<%= i %>">
-                                      <button name="join" id="join<%= i %>" style="color:white;background-color:#3CB371;" type="button" onclick="joingame('<%= authuser.userid%>',<%= i %>,<%= JSON.stringify(tabledata) %>);" class="btn btn-secondary btn-sm">Join Game</button>
+                                      <button name="join" id="join<%= i %>" class="noseat<%= i %>" style="color:white;background-color:#3CB371;" type="button" onclick="joingame('<%= authuser.userid%>',<%= i %>,<%= JSON.stringify(tabledata) %>);" class="btn btn-secondary btn-sm">Join Game</button>
                                       </div>
                                     <%}%>
          
