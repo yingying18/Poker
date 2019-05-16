@@ -32,20 +32,16 @@
                                                 <% if ( parseInt(gameusersession[k].seatnumber) === i) { %>  
                                                     <div id = "usertimer<%= i %>" class = "usertimer<%= i %>"><%= i %></div>
                                                     <div id = "user<%= i %>" class="gameTableUser<%= i %>">
-                                                       <%= i %>
-                                                        userid : <%= gameusersession[k].user_id %>
-                                                        username : <%= gameusersession[k].username %>
-                                                        currency : 0
-                                                        currentbet : 0
-                                                        cards : none
-                                                        playerturn : waiting
+                                                        username : <%= gameusersession[k].username %><br>
+                                                        bet : 0
+
                                               
                                                      <% if ( parseInt(gameusersession[k].user_id) === authuser.userid) { %> 
                                                                 
-                                                                <button style="color:white;background-color:#d65151;" type="button" onclick="leavegame('<%= authuser.userid%>','<%= gameusersession[k].gamesession_id %>');" class="btn btn-secondary btn-sm">Leave Game</button>
-                                                                <button style="color:white;background-color:#3CB371;" type="button" onclick="callgame('<%= authuser.userid%>');" class="btn btn-secondary btn-sm">Call</button>
-                                                                <button style="color:white;background-color:#4B0082;" type="button" onclick="raisegame('<%= authuser.userid%>');" class="btn btn-secondary btn-sm">Raise 10</button>
-                                                                <button style="color:white;background-color:#d65151;" type="button" onclick="foldgame('<%= authuser.userid%>');" class="btn btn-secondary btn-sm">Fold</button>
+                                                                <button name="leave" id="leave<%= authuser.userid%>" style="color:white;background-color:#d65151;" type="button" onclick="leavegame('<%= authuser.userid%>','<%= gameusersession[k].gamesession_id %>');" class="btn btn-secondary btn-sm">Leave Game</button>
+                                                                <button name="userac" id="call<%= authuser.userid%>" style="color:white;background-color:#3CB371;" type="button" onclick="callgame('<%= authuser.userid%>');" class="btn btn-secondary btn-sm">Call</button>
+                                                                <button name="userac" id="raise<%= authuser.userid%>" style="color:white;background-color:#4B0082;" type="button" onclick="raisegame('<%= authuser.userid%>');" class="btn btn-secondary btn-sm">Raise 10</button>
+                                                                <button name="userac" id="fold<%= authuser.userid%>" style="color:white;background-color:#d65151;" type="button" onclick="foldgame('<%= authuser.userid%>');" class="btn btn-secondary btn-sm">Fold</button>
 
                                                     <%}%>
                                                 <% userfound = 1 %>
@@ -60,21 +56,16 @@
                                                  <div id = "usertimer<%= i %>" class = "usertimer<%= i %>"><%= i %></div>
                                                         <div id = "user<%= i %>" class="gameTableUser<%= i %>">
                                                            <%= i %>
-                                                            userid : 
-                                                            username :
-                                                            currency :
-                                                            currentbet :
-                                                            cards :
-                                                            playerturn :
 
-                                                                    <button style="color:white;background-color:#3CB371;" type="button" onclick="joingame('<%= authuser.userid%>',<%= i %>,<%= JSON.stringify(tabledata) %>);" class="btn btn-secondary btn-sm">Join Game</button>
+
+                                                                    <button name="join" style="color:white;background-color:#3CB371;" type="button" onclick="joingame('<%= authuser.userid%>',<%= i %>,<%= JSON.stringify(tabledata) %>);" class="btn btn-secondary btn-sm">Join Game</button>
                                                               
                                                         </div>
                                                         <div id = "card<%= i %>"  class="gameTableUserCard<%= i %>">player <%= i %></div>
                                                 <%}%>
                                     <%}else{%>
                                      <div id = "user<%= i %>" class="gameTableUser<%= i %>">
-                                      <button style="color:white;background-color:#3CB371;" type="button" onclick="joingame('<%= authuser.userid%>',<%= i %>,<%= JSON.stringify(tabledata) %>);" class="btn btn-secondary btn-sm">Join Game</button>
+                                      <button name="join" id="join<%= i %>" style="color:white;background-color:#3CB371;" type="button" onclick="joingame('<%= authuser.userid%>',<%= i %>,<%= JSON.stringify(tabledata) %>);" class="btn btn-secondary btn-sm">Join Game</button>
                                       </div>
                                     <%}%>
          

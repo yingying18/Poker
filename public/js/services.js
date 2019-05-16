@@ -64,7 +64,7 @@ function postData(method, urlaction, data, destinationdiv,callback) {
     contentType: "application/json; charset=utf-8",
     success: function (data) {
       try {
-        console.log(data);
+        
         if (typeof data.error !== 'undefined'){
           callInfoPopup("can't join table", "report_problem", data.error);
           
