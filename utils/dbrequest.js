@@ -616,5 +616,34 @@ module.exports = {
         
       }
     );
+  },
+  giveUserAdmin: function (con, data, callback) {
+    // let result = con.query(  "select * from gameusersession where gamesession_id = " +  data.gamesessionid  ,
+    //   function (err, result, fields) {
+    //    if (err) {
+    //       console.log(colors.magenta("db error : getAllUserForGameSessionIncludeSender ->" + JSON.stringify(result)+ '\n'));
+    //       callback(err);
+    //       throw err;
+    //     }
+    //     console.log(colors.yellow("returning response from db getAllUserForGameSessionIncludeSender : " + JSON.stringify(result)+'\n'));
+    //     callback(result);
+        
+    //   }
+    // );
+  },
+  removeUserAdmin: function (con, data, callback) {
+
+    // let result = con.query(  "select * from gameusersession where gamesession_id = " +  data.gamesessionid  ,
+    //   function (err, result, fields) {
+    //    if (err) {
+    //       console.log(colors.magenta("db error : getAllUserForGameSessionIncludeSender ->" + JSON.stringify(result)+ '\n'));
+    //       callback(err);
+    //       throw err;
+    //     }
+    //     console.log(colors.yellow("returning response from db getAllUserForGameSessionIncludeSender : " + JSON.stringify(result)+'\n'));
+    //     callback(result);
+        
+    //   }
+    // );
   }
 };
