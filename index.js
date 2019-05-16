@@ -76,7 +76,7 @@ var server = app.listen(3000, () => {
   console.log("listening on port 3000");
 });
 server.timeout =0 ;
-require("./utils/serversocketgame.js")(server, socket,dbRequest, dbconn);
+require("./utils/serversocketgame.js")(server, socket,dbRequest, dbconn, poker);
 
 
 

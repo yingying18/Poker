@@ -53,6 +53,20 @@ module.exports = {
       //con.release();
     });
   },
+    getUniqueUser: function (con, data, callback) {
+    console.log(colors.yellow("data paremeter passed to db call getUniqueUser : "+JSON.stringify(data)+'\n'));
+    let result = con.query("Select * from user where id = " + data.userid , 
+      function ( err, result,  fields ) {
+      if (err) {
+          console.log(colors.magenta("db error : getUniqueUser ->" + JSON.stringify(result)+ '\n'));
+          callback(err);
+          throw err;
+      }
+      console.log(colors.yellow("returning response from db getUniqueUser :  " + JSON.stringify(result)+'\n'));
+      callback(result);
+      //con.release();
+    });
+  },
   getUserEmailandUserNameCount: function (con, data, callback) {
     console.log(colors.yellow("data paremeter passed to db call getUserEmailandUserNameCount : "+JSON.stringify(data)+'\n'));
     let result = con.query( "select count(*) as count from user where (username = '" +  data.registername +  "' or email='" +  data.registeremail + "' ); ",

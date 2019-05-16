@@ -23,7 +23,7 @@
             
           startGame();
 
-      }else {
+      }else if (gameSessionData.gamestatus == 'waiting'){
         console.log("  --- >0" + (gameSessionData.gamestartinsec));
               let useractionbuttons = document.getElementsByName("userac");
                for (let k = 0 ; k < useractionbuttons.length ; k++){
@@ -138,7 +138,7 @@ function foldgame(userid){
     function startGame(){
         console.log("startGame");
       document.getElementById('gameinfotimer').innerHTML = gameSessionData.gamestatus;
-      starttic();
+      starttic(gameSessionData);
 
     }
 
@@ -199,9 +199,10 @@ function foldgame(userid){
 
     });
 
-    function starttic(){
-      console.log("starttic");
-      socket.emit('fe_dispatchTimerTick', gameSessionData);
+    function starttic(data){
+      console.log("starttic" + data.gamestatus);
+      if (data.gamestatus != "deciding")
+      socket.emit('fe_dispatchTimerTick', data);
       //console.log("----"+JSON.stringify(gameSessionData))
      
     };
@@ -228,7 +229,7 @@ function foldgame(userid){
             console.log("be_dispatchTimerTick data.thiis timer > 0");
 
             document.getElementById('usertimer'+gameSessionData.seatstaken[gameSessionData.userturn] ).innerHTML = gameSessionData.thistimer;
-            starttic();
+            starttic(gameSessionData);
 
         }else if (gameSessionData.thistimer <= 0){
             refreshcontrol ==0;
@@ -244,8 +245,10 @@ function foldgame(userid){
 
     socket.on('be_dealcards', function(data){
         console.log("be_dealcards");
-      dealcards(data);
-      starttic();
+      dealcards(data,function(data){
+        starttic(data)
+      });
+      
       
     });
 
@@ -287,7 +290,7 @@ function foldgame(userid){
               document.getElementById('housecards').innerHTML +=  "<img width=\"24\" height=\"34\" src=\"images/deck1/Card_Back.jpg\" >" ;               
             }
           }
-          starttic();
+         
           
     }
 
@@ -295,7 +298,7 @@ function foldgame(userid){
       console.log("be_switchToNetUser");
       gameSessionData.userturn = data.userturn;
       gameSessionData.thistimer = data.thistimer;
-      starttic();
+      starttic(gameSessionData);
      
     });
 
@@ -314,16 +317,49 @@ function foldgame(userid){
     });
 
     socket.on('be_incrementcycle', function(data){
-         console.log("be_incrementcycle");
+         console.log("be_incrementcycle -->"+data.gamestatus);
       gameSessionData.cycle = data.cycle;
       gameSessionData.playedusers = data.playedusers;
-      starttic();
+      gameSessionData.gamestatus = data.gamestatus;
+      starttic(gameSessionData);
+   
+    });
+
+      socket.on('be_executedeciding', function(data, winnerresult){
+         console.log("be_executedeciding -->"+data.gamestatus);
+         gameSessionData.gamestatus = "waiting";
+         for (let i = 0 ; i< gameSessionData.users.length ; i++){
+            document.getElementById('card'+gameSessionData.seatstaken[gameSessionData.users[i]] ).innerHTML = "";
+          }
+
+          document.getElementById('housecards').innerHTML = "";
+          
+         socket.emit('fe_startgame', gameSessionData);
+    
+   
+    });
+    socket.on('be_showwinner', function( winnerresult){
+        
+          document.getElementById('tablebet').innerHTML = "winner " +  winnerresult;
+         
+    
    
     });
 
     socket.on('be_sessionover', function(data){
+      gameSessionData.gamestatus = data.gamestatus;
+      document.getElementById('gameinfotimer').innerHTML = gameSessionData.gamestatus + " the winner ";
         showAllCards(gameSessionData);
         console.log("be_sessionover");
+        console.log("be_sessionover");
+        console.log("be_sessionover");
+        console.log("be_sessionover");
+        console.log("be_sessionoverv data" + data.gamestatus);
+         console.log("be_sessionover" + JSON.stringify(gameSessionData));
+
+          socket.emit('fe_executedeciding', data,gameSessionData);
+        /*
+        
       gameSessionData.cycle = data.cycle;
       gameSessionData.playedusers = data.playedusers;
       gameSessionData.usercards = data.usercards;
@@ -331,9 +367,9 @@ function foldgame(userid){
       //gameSessionData.deck = data.deck;
       gameSessionData.gamestartinsec =  data.gamestartinsec;
       gameSessionData.gamestatus = data.gamestatus;
-
-      gameSessionData.gamestatus = 'waiting';
-      socket.emit('fe_startgame', gameSessionData);
+  */
+      //gameSessionData.gamestatus = 'waiting';
+      //socket.emit('fe_startgame', gameSessionData);
      
     });
 

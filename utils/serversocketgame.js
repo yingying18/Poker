@@ -1,11 +1,12 @@
 var colors = require('colors');
-module.exports = function (server,socket,dbRequest, dbconn ) {
+module.exports = function (server,socket,dbRequest, dbconn, poker ) {
 
 var sockettracker = new Map();
 var userroom = new Map();
 var rooms = [];
 var intervaltrack = new Map();
 var gamestartintervaltrack = new Map();
+var decidingintervaltrack = new Map();
 
 
 function refreshdata(data,callback){
@@ -112,6 +113,129 @@ let io = socket(server);
 		socket.on('disconnect', function() {
 			
 			console.log(colors.cyan("---------socket disconnected : "+socket.id));
+		});
+
+		socket.on('fe_executedeciding', function(data,olddata) {
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding : "));
+			console.log(colors.cyan("---------fe_executedeciding data: "+JSON.stringify(data)));
+			console.log(colors.cyan("---------fe_executedeciding oldata: "+JSON.stringify(olddata)));
+			let order = [];
+			let cards = [];
+			let winner = -1;
+			let winnerresult = "";
+			order.push("house");
+			cards.push(olddata.housecards.join(" "));
+			for (key in olddata.usercards){
+				//olddata.usercards[key].join(" ");
+				order.push(key);
+				cards.push(olddata.usercards[key].join(" "));
+			}
+			data.gamestatus = "waiting";
+			console.log(colors.cyan("---------fe_executedeciding oldata: "+JSON.stringify(order)));
+			console.log(colors.cyan("---------fe_executedeciding oldata: "+JSON.stringify(cards)));
+			console.log(colors.cyan("---------fe_executedeciding winner: "+poker.judgeWinner(cards))); // ));
+			winner = poker.judgeWinner(cards);
+			if (winner == 0){
+				winnerresult = "house";
+				io.to(data.socketroom).emit('be_showwinner',winnerresult);
+			}else{
+					let userdata = {};
+					userdata.userid= parseInt(order[winner]);
+					dbRequest.getUniqueUser(dbconn, userdata, function (result) {
+
+				          if (typeof result.code !== "undefined" ) {
+				           		throw new Error('getUniqueUser : -> result is empty or undefined');
+				          } else {
+				          	console.log(colors.cyan("colecting db record : getUniqueUser :  "+ JSON.stringify(result)));
+
+				          		let sendresult = result[0].username;
+				          		io.to(data.socketroom).emit('be_showwinner',sendresult);
+
+																	          	
+				          }
+				    });	
+			}
+			
+													dbRequest.updateTableState(dbconn, data, function (result) {
+		
+												          if (typeof result.code !== "undefined" ) {
+												           		throw new Error('updateTableState : -> result is empty or undefined');
+												          } else {
+												          	console.log(colors.cyan("colecting db record : updateTableState :  "+ JSON.stringify(result)));
+
+												          	
+															          	console.log(colors.cyan("data ---> serverside updateTableState :" + JSON.stringify(data)));
+																        if ((typeof decidingintervaltrack.get(data.gamesessionid) === 'undefined') || (decidingintervaltrack.get(data.gamesessionid) == 'undefined')){	
+								
+																					decidingintervaltrack.set(data.gamesessionid ,  setInterval(function(data){
+
+																							io.to(data.socketroom).emit('be_executedeciding',data);
+																							clearInterval(decidingintervaltrack.get(data.gamesessionid));
+																							decidingintervaltrack.set(data.gamesessionid, 'undefined');
+
+																					}, 10000, data));
+																		}
+															
+
+																									          	
+												          }
+												    });	
+
 		});
 
 		socket.on('fe_userleft', function(data) {
@@ -449,17 +573,19 @@ let io = socket(server);
 			clearInterval(intervaltrack.get(data.gamesessionid));
 			intervaltrack.set(data.gamesessionid, 'undefined');
 			 data.cycle++;
+			 data.gamestatus = 'inplay';
 			 for (var key in data.playedusers ){
 			 	data.playedusers[key] = 0;
 			 }
 			 if (data.cycle >= data.maxcycle){
+			 	data.gamestatus = "deciding";
 			 	data.cycle = 1;
 			 	for (var key in data.usercards ){
 			 		data.usercards[key] = [];
 			 	}
 			 	data.housecards = [];
 			 	data.gamestartinsec = 10;
-			 	data.gamestatus = 'waiting';
+			 	
 			 			dbRequest.setNullAllCards(dbconn, data, function (result) {
 		
 					          if (typeof result.code !== "undefined" ) {
@@ -510,8 +636,22 @@ let io = socket(server);
 			           		throw new Error('updateCycle : -> result is empty or undefined');
 			          } else {
 			          	console.log(colors.cyan("colecting db record : updateCycle :  "+ JSON.stringify(result)));
+			          								dbRequest.updateTableState(dbconn, data, function (result) {
+		
+												          if (typeof result.code !== "undefined" ) {
+												           		throw new Error('updateTableState : -> result is empty or undefined');
+												          } else {
+												          	console.log(colors.cyan("colecting db record : updateTableState :  "+ JSON.stringify(result)));
 
-				      		io.to(data.gamesessionid).emit('be_incrementcycle',data);
+
+												          	console.log(colors.cyan("data ---> serverside updateTableState :" + JSON.stringify(data)));
+													       io.to(data.gamesessionid).emit('be_incrementcycle',data);
+
+																									          	
+												          }
+												    });	
+
+				      		
 																          	
 			          }
 			    });	
