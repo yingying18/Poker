@@ -1,40 +1,61 @@
 
 
-
+  let refreshcontrol = 0;
 
     socket.on('be_startgame', function(data){
       
-
+      console.log(gameSessionData.gamestatus);
       gameSessionData.gamestartinsec = data.gamestartinsec;
       gameSessionData.gamestatus = data.gamestatus ;
       
       if (gameSessionData.gamestatus == 'inplay'){
           console.log("be_startgame inplay ");
-          hideActionButtons("all");
+         
+               let leave = document.getElementsByName("leave");
+               for (let k = 0 ; k < leave.length ; k++){
+                leave[k].style.display = "none"; 
+               }
+               let join = document.getElementsByName("join");
+               for (let k = 0 ; k < join.length ; k++){
+                join[k].style.display = "none"; 
+               }
+             
+            
           startGame();
 
       }else{
+              let useractionbuttons = document.getElementsByName("userac");
+               for (let k = 0 ; k < useractionbuttons.length ; k++){
+                useractionbuttons[k].style.display = "none"; 
+               }
           console.log("be_startgame waiting ");
+          console.log(gameSessionData.gamestatus);
           //postData('post', 'lobby/showgame', data, 'updatableMiddleContainer',reseizeOpaqueDiv);
           //socket.emit('fe_userleft', gameSessionData);
           
           //console.log(gameSessionData.gamestatus);
           updateData(data);
-          showActionButtons("generals");
+         
           if (gameSessionData.gamestartinsec >=0){
+         
+               showActionButtons("generals");
+
              
             document.getElementById('gameinfotimer').innerHTML = "starts in "+ gameSessionData.gamestartinsec;
-                if (gameSessionData.gamestartinsec % 2 ==0){
-                     showgame(gameSessionData.tableid);
+                if (gameSessionData.gamestartinsec % 5 ==0){
+                    
                         for (let i = 0 ; i< gameSessionData.users.length ; i++){
-                if (typeof gameSessionData.seatstaken[gameSessionData.users[i]] !=='undefined')
-                document.getElementById('card'+gameSessionData.seatstaken[gameSessionData.users[i]] ).innerHTML = "";
-                }
+                          if (typeof gameSessionData.seatstaken[gameSessionData.users[i]] !=='undefined'){
+                            document.getElementById('card'+gameSessionData.seatstaken[gameSessionData.users[i]] ).innerHTML = "";
+                            }
+                        }
                 document.getElementById('housecards').innerHTML = "";
             }
+            
              
           }else{
-          
+
+             showgame(gameSessionData.tableid);
             document.getElementById('gameinfotimer').innerHTML = gameSessionData.gamestatus;
             startGame();
           
@@ -182,15 +203,26 @@ function foldgame(userid){
         gameSessionData.playedusers = data.playedusers;
         gameSessionData.calls = data.calls;
         
-        
+        if (gameSessionData.thisuser == gameSessionData.userturn){
+              let useractionbuttons = document.getElementsByName("userac");
+               for (let k = 0 ; k < useractionbuttons.length ; k++){
+                useractionbuttons[k].style.display = "block"; 
+               }
+        }else{
+            let useractionbuttons = document.getElementsByName("userac");
+               for (let k = 0 ; k < useractionbuttons.length ; k++){
+                useractionbuttons[k].style.display = "none"; 
+               }
+        }
         if (gameSessionData.thistimer > 0){
             console.log("be_dispatchTimerTick data.thiis timer > 0");
-            showActionButtons("useraction");
+
             document.getElementById('usertimer'+gameSessionData.seatstaken[gameSessionData.userturn] ).innerHTML = gameSessionData.thistimer;
             starttic();
 
         }else if (gameSessionData.thistimer <= 0){
-            
+            refreshcontrol ==0;
+          
             console.log("be_dispatchTimerTick data.thiis timer <= 0");
             document.getElementById('usertimer'+gameSessionData.seatstaken[gameSessionData.userturn] ).innerHTML = gameSessionData.thistimer;
             socket.emit('fe_switchToNetUser', gameSessionData);
@@ -289,11 +321,12 @@ function foldgame(userid){
         updateData(data);
         
     });
-        let join = document.getElementsByName("join");
-        let leave = document.getElementsByName("leave");
-        let useraction = document.getElementsByName("userac");
+       
     function hideActionButtons(option){
-        let arr = null;
+       var join = document.getElementsByName("join");
+        var leave = document.getElementsByName("leave");
+        var useraction = document.getElementsByName("userac");
+        var arr = null;
 
         if (option =="all"){
            arr = {1:join, 2:leave, 3:useraction};
@@ -303,7 +336,7 @@ function foldgame(userid){
         }
         for (key in arr){
           for(let k = 0; k<arr[key].length;k++){
-            arr[key][k].style.visibility = "hidden"; 
+            arr[key][k].style.display = "none"; 
           }
         }
 
@@ -312,7 +345,10 @@ function foldgame(userid){
     }
 
     function showActionButtons(option){
-        let arr = null;
+       var join = document.getElementsByName("join");
+        var leave = document.getElementsByName("leave");
+        var useraction = document.getElementsByName("userac");
+        var arr = null;
         
         if (option =="all"){
            arr = {1:join, 2:leave, 3:useraction};
@@ -325,7 +361,8 @@ function foldgame(userid){
         }
         for (key in arr){
           for(let k = 0; k<arr[key].length;k++){
-            arr[key][k].style.visibility = "show"; 
+            console.log(arr[key][k]);
+            arr[key][k].style.display = "block"; 
           }
 
         }

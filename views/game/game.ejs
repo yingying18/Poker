@@ -32,13 +32,9 @@
                                                 <% if ( parseInt(gameusersession[k].seatnumber) === i) { %>  
                                                     <div id = "usertimer<%= i %>" class = "usertimer<%= i %>"><%= i %></div>
                                                     <div id = "user<%= i %>" class="gameTableUser<%= i %>">
-                                                       <%= i %>
-                                                        userid : <%= gameusersession[k].user_id %>
-                                                        username : <%= gameusersession[k].username %>
-                                                        currency : 0
-                                                        currentbet : 0
-                                                        cards : none
-                                                        playerturn : waiting
+                                                        username : <%= gameusersession[k].username %><br>
+                                                        bet : 0
+
                                               
                                                      <% if ( parseInt(gameusersession[k].user_id) === authuser.userid) { %> 
                                                                 
@@ -60,12 +56,7 @@
                                                  <div id = "usertimer<%= i %>" class = "usertimer<%= i %>"><%= i %></div>
                                                         <div id = "user<%= i %>" class="gameTableUser<%= i %>">
                                                            <%= i %>
-                                                            userid : 
-                                                            username :
-                                                            currency :
-                                                            currentbet :
-                                                            cards :
-                                                            playerturn :
+
 
                                                                     <button name="join" style="color:white;background-color:#3CB371;" type="button" onclick="joingame('<%= authuser.userid%>',<%= i %>,<%= JSON.stringify(tabledata) %>);" class="btn btn-secondary btn-sm">Join Game</button>
                                                               
