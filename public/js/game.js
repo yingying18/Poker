@@ -24,6 +24,7 @@
           startGame();
 
       }else {
+        console.log("  --- >0" + (gameSessionData.gamestartinsec));
               let useractionbuttons = document.getElementsByName("userac");
                for (let k = 0 ; k < useractionbuttons.length ; k++){
                 useractionbuttons[k].style.visibility = "hidden"; 
@@ -36,26 +37,32 @@
           //console.log(gameSessionData.gamestatus);
           updateData(data);
           
-                  if (gameSessionData.gamestartinsec >=0){
-                 
+                  if (gameSessionData.gamestartinsec >0){
+                    console.log("  --- >0" + (gameSessionData.gamestartinsec));
                        showActionButtons("generals");
 
                      
                     document.getElementById('gameinfotimer').innerHTML = "starts in "+ gameSessionData.gamestartinsec;
                         
-                        if (gameSessionData.gamestartinsec == 1){
+                        if (gameSessionData.gamestartinsec <= 5){
                             
-                                for (let i = 0 ; i< gameSessionData.users.length ; i++){
+                                
+                        }
+/*
+                        else if (gameSessionData.gamestartinsec >= 1){
+                            showgame(gameSessionData.tableid);
+
+                        }
+                    */
+                     
+                  }else{
+                    for (let i = 0 ; i< gameSessionData.users.length ; i++){
                                   if (typeof gameSessionData.seatstaken[gameSessionData.users[i]] !=='undefined'){
                                     document.getElementById('card'+gameSessionData.seatstaken[gameSessionData.users[i]] ).innerHTML = "";
                                     }
                                 }
                         document.getElementById('housecards').innerHTML = "";
-                    }
-                    
-                     
-                  }else{
-
+                      console.log("______________________ wait game not >= 0 ")
                      showgame(gameSessionData.tableid);
                     document.getElementById('gameinfotimer').innerHTML = gameSessionData.gamestatus;
                     startGame();
@@ -315,7 +322,7 @@ function foldgame(userid){
     });
 
     socket.on('be_sessionover', function(data){
-      showAllCards(gameSessionData);
+        showAllCards(gameSessionData);
         console.log("be_sessionover");
       gameSessionData.cycle = data.cycle;
       gameSessionData.playedusers = data.playedusers;

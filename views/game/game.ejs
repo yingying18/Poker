@@ -43,10 +43,10 @@
                                                                 <%}%>
                                                                 </div>
                                                                 <div id="acbtns<%= i %>" class="acbtns<%= i %>">
-                                                                <button name="leave" id="leave<%= authuser.userid%>" style="color:white;background-color:#d65151;" type="button" onclick="leavegame('<%= authuser.userid%>','<%= gameusersession[k].gamesession_id %>');" class="btn btn-secondary btn-sm">Leave Game</button>
-                                                                <button name="userac" id="call<%= authuser.userid%>" style="color:white;background-color:#3CB371;" type="button" onclick="callgame('<%= authuser.userid%>');" class="btn btn-secondary btn-sm">Call</button>
-                                                                <button name="userac" id="raise<%= authuser.userid%>" style="color:white;background-color:#4B0082;" type="button" onclick="raisegame('<%= authuser.userid%>');" class="btn btn-secondary btn-sm">Raise 10</button>
-                                                                <button name="userac" id="fold<%= authuser.userid%>" style="color:white;background-color:#d65151;" type="button" onclick="foldgame('<%= authuser.userid%>');" class="btn btn-secondary btn-sm">Fold</button>
+                                                                <button name="leave" id="leave<%= authuser.userid%>" style="visibility:hidden;background-color:#d65151;" type="button" onclick="leavegame('<%= authuser.userid%>','<%= gameusersession[k].gamesession_id %>');" class="btn btn-secondary btn-sm">Leave Game</button>
+                                                                <button name="userac" id="call<%= authuser.userid%>" style="visibility:hidden;background-color:#3CB371;" type="button" onclick="callgame('<%= authuser.userid%>');" class="btn btn-secondary btn-sm">Call</button>
+                                                                <button name="userac" id="raise<%= authuser.userid%>" style="visibility:hidden;background-color:#4B0082;" type="button" onclick="raisegame('<%= authuser.userid%>');" class="btn btn-secondary btn-sm">Raise 10</button>
+                                                                <button name="userac" id="fold<%= authuser.userid%>" style="visibility:hidden;background-color:#d65151;" type="button" onclick="foldgame('<%= authuser.userid%>');" class="btn btn-secondary btn-sm">Fold</button>
                                                                 </div>
 
                                                     <%}else{%>
