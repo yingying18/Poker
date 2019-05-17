@@ -50,6 +50,7 @@ function refreshdata(data,callback){
 		          		data.playedusers = {};
 		          		data.housecards = [];
 		          		data.usercards = {};
+		          		data.usersbet = {};
 
 		          		      	dbRequest.get52Cards(dbconn, null, function (result) {
 						      		
@@ -80,6 +81,7 @@ function refreshdata(data,callback){
 										          			data.usercards[tempdata[i].id ]=[];
 										          			data.seatstaken[tempdata[i].id] = tempdata[i].seatnumber;
 										          			data.playedusers[tempdata[i].id] = tempdata[i].played;
+										          			data.usersbet[tempdata[i].id] = tempdata[i].userbet;
 										          		
 											          		
 										          	}
@@ -116,64 +118,8 @@ let io = socket(server);
 		});
 
 		socket.on('fe_executedeciding', function(data,olddata) {
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding : "));
-			console.log(colors.cyan("---------fe_executedeciding data: "+JSON.stringify(data)));
-			console.log(colors.cyan("---------fe_executedeciding oldata: "+JSON.stringify(olddata)));
+
+
 			let order = [];
 			let cards = [];
 			let winner = -1;
@@ -186,9 +132,6 @@ let io = socket(server);
 				cards.push(olddata.usercards[key].join(" "));
 			}
 			data.gamestatus = "waiting";
-			console.log(colors.cyan("---------fe_executedeciding oldata: "+JSON.stringify(order)));
-			console.log(colors.cyan("---------fe_executedeciding oldata: "+JSON.stringify(cards)));
-			console.log(colors.cyan("---------fe_executedeciding winner: "+poker.judgeWinner(cards))); // ));
 			winner = poker.judgeWinner(cards);
 			if (winner == 0){
 				winnerresult = "house";
@@ -196,6 +139,7 @@ let io = socket(server);
 			}else{
 					let userdata = {};
 					userdata.userid= parseInt(order[winner]);
+					data.winner = parseInt(order[winner]);
 					dbRequest.getUniqueUser(dbconn, userdata, function (result) {
 
 				          if (typeof result.code !== "undefined" ) {
@@ -204,37 +148,49 @@ let io = socket(server);
 				          	console.log(colors.cyan("colecting db record : getUniqueUser :  "+ JSON.stringify(result)));
 
 				          		let sendresult = result[0].username;
-				          		io.to(data.socketroom).emit('be_showwinner',sendresult);
+				          			dbRequest.incrementtUserCredit(dbconn, data, function (result) {
+
+								          if (typeof result.code !== "undefined" ) {
+								           		throw new Error('incrementtUserCredit : -> result is empty or undefined');
+								          } else {
+								          	console.log(colors.cyan("colecting db record : incrementtUserCredit :  "+ JSON.stringify(result)));
+
+								          		
+								          		io.to(data.socketroom).emit('be_showwinner',sendresult);
+
+																					          	
+								          }
+								    });	
 
 																	          	
 				          }
 				    });	
 			}
 			
-													dbRequest.updateTableState(dbconn, data, function (result) {
-		
-												          if (typeof result.code !== "undefined" ) {
-												           		throw new Error('updateTableState : -> result is empty or undefined');
-												          } else {
-												          	console.log(colors.cyan("colecting db record : updateTableState :  "+ JSON.stringify(result)));
+					dbRequest.updateTableState(dbconn, data, function (result) {
 
-												          	
-															          	console.log(colors.cyan("data ---> serverside updateTableState :" + JSON.stringify(data)));
-																        if ((typeof decidingintervaltrack.get(data.gamesessionid) === 'undefined') || (decidingintervaltrack.get(data.gamesessionid) == 'undefined')){	
-								
-																					decidingintervaltrack.set(data.gamesessionid ,  setInterval(function(data){
+				          if (typeof result.code !== "undefined" ) {
+				           		throw new Error('updateTableState : -> result is empty or undefined');
+				          } else {
+				          	console.log(colors.cyan("colecting db record : updateTableState :  "+ JSON.stringify(result)));
 
-																							io.to(data.socketroom).emit('be_executedeciding',data);
-																							clearInterval(decidingintervaltrack.get(data.gamesessionid));
-																							decidingintervaltrack.set(data.gamesessionid, 'undefined');
+				          	
+							          	console.log(colors.cyan("data ---> serverside updateTableState :" + JSON.stringify(data)));
+								        if ((typeof decidingintervaltrack.get(data.gamesessionid) === 'undefined') || (decidingintervaltrack.get(data.gamesessionid) == 'undefined')){	
 
-																					}, 10000, data));
-																		}
-															
+													decidingintervaltrack.set(data.gamesessionid ,  setInterval(function(data){
 
-																									          	
-												          }
-												    });	
+															io.to(data.socketroom).emit('be_executedeciding',data);
+															clearInterval(decidingintervaltrack.get(data.gamesessionid));
+															decidingintervaltrack.set(data.gamesessionid, 'undefined');
+
+													}, 10000, data));
+										}
+							
+
+																	          	
+				          }
+				    });	
 
 		});
 
@@ -339,6 +295,45 @@ let io = socket(server);
 
 			//io.to(data.socketroom).emit('be_updateData',data);
 			});
+		});
+
+		socket.on('fe_raisebet', function(data) {
+
+			data.usersbet[data.thisuser] = data.usersbet[data.thisuser] + 10; 
+			data.thisbet = 10;
+					dbRequest.updateUniqueUserBet(dbconn, data, function (result) {
+
+				          if (typeof result.code !== "undefined" ) {
+				           		throw new Error('updateUniqueUserBet : -> result is empty or undefined');
+				          } else {
+				          	console.log(colors.cyan("colecting db record : updateUniqueUserBet :  "+ JSON.stringify(result)));
+
+				          	dbRequest.updateTableBet(dbconn, data, function (result) {
+
+						          if (typeof result.code !== "undefined" ) {
+						           		throw new Error('updateTableBet : -> result is empty or undefined');
+						          } else {
+						          	console.log(colors.cyan("colecting db record : updateTableBet :  "+ JSON.stringify(result)));
+
+						          		dbRequest.decrementUserCredit(dbconn, data, function (result) {
+
+									          if (typeof result.code !== "undefined" ) {
+									           		throw new Error('updateTableBet : -> result is empty or undefined');
+									          } else {
+									          	console.log(colors.cyan("colecting db record : updateTableBet :  "+ JSON.stringify(result)));
+
+									          	io.to(data.socketroom).emit('be_raisebet',data);
+								
+									          }
+									    });	
+					
+						          }
+						    });	
+			
+				          }
+				    });	
+			
+			
 		});
 
 		socket.on('fe_updatedata', function(data) {
@@ -615,7 +610,33 @@ let io = socket(server);
 
 
 												          	console.log(colors.cyan("data ---> serverside updateTableState :" + JSON.stringify(data)));
-													        io.to(data.gamesessionid).emit('be_sessionover',data);
+													        	dbRequest.clearTableBet(dbconn, data, function (result) {
+		
+															          if (typeof result.code !== "undefined" ) {
+															           		throw new Error('clearTableBet : -> result is empty or undefined');
+															          } else {
+															          	console.log(colors.cyan("colecting db record : clearTableBet :  "+ JSON.stringify(result)));
+
+
+															          	console.log(colors.cyan("data ---> serverside clearTableBet :" + JSON.stringify(data)));
+																        		dbRequest.clearAllUserBet(dbconn, data, function (result) {
+		
+																			          if (typeof result.code !== "undefined" ) {
+																			           		throw new Error('clearAllUserBet : -> result is empty or undefined');
+																			          } else {
+																			          	console.log(colors.cyan("colecting db record : clearAllUserBet :  "+ JSON.stringify(result)));
+
+
+																			          	console.log(colors.cyan("data ---> serverside clearAllUserBet :" + JSON.stringify(data)));
+																				        io.to(data.gamesessionid).emit('be_sessionover',data);
+
+																																          	
+																			          }
+																			    });	
+
+																												          	
+															          }
+															    });	
 
 																									          	
 												          }
