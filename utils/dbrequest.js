@@ -714,8 +714,16 @@ module.exports = {
   },
   incrementtUserCredit: function (con, data, callback) {
           let total = 0;
+          let counter = 0;
           for (key in data.usersbet){
+            counter++;
                     total = total + data.usersbet[key];
+          }
+          if (counter == 1){
+            total = total * 2
+
+          }else{
+            total = Math.floor(total / counter);
           }
     console.log(colors.yellow("data paremeter passed to db call incrementtUserCredit : "+JSON.stringify(data)+'\n'));
     let result = con.query(  "update user set credit = credit + " + total + " where id = " +  data.winner  ,
