@@ -47,6 +47,33 @@ var waitForEl = function(selector, callback) {
   }
 };
 
+function postDataReturn(method, urlaction, data,callback) {
+  console.log("post called postDataReturn");
+        let sendresult = null;
+        let senddata = {};
+        if (data !== null){
+          senddata =  data;
+        }
+        $.ajax({
+          type: method,
+          url: urlaction,
+          data: JSON.stringify(senddata),
+
+          contentType: "application/json; charset=utf-8",
+          success: function (returndata) {
+            this.sendresult = returndata;
+            console.log("success: data sent "+JSON.stringify(returndata));
+            return sendresult;
+          }
+
+        }).done(function(){
+           callback(this.sendresult);
+      });
+ 
+        
+}
+
+
 function postData(method, urlaction, data, destinationdiv,callback) {
   console.log("data json post called");
   let control = false;
@@ -88,7 +115,7 @@ function postData(method, urlaction, data, destinationdiv,callback) {
     }
 
   }).done(function(){
-           if ((typeof callback !== "undefined") && ( callback !=="")){
+           if ((typeof callback !== "undefined") && ( callback !=="") && ( callback !==null)){
             
             if (callback.name === 'reseizeOpaqueDiv') {
               
@@ -118,8 +145,11 @@ function postMultipartData(method, urlaction, data, destinationdiv) {
     //contentType: "application/json; charset=utf-8",
     success: function (data) {
       console.log("success: data sent ");
+ document.getElementById('formContent').style.width = "400px";
+ document.getElementById('formContent').style.height = "400px";
+ document.getElementById('formContent').style.color="white";
 
-      document.getElementById(destinationdiv).innerHTML = data;
+      document.getElementById('formContent').innerHTML = data;
     }
   });
 }

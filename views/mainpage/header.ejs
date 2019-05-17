@@ -32,11 +32,16 @@
         Profile
     </button>
     <%}%>
-     <% if ( (typeof authanticate !== 'undefined') && authanticate == "true" ) { %>
-    <button type="button" class="btn btn-dark btn-xs "
-        onclick="gotoMenu('get','/adminpanel','','updatableMiddleContainer',reseizeOpaqueDiv);">
-        Admin
-    </button>
+     <% if ( (typeof authanticate !== 'undefined') && authanticate == "true" )  { %>
+        <% if ( (typeof authuser !== 'undefined') )  { %>
+             <% if ( ( parseInt(authuser.usertype) ==0) )  { %>
+           
+                <button type="button" class="btn btn-dark btn-xs "
+                    onclick="gotoMenu('get','/adminpanel','','updatableMiddleContainer',reseizeOpaqueDiv);">
+                    Admin
+                </button>
+            <%}%>
+        <%}%>
      <%}%>
     <% if ( (typeof authanticate === 'undefined') || authanticate == "false" ) { %>
     <button type="button" class="btn btn-dark btn-xs "

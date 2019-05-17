@@ -61,8 +61,12 @@
                         </div>
                         <div class="col-md-4">
                           <div class="text-center">
-                              <img src="images/userimages/<%= authuser.userid %>.<%= authuser.filetype %>"
-                             style="width:120px;height:120px"><br>
+                              <% if (authuser.picture == 0  ) { %>
+                          <img src="images/userimages/person.png" style="width:120px;height:120px">
+                        <%}else{%>
+                        <img src="images/userimages/<%= authuser.userid %>.<%= authuser.filetype %>"
+                          style=" width:120px;height:120px">
+                        <%}%>
                              <button type="button" class="btn btn-primary" onclick=><i class="fas fa-portrait"></i> Edit
                                Info</button>
                            </div>

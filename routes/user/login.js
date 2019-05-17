@@ -37,10 +37,20 @@ module.exports = function (app, dbRequest, dbconn) {
 						useremail: req.session.useremail,
 						filetype: req.session.filetype,
 						picture: req.session.picture,
-						usertype: req.session.picture
+						usertype: req.session.usertype
 					}
 					req.session.authuser = authuser;
+					console.log("----------------->"+JSON.stringify(authuser));
 					res.render('mainpage/index', { authanticate: "true", authuser: authuser });
+					
+					res.render('mainpage/index', { authanticate: "true", authuser: authuser }, (err, html) => {
+    res.write(html + '\n');
+    setTimeout(() => { // mimick a calculation that takes some time
+      res.render('mainpage/header', { authanticate: "true", authuser: authuser }, { result : 42 }, (err, html) => {
+        res.end(html + '\n');
+      });
+    }, 2000);
+  });
 
 				}
 			}

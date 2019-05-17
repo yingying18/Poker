@@ -20,6 +20,24 @@ module.exports = function (app,dbRequest,dbconn) {
 	app.post('/lobby/showgame',(req, res) =>{
 		console.log(colors.green(" post /lobby/showgame"));
 		console.log(colors.green("/lobby/showgame  data  : "+JSON.stringify(req.body)));
+
+		console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+JSON.stringify(req.body));
+		console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+JSON.stringify(req.body));
+		console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+JSON.stringify(req.body));
+		console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+JSON.stringify(req.body));
+		console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+JSON.stringify(req.body));
+		console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+JSON.stringify(req.body));
+		console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+JSON.stringify(req.body));
+		console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+JSON.stringify(req.body));
+		console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+JSON.stringify(req.body));
+		console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+JSON.stringify(req.body));
+		console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+JSON.stringify(req.body));
+		console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+JSON.stringify(req.body));
+		console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+JSON.stringify(req.body));
+		console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+JSON.stringify(req.body));
+		console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+JSON.stringify(req.body));
+		console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+JSON.stringify(req.body));
+
 		let data = {
 			authanticate : req.body.authanticate,
 			tableid : req.body.tableid
@@ -37,7 +55,7 @@ module.exports = function (app,dbRequest,dbconn) {
                   				dbRequest.getGameTableSession(dbconn, data, function (result) {
                   				//returns  [{"id":19,"table_id":1,"state":"waiting","userturn":168,"usercyclestarter":168,"totalbet":0,"cycle":1,"maxcycle":1}]
                   				console.log(colors.red("getGameTableSession  result data  : "+JSON.stringify(data)));
-						                  if (typeof result.code !== "undefined" || result === "") {
+						                  if (typeof result.code !== "undefined" ) {
 						                    throw new Error('getGameTableSession : getGameTableSession() -> result is empty or undefined');
 						                  } else {
 						                  		
@@ -61,7 +79,7 @@ module.exports = function (app,dbRequest,dbconn) {
 													*/
 
 
-											                  if (typeof result.code !== "undefined" || result === "") {
+											                  if (typeof result.code !== "undefined" ) {
 											                     throw new Error('getGameUserSessionForTable : getGameUserSessionForTable() -> result is empty or undefined');
 											                  } else {
 											                  	//data.gameusersession = result[0].id;
