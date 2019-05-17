@@ -8,7 +8,18 @@ module.exports = function (app,dbRequest,dbconn) {
 		 dbRequest.getUsers(dbconn, '', function(result){
 			res.render('admin/adminpanel', {result})
 		 });
-			 		
+
+		 dbRequest.getAllTables(dbconn, null, function (result) {
+
+			dbRequest.getUsers(dbconn, '', function(tablesresult){
+				if (typeof result.code !== "undefined" || result === "") {
+					res.send("we encountered an error while calling the lobby.");
+				} else {
+					//res.render('game/lobby', {result : tablesresult, authanticate : req.session.authanticate, authuser : req.session.authuser});
+					res.render('admin/adminpanel', {result: result, tablesresult: tablesresult});
+				}
+			});
+		})
 	});
 
 

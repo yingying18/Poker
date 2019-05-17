@@ -1,5 +1,5 @@
 let activeEditNo = -1;
-function makeUserEditable(id, name, password, email, usertype) {
+function makeAdminUserEditable(id, name, password, email, usertype) {
   activeEditNo = id;
   document.getElementById("user" + id).innerHTML =
     '<form id="editUser" method="post">' +
