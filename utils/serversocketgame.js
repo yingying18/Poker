@@ -1,12 +1,84 @@
 var colors = require('colors');
-module.exports = function (server,socket,dbRequest, dbconn ) {
+module.exports = function (server,socket,dbRequest, dbconn, poker ) {
 
 var sockettracker = new Map();
 var userroom = new Map();
 var rooms = [];
 var intervaltrack = new Map();
 var gamestartintervaltrack = new Map();
+var decidingintervaltrack = new Map();
+var cleansessionintervaltrack = new Map();
+var checkcleaner = null;
 
+if ((typeof checkcleaner === 'undefined') || (checkcleaner == null)){	
+					
+						setInterval(function(cleansessionintervaltrack){
+							console.log("dangling session deleter active");
+							if (cleansessionintervaltrack.size > 0 ){
+								for (var [key, value] of cleansessionintervaltrack) {
+
+								  	let data = {};
+									data.gamesessionid = key;
+										dbRequest.deleteGameSession(dbconn, data, function (result) {
+
+									          if (typeof result.code !== "undefined" ) {
+									           		throw new Error('deleteGameSession : -> result is empty or undefined');
+									          } else {
+									          	console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV : session deleted "+key));
+
+									          		
+									          		dbRequest.deleteAllUserFromGameSession(dbconn, data, function (result) {
+												          if (typeof result.code !== "undefined" ) {
+											           		throw new Error('deleteGameSession : -> result is empty or undefined');
+												          } else {
+												          	console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV : after session deleted users too"+key));
+												          	
+												         	cleansessionintervaltrack.delete(key);
+																																	          	
+												          }
+												    });
+																						          	
+									          }
+									    });	
+								}
+							}
+
+						}, 10000, cleansessionintervaltrack);
+
+	}
+
+
+function checkRoomHasMemeber(data){
+
+	let room = io.sockets.adapter.rooms[data.gamesessionid];
+	if (room){
+		if (room.length < 1){
+			clearInterval(intervaltrack.get(data.gamesessionid));
+			intervaltrack.set(data.gamesessionid, 'undefined');
+
+			clearInterval(gamestartintervaltrack.get(data.gamesessionid));
+			gamestartintervaltrack.set(data.gamesessionid, 'undefined');
+
+			clearInterval(decidingintervaltrack.get(data.gamesessionid));
+			decidingintervaltrack.set(data.gamesessionid, 'undefined');
+			if (room.length>0){
+				cleansessionintervaltrack.set(data.gamesessionid, "active");
+			}
+			return false;
+		}
+	}else{
+			clearInterval(intervaltrack.get(data.gamesessionid));
+			intervaltrack.set(data.gamesessionid, 'undefined');
+
+			clearInterval(gamestartintervaltrack.get(data.gamesessionid));
+			gamestartintervaltrack.set(data.gamesessionid, 'undefined');
+
+			clearInterval(decidingintervaltrack.get(data.gamesessionid));
+			decidingintervaltrack.set(data.gamesessionid, 'undefined');
+			cleansessionintervaltrack.set(data.gamesessionid, "active");
+		return false;
+	}
+}
 
 function refreshdata(data,callback){
 
@@ -49,6 +121,7 @@ function refreshdata(data,callback){
 		          		data.playedusers = {};
 		          		data.housecards = [];
 		          		data.usercards = {};
+		          		data.usersbet = {};
 
 		          		      	dbRequest.get52Cards(dbconn, null, function (result) {
 						      		
@@ -79,6 +152,7 @@ function refreshdata(data,callback){
 										          			data.usercards[tempdata[i].id ]=[];
 										          			data.seatstaken[tempdata[i].id] = tempdata[i].seatnumber;
 										          			data.playedusers[tempdata[i].id] = tempdata[i].played;
+										          			data.usersbet[tempdata[i].id] = tempdata[i].userbet;
 										          		
 											          		
 										          	}
@@ -114,7 +188,85 @@ let io = socket(server);
 			console.log(colors.cyan("---------socket disconnected : "+socket.id));
 		});
 
+		socket.on('fe_executedeciding', function(data,olddata) {
+			checkRoomHasMemeber(olddata);
+
+			let order = [];
+			let cards = [];
+			let winner = -1;
+			let winnerresult = "";
+			order.push("house");
+			cards.push(olddata.housecards.join(" "));
+			for (key in olddata.usercards){
+				//olddata.usercards[key].join(" ");
+				order.push(key);
+				cards.push(olddata.usercards[key].join(" "));
+			}
+			data.gamestatus = "waiting";
+			winner = poker.judgeWinner(cards);
+			if (winner == 0){
+				winnerresult = "house";
+				io.to(data.socketroom).emit('be_showwinner',winnerresult);
+			}else{
+					let userdata = {};
+					userdata.userid= parseInt(order[winner]);
+					data.winner = parseInt(order[winner]);
+					dbRequest.getUniqueUser(dbconn, userdata, function (result) {
+
+				          if (typeof result.code !== "undefined" ) {
+				           		throw new Error('getUniqueUser : -> result is empty or undefined');
+				          } else {
+				          	console.log(colors.cyan("colecting db record : getUniqueUser :  "+ JSON.stringify(result)));
+
+				          		let sendresult = result[0].username;
+				          			dbRequest.incrementtUserCredit(dbconn, data, function (result) {
+
+								          if (typeof result.code !== "undefined" ) {
+								           		throw new Error('incrementtUserCredit : -> result is empty or undefined');
+								          } else {
+								          	console.log(colors.cyan("colecting db record : incrementtUserCredit :  "+ JSON.stringify(result)));
+
+								          		
+								          		io.to(data.socketroom).emit('be_showwinner',sendresult);
+
+																					          	
+								          }
+								    });	
+
+																	          	
+				          }
+				    });	
+			}
+			
+					dbRequest.updateTableState(dbconn, data, function (result) {
+
+				          if (typeof result.code !== "undefined" ) {
+				           		throw new Error('updateTableState : -> result is empty or undefined');
+				          } else {
+				          	console.log(colors.cyan("colecting db record : updateTableState :  "+ JSON.stringify(result)));
+
+				          	
+							          	console.log(colors.cyan("data ---> serverside updateTableState :" + JSON.stringify(data)));
+								        if ((typeof decidingintervaltrack.get(data.gamesessionid) === 'undefined') || (decidingintervaltrack.get(data.gamesessionid) == 'undefined')){	
+
+													decidingintervaltrack.set(data.gamesessionid ,  setInterval(function(data){
+
+															io.to(data.socketroom).emit('be_executedeciding',data);
+															clearInterval(decidingintervaltrack.get(data.gamesessionid));
+															decidingintervaltrack.set(data.gamesessionid, 'undefined');
+
+													}, 10000, data));
+										}
+							
+
+																	          	
+				          }
+				    });	
+
+		});
+
 		socket.on('fe_userleft', function(data) {
+			checkRoomHasMemeber(data);
 			console.log("$$$$$$$$$$$$$$$$$$$$$ before refresh data called"+ JSON.stringify(data));
 			let leavinguser = data.thisuser;
 			let leavinguserseat = data.seatstaken[data.thisuser];
@@ -217,7 +369,90 @@ let io = socket(server);
 			});
 		});
 
+		socket.on('fe_callbet', function(data) {
+			checkRoomHasMemeber(data);
+			if (data.hasOwnProperty('previoususer')){
+				data.usersbet[data.thisuser] = data.usersbet[data.previoususer] ; 
+				data.thisbet = data.usersbet[data.previoususer];
+			}else{
+				data.thisbet = 0;
+			}
+					dbRequest.updateUniqueUserBet(dbconn, data, function (result) {
+
+				          if (typeof result.code !== "undefined" ) {
+				           		throw new Error('updateUniqueUserBet : -> result is empty or undefined');
+				          } else {
+				          	console.log(colors.cyan("colecting db record : updateUniqueUserBet :  "+ JSON.stringify(result)));
+
+				          	dbRequest.updateTableBet(dbconn, data, function (result) {
+
+						          if (typeof result.code !== "undefined" ) {
+						           		throw new Error('updateTableBet : -> result is empty or undefined');
+						          } else {
+						          	console.log(colors.cyan("colecting db record : updateTableBet :  "+ JSON.stringify(result)));
+
+						          		dbRequest.decrementUserCredit(dbconn, data, function (result) {
+
+									          if (typeof result.code !== "undefined" ) {
+									           		throw new Error('updateTableBet : -> result is empty or undefined');
+									          } else {
+									          	console.log(colors.cyan("colecting db record : updateTableBet :  "+ JSON.stringify(result)));
+
+									          	io.to(data.socketroom).emit('be_raisebet',data);
+								
+									          }
+									    });	
+					
+						          }
+						    });	
+			
+				          }
+				    });	
+			
+			
+		});
+
+		socket.on('fe_raisebet', function(data) {
+			checkRoomHasMemeber(data);
+			data.usersbet[data.thisuser] = data.usersbet[data.thisuser] + 10; 
+			data.thisbet = 10;
+					dbRequest.updateUniqueUserBet(dbconn, data, function (result) {
+
+				          if (typeof result.code !== "undefined" ) {
+				           		throw new Error('updateUniqueUserBet : -> result is empty or undefined');
+				          } else {
+				          	console.log(colors.cyan("colecting db record : updateUniqueUserBet :  "+ JSON.stringify(result)));
+
+				          	dbRequest.updateTableBet(dbconn, data, function (result) {
+
+						          if (typeof result.code !== "undefined" ) {
+						           		throw new Error('updateTableBet : -> result is empty or undefined');
+						          } else {
+						          	console.log(colors.cyan("colecting db record : updateTableBet :  "+ JSON.stringify(result)));
+
+						          		dbRequest.decrementUserCredit(dbconn, data, function (result) {
+
+									          if (typeof result.code !== "undefined" ) {
+									           		throw new Error('updateTableBet : -> result is empty or undefined');
+									          } else {
+									          	console.log(colors.cyan("colecting db record : updateTableBet :  "+ JSON.stringify(result)));
+
+									          	io.to(data.socketroom).emit('be_raisebet',data);
+								
+									          }
+									    });	
+					
+						          }
+						    });	
+			
+				          }
+				    });	
+			
+			
+		});
+
 		socket.on('fe_updatedata', function(data) {
+			checkRoomHasMemeber(data);
 			data = refreshdata(data,function(returndata){
 				data = returndata;
 			console.log(colors.cyan("---------socket disconnected : "+socket.id));
@@ -227,7 +462,7 @@ let io = socket(server);
 		});
 		socket.on('fe_setEnvForSocket', function(data){
 			
-		
+			checkRoomHasMemeber(data);
 			console.log(colors.red("on loby enter" + JSON.stringify(data)));
 			/*data : {"thisuser":168,"thissocketid":"","thiscards":[],"thisseatno":0,"thisbet":0,
 			"seatstaken":[],"users":[],"deck":[],"gamesessionid":0,"housecards":[],"usercards":[],
@@ -338,6 +573,7 @@ let io = socket(server);
 		});
 
 		function startGame(data){
+			checkRoomHasMemeber(data);
 			console.log('fe start game :' + data.gamestatus);
 			if (data.gamestatus == 'waiting' ){ 
 				
@@ -350,7 +586,7 @@ let io = socket(server);
 				if ((typeof gamestartintervaltrack.get(data.gamesessionid) === 'undefined') || (gamestartintervaltrack.get(data.gamesessionid) == 'undefined')){	
 					
 						gamestartintervaltrack.set(data.gamesessionid ,  setInterval(function(data){
-					
+								checkRoomHasMemeber(data);
 								data.gamestartinsec--;
 								refreshdata(data, function(returndata){
 								data = returndata;
@@ -416,10 +652,12 @@ let io = socket(server);
 		}
 
 		socket.on('fe_startgame', function(data){
+			checkRoomHasMemeber(data);
 			startGame(data);
 		});
 
 		socket.on('socketUserAuthInfo', function(usersession){
+			//checkRoomHasMemeber();
 			user = {};
 			user = JSON.parse(usersession); 
 			console.log(colors.cyan("socket event serverside : socketUserAuthInfo -> " + (user.userid)));
@@ -433,6 +671,7 @@ let io = socket(server);
 		});
 
 		socket.on('fe_setDeck', function(data){
+			checkRoomHasMemeber(data);
 			console.log(colors.cyan("socket event serverside : fe_setDeck -> " ));
 			io.emit('be_setDeck', '');
 	    
@@ -446,20 +685,23 @@ let io = socket(server);
 		});
 
 		socket.on('fe_incrementcycle', function(data){
+			checkRoomHasMemeber(data);
 			clearInterval(intervaltrack.get(data.gamesessionid));
 			intervaltrack.set(data.gamesessionid, 'undefined');
 			 data.cycle++;
+			 data.gamestatus = 'inplay';
 			 for (var key in data.playedusers ){
 			 	data.playedusers[key] = 0;
 			 }
 			 if (data.cycle >= data.maxcycle){
+			 	data.gamestatus = "deciding";
 			 	data.cycle = 1;
 			 	for (var key in data.usercards ){
 			 		data.usercards[key] = [];
 			 	}
 			 	data.housecards = [];
 			 	data.gamestartinsec = 10;
-			 	data.gamestatus = 'waiting';
+			 	
 			 			dbRequest.setNullAllCards(dbconn, data, function (result) {
 		
 					          if (typeof result.code !== "undefined" ) {
@@ -489,7 +731,33 @@ let io = socket(server);
 
 
 												          	console.log(colors.cyan("data ---> serverside updateTableState :" + JSON.stringify(data)));
-													        io.to(data.gamesessionid).emit('be_sessionover',data);
+													        	dbRequest.clearTableBet(dbconn, data, function (result) {
+		
+															          if (typeof result.code !== "undefined" ) {
+															           		throw new Error('clearTableBet : -> result is empty or undefined');
+															          } else {
+															          	console.log(colors.cyan("colecting db record : clearTableBet :  "+ JSON.stringify(result)));
+
+
+															          	console.log(colors.cyan("data ---> serverside clearTableBet :" + JSON.stringify(data)));
+																        		dbRequest.clearAllUserBet(dbconn, data, function (result) {
+		
+																			          if (typeof result.code !== "undefined" ) {
+																			           		throw new Error('clearAllUserBet : -> result is empty or undefined');
+																			          } else {
+																			          	console.log(colors.cyan("colecting db record : clearAllUserBet :  "+ JSON.stringify(result)));
+
+
+																			          	console.log(colors.cyan("data ---> serverside clearAllUserBet :" + JSON.stringify(data)));
+																				        io.to(data.gamesessionid).emit('be_sessionover',data);
+
+																																          	
+																			          }
+																			    });	
+
+																												          	
+															          }
+															    });	
 
 																									          	
 												          }
@@ -510,8 +778,22 @@ let io = socket(server);
 			           		throw new Error('updateCycle : -> result is empty or undefined');
 			          } else {
 			          	console.log(colors.cyan("colecting db record : updateCycle :  "+ JSON.stringify(result)));
+			          								dbRequest.updateTableState(dbconn, data, function (result) {
+		
+												          if (typeof result.code !== "undefined" ) {
+												           		throw new Error('updateTableState : -> result is empty or undefined');
+												          } else {
+												          	console.log(colors.cyan("colecting db record : updateTableState :  "+ JSON.stringify(result)));
 
-				      		io.to(data.gamesessionid).emit('be_incrementcycle',data);
+
+												          	console.log(colors.cyan("data ---> serverside updateTableState :" + JSON.stringify(data)));
+													       io.to(data.gamesessionid).emit('be_incrementcycle',data);
+
+																									          	
+												          }
+												    });	
+
+				      		
 																          	
 			          }
 			    });	
@@ -523,21 +805,20 @@ let io = socket(server);
 
 
 		socket.on('fe_dispatchTimerTick', function(data){
-			console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^ : "+intervaltrack.get(data.gamesessionid));
-		if ((typeof intervaltrack.get(data.gamesessionid) === 'undefined') || (intervaltrack.get(data.gamesessionid) == 'undefined')){	
-			console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^ : intervaltrack started ");
-			 intervaltrack.set(data.gamesessionid ,  setInterval(function(data){
+			checkRoomHasMemeber(data);
+
 			
+		if ((typeof intervaltrack.get(data.gamesessionid) === 'undefined') || (intervaltrack.get(data.gamesessionid) == 'undefined')){	
+			
+			 intervaltrack.set(data.gamesessionid ,  setInterval(function(data){
+				checkRoomHasMemeber(data);
 
           
 
     
 
 			let controlcycle = 1;
-			let room = io.sockets.adapter.rooms[data.gamesessionid];
 			let dbtimer = data.thistimer;
-			if (room)
-			console.log(" ** ** ** ** ** uturn :" +data.userturn+"  "+data.thisuser +"  " +room.length + " d l:" +  data.calls);
 
 			console.log(colors.cyan("dispatching to the room :" +JSON.stringify(io.sockets.adapter.sids[socket.id])));
 
@@ -649,6 +930,7 @@ let io = socket(server);
 			});
 
 		socket.on('fe_dealcards', function(data){
+			checkRoomHasMemeber(data);
 			clearInterval(intervaltrack.get(data.gamesessionid));
 			intervaltrack.set(data.gamesessionid, 'undefined');
 			console.log("cals: ------------------- "+data.calls);
@@ -729,6 +1011,7 @@ let io = socket(server);
 		});
 
 		socket.on('fe_switchToNetUser', function(data){
+			checkRoomHasMemeber(data);
 			clearInterval(intervaltrack.get(data.gamesessionid));
 			intervaltrack.set(data.gamesessionid, 'undefined');
 			let room = io.sockets.adapter.rooms[data.gamesessionid];
