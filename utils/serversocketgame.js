@@ -7,6 +7,46 @@ var rooms = [];
 var intervaltrack = new Map();
 var gamestartintervaltrack = new Map();
 var decidingintervaltrack = new Map();
+var cleansessionintervaltrack = new Map();
+var checkcleaner = null;
+
+if ((typeof checkcleaner === 'undefined') || (checkcleaner == null)){	
+					
+						setInterval(function(cleansessionintervaltrack){
+							console.log("dangling session deleter active");
+							if (cleansessionintervaltrack.size > 0 ){
+								for (var [key, value] of cleansessionintervaltrack) {
+								  console.log(key + ' = ' + value);
+								  console.log(key + ' = ' + value);
+								  console.log(key + ' = ' + value);
+								  console.log(key + ' = ' + value);
+								  console.log(key + ' = ' + value);
+								  console.log(key + ' = ' + value);
+								  console.log(key + ' = ' + value);
+								  let data = {};
+								data.gamesessionid = key;
+										dbRequest.deleteGameSession(dbconn, data, function (result) {
+
+									          if (typeof result.code !== "undefined" ) {
+									           		throw new Error('deleteGameSession : -> result is empty or undefined');
+									          } else {
+									          	console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV : session deleted "+key));
+									          	console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV : session deleted "+key));
+									          	console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV : session deleted "+key));
+									          	console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV : session deleted "+key));
+									          	console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV : session deleted "+key));
+									          	console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV : session deleted "+key));
+									          	console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV : session deleted"+key));
+									          	cleansessionintervaltrack.delete(key);
+																						          	
+									          }
+									    });	
+								}
+							}
+
+						}, 10000, cleansessionintervaltrack);
+
+	}
 
 
 function checkRoomHasMemeber(data){
@@ -22,6 +62,9 @@ function checkRoomHasMemeber(data){
 
 			clearInterval(decidingintervaltrack.get(data.gamesessionid));
 			decidingintervaltrack.set(data.gamesessionid, 'undefined');
+			if (room.length>0){
+				cleansessionintervaltrack.set(data.gamesessionid, "active");
+			}
 			return false;
 		}
 	}else{
@@ -33,6 +76,7 @@ function checkRoomHasMemeber(data){
 
 			clearInterval(decidingintervaltrack.get(data.gamesessionid));
 			decidingintervaltrack.set(data.gamesessionid, 'undefined');
+			cleansessionintervaltrack.set(data.gamesessionid, "active");
 		return false;
 	}
 }
