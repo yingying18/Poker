@@ -20,20 +20,24 @@
             Register
         </button>
     <%}%>
+     <% if ( (typeof authanticate !== 'undefined') && authanticate == "true" ) { %>
     <button type="button" class="btn btn-dark btn-xs "
         onclick="gotoMenu('get','/lobby','','updatableMiddleContainer',reseizeOpaqueDiv);">
         Lobby
     </button>
+     <%}%>
     <% if ( (typeof authanticate !== 'undefined') && authanticate == "true" ) { %>
     <button type="button" class="btn btn-dark btn-xs "
         onclick="gotoMenu('get','/userprofile','','updatableMiddleContainer',reseizeOpaqueDiv);">
         Profile
     </button>
     <%}%>
+     <% if ( (typeof authanticate !== 'undefined') && authanticate == "true" ) { %>
     <button type="button" class="btn btn-dark btn-xs "
         onclick="gotoMenu('get','/adminpanel','','updatableMiddleContainer',reseizeOpaqueDiv);">
         Admin
     </button>
+     <%}%>
     <% if ( (typeof authanticate === 'undefined') || authanticate == "false" ) { %>
     <button type="button" class="btn btn-dark btn-xs "
         onclick="gotoMenu('get','/login','','updatableMiddleContainer',reseizeOpaqueDiv);">
