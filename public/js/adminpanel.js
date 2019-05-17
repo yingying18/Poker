@@ -22,7 +22,9 @@ function cancelUserEditable(id, name, password, usertype) {
 }
 
 
-function createNewTable(maxplayer, minbetamount){
+function createNewTable(){
+  var maxplayer = document.getElementById("maxplayerinput").value
+  var minbetamount = document.getElementById("minbetamountinput").value
   method = "post";
   urlaction = "adminpanel/addnewtable";
   destinationdiv = "updatableMiddleContainer";
@@ -53,9 +55,20 @@ function removeAdmin(id){
   postData(method, urlaction, data, destinationdiv);
 }
 
-function suspendUser(id, name, password, usertype) {
+function suspendUser(id) {
   method = "post";
   urlaction = "adminpanel/suspenduser";
+  destinationdiv = "updatableMiddleContainer";
+
+  var data = {};
+  data.id = id;
+
+  postData(method, urlaction, data, destinationdiv);
+}
+
+function removeUser(id) {
+  method = "post";
+  urlaction = "adminpanel/removeuser";
   destinationdiv = "updatableMiddleContainer";
 
   var data = {};
