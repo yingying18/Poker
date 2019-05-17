@@ -618,7 +618,7 @@ module.exports = {
     );
   },
   giveUserAdmin: function (con, data, callback) {
-    let result = con.query("UPDATE user SET usertype = " + 1 + ", WHERE id = " + data.id + ";", function(err, result, fields){
+    let result = con.query("update user set usertype = 1 where id = " + data.id, function(err, result, fields){
       if (err) {
         console.log("DB error: give user admin ->" + JSON.stringify(result) + '\n');
         callback(err);
@@ -630,7 +630,7 @@ module.exports = {
 
   },
   removeUserAdmin: function (con, data, callback) {
-    let result = con.query("UPDATE user SET usertype = " + 0 + ", WHERE id = " + data.id + ";" , function(err, result, fields){
+    let result = con.query("update user set usertype = 0 where id = " + data.id, function(err, result, fields){
       if (err) {
         console.log("DB error: give user admin ->" + JSON.stringify(result) + '\n');
         callback(err);
@@ -642,9 +642,9 @@ module.exports = {
    
   },
   addnewtable: function (con, data, callback) {
-    let result = con.query("INSERT INTO tables (" +
+    let result = con.query("insert into tables (" +
       "minamount, active, maxplayer"+
-      ") VALUES ('" +
+      ") values ('" +
       data.minamount + ", " + 1 + "," + data.maxplayer + ")" ,
       function(err, result, fields){
         if (err) {
@@ -657,7 +657,7 @@ module.exports = {
     });
   },
   removeTable: function(con, data, callback) {
-    let result = con.query("DELETE FROM tables WHERE table_id = " + data.id, function(err, result, fields){
+    let result = con.query("delete from tables where table_id = " + data.id, function(err, result, fields){
       if (err) {
         console.log("DB error: give user admin ->" + JSON.stringify(result) + '\n');
         callback(err);
@@ -668,7 +668,7 @@ module.exports = {
     });
   },
   suspendUser: function (con, data, callback) {
-    let result = con.query("UPDATE user SET suspended = " + 1 + ", WHERE id = " + data.id + ";" , function(err, result, fields){
+    let result = con.query("update user set suspended = " + 1 + ", WHERE id = " + data.id + ";" , function(err, result, fields){
       if (err) {
         console.log("DB error: give user admin ->" + JSON.stringify(result) + '\n');
         callback(err);
@@ -679,7 +679,7 @@ module.exports = {
     });
   },
   removeUser: function(con, data, callback) {
-    let result = con.query("UPDATE user SET deleted = " + 1 + ", WHERE id = " + data.id + ";", function(err, result, fields){
+    let result = con.query("update user set deleted = " + 1 + ", WHERE id = " + data.id + ";", function(err, result, fields){
       if (err) {
         console.log("DB error: give user admin ->" + JSON.stringify(result) + '\n');
         callback(err);

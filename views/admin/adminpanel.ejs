@@ -32,7 +32,7 @@
               <% if ( typeof tablesresult != 'undefined' ) { %>
                 <% for (var i=0; i<tablesresult.length; i++) {%>
                   
-                  <tr id="table <%=tablesresult[i].table_id%>">
+                  <tr id="table<%=tablesresult[i].table_id%>">
 
                     <td>
                       Table Id: <%= tablesresult[i].table_id %>
@@ -51,7 +51,7 @@
                     </td>
 
                     <td>
-                      <button style="color:red; background-color:#F74545;" type="button" onclick="removetable('<%= tables.result[i].table_id %>')" class="btn btn-secondary btn-sm">Remove</button>
+                      <button style="color:red; background-color:#F74545;" type="button" onclick="removetable('<%= tablesresult[i].table_id %>');" class="btn btn-secondary btn-sm">Remove</button>
                     </td>
 
                   </tr>
@@ -61,11 +61,11 @@
           </table>
 
           <!--Button form to Create Table-->
-          <form>
+          <div>
             Max Player Seats: <input type="text" id="maxplayerinput" style="max-width: 150px" name="maxseats"><br>
             Min Bet Amount:   <input type="text" id="minbetamountinput" style="max-width: 150px" name="minbetamount"><br>
-            <button style="color:green; background-color:#F74545;" type="button" onclick="createNewTable()" class="btn btn-secondary btn-sm">Create Table</button>
-          </form>
+            <button style="color:green; background-color:#F74545;" type="button" onclick="createNewTable();" class="btn btn-secondary btn-sm">Create Table</button>
+          </div>
         </div>
 
         <div id="usersMenu" class="tab-pane fade">
@@ -76,7 +76,8 @@
             <tr>
               <th scope= "col">ID</th>
               <th scope="col">Username</th>
-              <th scope="col">Password</th>
+              <th scope="col">Suspended</th>
+              <th scope="col">Deleted</th>
               <th scope="col">Email</th>
               <th scope="col">Account Type</th>
               <th scope="col">Buttons</th>
@@ -93,7 +94,10 @@
                       <%= result[i].username  %>
                     </td>
                     <td>
-                      <%= result[i].password %>
+                      <%= result[i].suspended %>
+                    </td>
+                    <td>
+                      <%= result[i].deleted %>
                     </td>
                     <td>
                       <%= result[i].email %>
@@ -102,8 +106,8 @@
                       <%= result[i].usertype %>
                     </td>
                     <td>
-                      <button style="color:white;background-color:#F74545;" type="button" onclick="suspendUser('<%= result[i].id %>')" class="btn btn-secondary btn-sm">Suspend</button>
-                      <button style="color:white;background-color:#F74545;" type="button" onclick="removeUser('<%= result[i].id %>')" class="btn btn-secondary btn-sm">Remove</button>
+                      <button style="color:white;background-color:#F74545;" type="button" onclick="suspendUser('<%= result[i].id %>');" class="btn btn-secondary btn-sm">Suspend</button>
+                      <button style="color:white;background-color:#F74545;" type="button" onclick="removeUser('<%= result[i].id %>');" class="btn btn-secondary btn-sm">Remove</button>
                     </td>
                   </tr>
                 <%}%>
@@ -144,9 +148,9 @@
                     </td>
                     <td>
                       <% if(result[i].usertype != 0) {%>
-                        <button style="color:white;background-color:#d65151;" type="button" onclick="removeAdmin('<%= result[i].id %>')" class="btn btn-secondary btn-sm">Remove Admin</button>
+                        <button style="color:white;background-color:#d65151;" type="button" onclick="removeAdmin('<%= result[i].id %>','<%= result[i].username %>','<%= result[i].usertype %>','<%= result[i].email %>');" class="btn btn-secondary btn-sm">Remove Admin</button>
                       <%} else {%>
-                        <button style="color:white;background-color:#3CB371;" type="button" onclick="giveAdmin('<%= result[i].id %>')" class="btn btn-secondary btn-sm">Give Admin</button>
+                        <button style="color:white;background-color:#3CB371;" type="button" onclick="giveAdmin('<%= result[i].id %>','<%= result[i].username %>','<%= result[i].usertype %>','<%= result[i].email %>');" class="btn btn-secondary btn-sm">Give Admin</button>
                       <%}%>
                     </td>
                   </tr>

@@ -35,22 +35,32 @@ function createNewTable(){
   postData(method, urlaction, data, destinationdiv);
 }
 
-function giveAdmin(id){
+function giveAdmin(id, username, usertype, email){
   method = "post";
   urlaction = "adminpanel/giveadmin";
   destinationdiv = "updatableMiddleContainer";
   var data = {};
   data.id = id;
+  document.getElementById("admin"+id).innerHTML = "" +
+  "<td>" + id +"</td>" +
+  "<td>" + username + "</td>" +
+  "<td>" + 1 + "</td>" +
+  "<td>" + email + "</td>";
 
   postData(method, urlaction, data, destinationdiv);
 }
 
-function removeAdmin(id){
+function removeAdmin(id, username, usertype, email){
   method = "post";
   urlaction = "adminpanel/removeadmin";
   destinationdiv = "updatableMiddleContainer";
   var data = {};
   data.id = id;
+  document.getElementById("admin"+id).innerHTML = "" +
+  "<td>" + id +"</td>" +
+  "<td>" + username + "</td>" +
+  "<td>" + 0 + "</td>" +
+  "<td>" + email + "</td>";
 
   postData(method, urlaction, data, destinationdiv);
 }
@@ -59,6 +69,7 @@ function suspendUser(id) {
   method = "post";
   urlaction = "adminpanel/suspenduser";
   destinationdiv = "updatableMiddleContainer";
+  document.getElementById("user"+id).innerHTML = "";
 
   var data = {};
   data.id = id;
@@ -70,6 +81,7 @@ function removeUser(id) {
   method = "post";
   urlaction = "adminpanel/removeuser";
   destinationdiv = "updatableMiddleContainer";
+  document.getElementById("user"+id).innerHTML = "";
 
   var data = {};
   data.id = id;
@@ -84,6 +96,8 @@ function removetable(id){
 
   var data = {};
   data.id = id;
+
+  document.getElementById().innerHTML = "";
 
   postData(method, urlaction, data, destinationdiv);
 }
