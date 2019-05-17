@@ -50,7 +50,8 @@ html, body {
 
 .middleContainer{
 
-  text-align: -webkit-center;
+  text-align: -webkit-center; /*center div for Chrome and Safari*/
+  text-align: -moz-center; /*center div for Firefox*/
   display:block;
   margin-top: 50px;
   margin-bottom: 50px;
