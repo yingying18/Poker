@@ -822,6 +822,7 @@ module.exports = {
         }
         console.log(colors.yellow("returning response from db incrementtUserCredit : " + JSON.stringify(result)+'\n'));
         callback(result);
+      }
     );
   }
 };
