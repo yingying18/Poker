@@ -19,7 +19,7 @@
         <div class="innercube" id="innercube">
 
           <% if ( (typeof authanticate !== 'undefined') && authanticate =="true" ) { %>
-            <% if (authuser.picture === 0  ) { %>
+            <% if (authuser.picture == 0  ) { %>
               <img src="images/userimages/person.png" style="width:120px;height:120px"><br>
             <%}else{%>
             <img src="images/userimages/<%= authuser.userid %>.<%= authuser.filetype %>"

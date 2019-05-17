@@ -8,6 +8,51 @@ module.exports = function (app,dbRequest,dbconn , poker) {
 			 		
 	});
 
+	app.post('/game/getThisTable',(req, res) =>{
+		console.log("session existence called"+ JSON.stringify(req.body));
+		let data = {};
+		data.tableid= req.body.tableid;
+		
+	            dbRequest.getTableById(dbconn, data, function (result) {
+
+		                  if (typeof result.code !== "undefined" ) {
+		                   	//res.send({error: "error getting table session"});
+		                  } else {
+		                  	console.log("colecting last record "+ JSON.stringify(result));
+		                  	
+		                  	res.send(result);	
+		              
+		                  }
+		        });	
+             
+
+		
+		
+			 		
+	});
+	app.post('/game/checksessionexist',(req, res) =>{
+		console.log("session existence called"+ JSON.stringify(req.body));
+		let data = {};
+		data.tableid= req.body.tableid;
+		
+	            dbRequest.getGameTableSession(dbconn, data, function (result) {
+
+		                  if (typeof result.code !== "undefined" ) {
+		                   	//res.send({error: "error getting table session"});
+		                  } else {
+		                  	console.log("colecting last record "+ JSON.stringify(result));
+		                  	
+		                  	res.send(result);	
+		              
+		                  }
+		        });	
+             
+
+		
+		
+			 		
+	});
+
 	app.post('/game/joingamesession',(req, res) =>{
 		console.log("game join game session called");
 		console.log("_______________________join game session : "+JSON.stringify(req.body));

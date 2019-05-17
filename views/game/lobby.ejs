@@ -8,7 +8,16 @@
                 <div class="row">
                     <div class="col-2">
                         <div>
-                            <img style="width:100px;height:100px;" src="<%= authuser.picture %>" class="rounded">
+
+           
+                        <% if (authuser.picture == 0  ) { %>
+                          <img src="images/userimages/person.png" style="width:120px;height:120px">
+                        <%}else{%>
+                        <img src="images/userimages/<%= authuser.userid %>.<%= authuser.filetype %>"
+                          style=" width:120px;height:120px">
+                        <%}%>
+           
+          
                         </div>
                     </div>
 
@@ -65,7 +74,7 @@
                                         <tr style="border: 1px solid black;">
                                             <th>Table: <%= result[i].table_id %></th>
                                             <th>X</th>
-                                            <th><a href="#" onclick="showgame(<%= result[i].table_id %>);sendAuthInfoToSocket('<%= JSON.stringify(authuser) %>');setEnvForSocket(<%= JSON.stringify(result[i]) %>,'<%= authuser.userid%>', null);"> table <%= result[i].table_id %></a> Join</a></th>
+                                            <th><a href="#" onclick="showgame(<%= result[i].table_id %>,'<%= JSON.stringify(authuser) %>');sendAuthInfoToSocket('<%= JSON.stringify(authuser) %>');setEnvForSocket(<%= JSON.stringify(result[i]) %>,'<%= authuser.userid%>', null);"> table <%= result[i].table_id %></a> Join</a></th>
                                         </tr>
                                     <% } %>
                                 <%}else{%>

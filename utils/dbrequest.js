@@ -188,6 +188,35 @@ module.exports = {
           callback(err);
           throw err;
         }
+        console.log(colors.yellow("returning response from db getGameUserSessionForTable : ceheck this" ));
+        console.log(colors.yellow("returning response from db getGameUserSessionForTable : ceheck this" ));
+        console.log(colors.yellow("returning response from db getGameUserSessionForTable : ceheck this" ));
+        console.log(colors.yellow("returning response from db getGameUserSessionForTable : ceheck this" ));
+         console.log(colors.yellow("returning response from db getGameUserSessionForTable : ceheck this" ));
+        console.log(colors.yellow("returning response from db getGameUserSessionForTable : ceheck this" ));
+        console.log(colors.yellow("returning response from db getGameUserSessionForTable : ceheck this" ));
+        console.log(colors.yellow("returning response from db getGameUserSessionForTable : ceheck this" ));
+         console.log(colors.yellow("returning response from db getGameUserSessionForTable : ceheck this" ));
+        console.log(colors.yellow("returning response from db getGameUserSessionForTable : ceheck this" ));
+        console.log(colors.yellow("returning response from db getGameUserSessionForTable : ceheck this" ));
+        console.log(colors.yellow("returning response from db getGameUserSessionForTable : ceheck this" ));
+         console.log(colors.yellow("returning response from db getGameUserSessionForTable : ceheck this" ));
+        console.log(colors.yellow("returning response from db getGameUserSessionForTable : ceheck this" ));
+        console.log(colors.yellow("returning response from db getGameUserSessionForTable : ceheck this" ));
+        console.log(colors.yellow("returning response from db getGameUserSessionForTable : ceheck this" ));
+         console.log(colors.yellow("returning response from db getGameUserSessionForTable : ceheck this" ));
+        console.log(colors.yellow("returning response from db getGameUserSessionForTable : ceheck this" ));
+        console.log(colors.yellow("returning response from db getGameUserSessionForTable : ceheck this" ));
+        console.log(colors.yellow("returning response from db getGameUserSessionForTable : ceheck this" ));
+         console.log(colors.yellow("returning response from db getGameUserSessionForTable : ceheck this" ));
+        console.log(colors.yellow("returning response from db getGameUserSessionForTable : ceheck this" ));
+        console.log(colors.yellow("returning response from db getGameUserSessionForTable : ceheck this" ));
+        console.log(colors.yellow("returning response from db getGameUserSessionForTable : ceheck this" ));
+         console.log(colors.yellow("returning response from db getGameUserSessionForTable : ceheck this" ));
+        console.log(colors.yellow("returning response from db getGameUserSessionForTable : ceheck this" ));
+        console.log(colors.yellow("returning response from db getGameUserSessionForTable : ceheck this" ));
+        console.log(colors.yellow("returning response from db getGameUserSessionForTable : ceheck this" ));
+
         console.log(colors.yellow("returning response from db getGameUserSessionForTable : " + JSON.stringify(result)+'\n'));
         callback(result);
         

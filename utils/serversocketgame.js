@@ -181,6 +181,43 @@ let io = socket(server);
 
 	io.on('connection', function(socket){
 		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+		console.log(colors.cyan("------socket connected : "+socket.id));
+
+
 
 		
 		socket.on('disconnect', function() {

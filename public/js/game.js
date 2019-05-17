@@ -1,6 +1,10 @@
 
 
+
   let refreshcontrol = 0;
+  console.log("---------------------------------------------------------");
+  console.log("--------------------------------------------------------- game.js");
+  console.log("---------------------------------------------------------"+JSON.stringify(gameSessionData));
 
     socket.on('be_startgame', function(data){
         console.log("be_startgame");
@@ -148,7 +152,30 @@ function foldgame(userid){
 
 
     function sendAuthInfoToSocket(sesionuser){
- console.log("sendAuthInfoToSocket");
+        console.log("sendAuthInfoToSocket");
+        console.log("sendAuthInfoToSocket");
+        console.log("sendAuthInfoToSocket");
+        console.log("sendAuthInfoToSocket");
+        console.log("sendAuthInfoToSocket");
+        console.log("sendAuthInfoToSocket");
+        console.log("sendAuthInfoToSocket");
+        console.log("sendAuthInfoToSocket");
+        console.log("sendAuthInfoToSocket");
+        console.log("sendAuthInfoToSocket");
+        console.log("sendAuthInfoToSocket");
+        console.log("sendAuthInfoToSocket");
+        console.log("sendAuthInfoToSocket");
+        console.log("sendAuthInfoToSocket");
+        console.log("sendAuthInfoToSocket");
+        console.log("sendAuthInfoToSocket");
+        console.log("sendAuthInfoToSocket");
+        console.log("sendAuthInfoToSocket");
+        console.log("sendAuthInfoToSocket");
+        console.log("sendAuthInfoToSocket");
+        console.log("sendAuthInfoToSocket");
+        console.log("sendAuthInfoToSocket");
+        console.log("sendAuthInfoToSocket");
+        console.log(JSON.stringify(sesionuser));
         socket.emit('socketUserAuthInfo', sesionuser );
         
     }
@@ -157,6 +184,23 @@ function foldgame(userid){
 
     function setEnvForSocket(tableid , userid ,seatno){
          console.log("setEnvForSocket");
+         console.log("setEnvForSocket");
+         console.log("setEnvForSocket");
+         console.log("setEnvForSocket");
+         console.log("setEnvForSocket");
+         console.log("setEnvForSocket");
+         console.log("setEnvForSocket");
+         console.log("setEnvForSocket");
+         console.log("setEnvForSocket");
+         console.log("setEnvForSocket");
+         console.log("setEnvForSocket");
+         console.log("setEnvForSocket");
+         console.log("setEnvForSocket");
+         console.log("setEnvForSocket"+ userid);
+         console.log("setEnvForSocket"+ JSON.stringify(tableid));
+         console.log("setEnvForSocket"+ (tableid.table_id));
+
+         //console.log("setEnvForSocket"+ JSON.stringify(tableid));
         gameSessionData.thisuser = parseInt(userid);
         gameSessionData.tableid = parseInt(tableid.table_id);
         

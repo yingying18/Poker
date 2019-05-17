@@ -40,8 +40,12 @@ app.use(function (req, res, next) {
   let sesdata = JSON.stringify(req.session);
   if (typeof req.session.userid !== 'undefined') {
     req.body.authanticate = "true";
+    req.body.usertype = req.session.usertype;
+    console.log("xxxxxxxxx"+req.session.userid);
+    console.log("xxxxxxxxx"+req.session.usertype);
   } else {
     req.body.authanticate = "false";
+    
   }
   console.log(req.body.authanticate);
   next();
