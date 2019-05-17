@@ -107,7 +107,7 @@ function updatedatacallserver(){
 }
 function callgame(userid){
 
-  alert('call game :'+gameSessionData.thisuser);
+  socket.emit('fe_callbet', gameSessionData);
 }
 
 function raisegame(userid){
@@ -240,6 +240,7 @@ function foldgame(userid){
           
             console.log("be_dispatchTimerTick data.thiis timer <= 0");
             document.getElementById('usertimer'+gameSessionData.seatstaken[gameSessionData.userturn] ).innerHTML = gameSessionData.thistimer;
+            gameSessionData.previoususer = gameSessionData.userturn;
             socket.emit('fe_switchToNetUser', gameSessionData);
 
         }

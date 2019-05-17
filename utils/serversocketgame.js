@@ -369,6 +369,49 @@ let io = socket(server);
 			});
 		});
 
+		socket.on('fe_callbet', function(data) {
+			checkRoomHasMemeber(data);
+			if (data.hasOwnProperty('previoususer')){
+				data.usersbet[data.thisuser] = data.usersbet[data.previoususer] ; 
+				data.thisbet = data.usersbet[data.previoususer];
+			}else{
+				data.thisbet = 0;
+			}
+					dbRequest.updateUniqueUserBet(dbconn, data, function (result) {
+
+				          if (typeof result.code !== "undefined" ) {
+				           		throw new Error('updateUniqueUserBet : -> result is empty or undefined');
+				          } else {
+				          	console.log(colors.cyan("colecting db record : updateUniqueUserBet :  "+ JSON.stringify(result)));
+
+				          	dbRequest.updateTableBet(dbconn, data, function (result) {
+
+						          if (typeof result.code !== "undefined" ) {
+						           		throw new Error('updateTableBet : -> result is empty or undefined');
+						          } else {
+						          	console.log(colors.cyan("colecting db record : updateTableBet :  "+ JSON.stringify(result)));
+
+						          		dbRequest.decrementUserCredit(dbconn, data, function (result) {
+
+									          if (typeof result.code !== "undefined" ) {
+									           		throw new Error('updateTableBet : -> result is empty or undefined');
+									          } else {
+									          	console.log(colors.cyan("colecting db record : updateTableBet :  "+ JSON.stringify(result)));
+
+									          	io.to(data.socketroom).emit('be_raisebet',data);
+								
+									          }
+									    });	
+					
+						          }
+						    });	
+			
+				          }
+				    });	
+			
+			
+		});
+
 		socket.on('fe_raisebet', function(data) {
 			checkRoomHasMemeber(data);
 			data.usersbet[data.thisuser] = data.usersbet[data.thisuser] + 10; 
