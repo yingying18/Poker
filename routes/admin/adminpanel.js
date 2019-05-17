@@ -26,14 +26,18 @@ module.exports = function (app,dbRequest,dbconn) {
 			dbRequest.updateUser(dbconn,req.body,function(result){
 
 				let list = result;
-						
+				
 				//res.render('./admin/users', {result:list});
 				dbRequest.getUsers(dbconn,'',function(result){
 
 					let list = result;
 					res.render('./admin/adminpanel', {result:list});
-				                         
+
 				});
 			});
+	});
+
+	app.post('/adminpanel/addnewtable', (req, res) => {
+		
 	});
 }
