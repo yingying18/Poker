@@ -476,7 +476,7 @@ module.exports = {
     );
   },
   setNullHouseCards: function (con, data, callback) {
-    //not used change if needed
+    //not used changinserte if needed
       console.log(colors.yellow("data paremeter passed to db call setNullHouseCards : "+JSON.stringify(data)+'\n'));
     let result = con.query(  "update  gametablesession set housecards = NULL where id = " +  data.gamesessionid ,
       function (err, result, fields) {
@@ -618,32 +618,76 @@ module.exports = {
     );
   },
   giveUserAdmin: function (con, data, callback) {
-    // let result = con.query(  "select * from gameusersession where gamesession_id = " +  data.gamesessionid  ,
-    //   function (err, result, fields) {
-    //    if (err) {
-    //       console.log(colors.magenta("db error : getAllUserForGameSessionIncludeSender ->" + JSON.stringify(result)+ '\n'));
-    //       callback(err);
-    //       throw err;
-    //     }
-    //     console.log(colors.yellow("returning response from db getAllUserForGameSessionIncludeSender : " + JSON.stringify(result)+'\n'));
-    //     callback(result);
-        
-    //   }
-    // );
+    let result = con.query("UPDATE user SET usertype = " + 1 + ", WHERE id = " + data.id + ";", function(err, result, fields){
+      if (err) {
+        console.log("DB error: give user admin ->" + JSON.stringify(result) + '\n');
+        callback(err);
+        throw err;
+      }
+      console.log("returning response from db giveUserAdmin : " + JSON.stringify(result) + 'n');
+      callback(result);
+    });
+
   },
   removeUserAdmin: function (con, data, callback) {
-
-    // let result = con.query(  "select * from gameusersession where gamesession_id = " +  data.gamesessionid  ,
-    //   function (err, result, fields) {
-    //    if (err) {
-    //       console.log(colors.magenta("db error : getAllUserForGameSessionIncludeSender ->" + JSON.stringify(result)+ '\n'));
-    //       callback(err);
-    //       throw err;
-    //     }
-    //     console.log(colors.yellow("returning response from db getAllUserForGameSessionIncludeSender : " + JSON.stringify(result)+'\n'));
-    //     callback(result);
-        
-    //   }
-    // );
+    let result = con.query("UPDATE user SET usertype = " + 0 + ", WHERE id = " + data.id + ";" , function(err, result, fields){
+      if (err) {
+        console.log("DB error: give user admin ->" + JSON.stringify(result) + '\n');
+        callback(err);
+        throw err;
+      }
+      console.log("returning response from db giveUserAdmin : " + JSON.stringify(result) + 'n');
+      callback(result);
+    });
+   
+  },
+  addnewtable: function (con, data, callback) {
+    let result = con.query("INSERT INTO tables (" +
+      "minamount, active, maxplayer"+
+      ") VALUES ('" +
+      data.minamount + ", " + 1 + "," + data.maxplayer + ")" ,
+      function(err, result, fields){
+        if (err) {
+          console.log("DB error: give user admin ->" + JSON.stringify(result) + '\n');
+          callback(err);
+          throw err;
+        }
+        console.log("returning response from db giveUserAdmin : " + JSON.stringify(result) + 'n');
+        callback(result);
+    });
+  },
+  removeTable: function(con, data, callback) {
+    let result = con.query("DELETE FROM tables WHERE table_id = " + data.id, function(err, result, fields){
+      if (err) {
+        console.log("DB error: give user admin ->" + JSON.stringify(result) + '\n');
+        callback(err);
+        throw err;
+      }
+      console.log("returning response from db giveUserAdmin : " + JSON.stringify(result) + 'n');
+      callback(result);
+    });
+  },
+  suspendUser: function (con, data, callback) {
+    let result = con.query("UPDATE user SET suspended = " + 1 + ", WHERE id = " + data.id + ";" , function(err, result, fields){
+      if (err) {
+        console.log("DB error: give user admin ->" + JSON.stringify(result) + '\n');
+        callback(err);
+        throw err;
+      }
+      console.log("returning response from db giveUserAdmin : " + JSON.stringify(result) + 'n');
+      callback(result);
+    });
+  },
+  removeUser: function(con, data, callback) {
+    let result = con.query("UPDATE user SET deleted = " + 1 + ", WHERE id = " + data.id + ";", function(err, result, fields){
+      if (err) {
+        console.log("DB error: give user admin ->" + JSON.stringify(result) + '\n');
+        callback(err);
+        throw err;
+      }
+      console.log("returning response from db giveUserAdmin : " + JSON.stringify(result) + 'n');
+      callback(result);
+    });
   }
+
 };

@@ -21,16 +21,56 @@ function cancelUserEditable(id, name, password, usertype) {
   gotoMenu(method, urlaction, data, destinationdiv);
 }
 
-function updateUser(id, name, password, usertype) {
+
+function createNewTable(maxplayer, minbetamount){
   method = "post";
-  urlaction = "admin/saveuser";
+  urlaction = "adminpanel/addnewtable";
+  destinationdiv = "updatableMiddleContainer";
+  var data = {};
+  data.maxplayer = maxplayer;
+  data.minbetamount = minbetamount;
+
+  postData(method, urlaction, data, destinationdiv);
+}
+
+function giveAdmin(id){
+  method = "post";
+  urlaction = "adminpanel/giveadmin";
+  destinationdiv = "updatableMiddleContainer";
+  var data = {};
+  data.id = id;
+
+  postData(method, urlaction, data, destinationdiv);
+}
+
+function removeAdmin(id){
+  method = "post";
+  urlaction = "adminpanel/removeadmin";
+  destinationdiv = "updatableMiddleContainer";
+  var data = {};
+  data.id = id;
+
+  postData(method, urlaction, data, destinationdiv);
+}
+
+function suspendUser(id, name, password, usertype) {
+  method = "post";
+  urlaction = "adminpanel/suspenduser";
   destinationdiv = "updatableMiddleContainer";
 
   var data = {};
   data.id = id;
-  data.name = name;
-  data.password = password;
-  data.usertype = usertype;
+
+  postData(method, urlaction, data, destinationdiv);
+}
+
+function removetable(id){
+  method = "post";
+  urlaction = "adminpanel/removeadmin";
+  destinationdiv = "updatableMiddleContainer";
+
+  var data = {};
+  data.id = id;
 
   postData(method, urlaction, data, destinationdiv);
 }

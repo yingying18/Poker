@@ -19,25 +19,58 @@ module.exports = function (app,dbRequest,dbconn) {
 
 
 	//not working
-	app.post('/adminpanel/saveuser',(req, res) =>{
-		
-		console.log("save user called" + JSON.stringify(req.body));
+	app.post('/adminpanel/removeuser',(req, res) => {
+		console.log("remove user called");
+		let data = {"id": req.body.id};
 
-			dbRequest.updateUser(dbconn,req.body,function(result){
-
-				let list = result;
-				
-				//res.render('./admin/users', {result:list});
-				dbRequest.getUsers(dbconn,'',function(result){
-
-					let list = result;
-					res.render('./admin/adminpanel', {result:list});
-
-				});
-			});
+		dbRequest.removeUser(dbconn, data, function(result){
+			console.log("");
+		});
 	});
 
+	//not working
+	app.post('/adminpanel/suspenduser',(req, res) => {
+		console.log("suspend user called");
+		let data = {"id": req.body.id};
+		dbRequest.suspendUser(dbconn, data, function(result){
+			console.log("");
+		});
+	});
+
+	//not working
 	app.post('/adminpanel/addnewtable', (req, res) => {
-		
+		console.log("add new table called");
+		let data = {"minamount": req.body.minamount, "maxplayer": req.body.maxplayer};
+		dbRequest.addnewtable(dbconn, data, function(result){
+			console.log("");
+		});
 	});
+
+	//not working
+	app.post('/adminpanel/giveadmin',(req, res) => {
+		console.log("give admin called");
+		let data = {"id": req.body.id};
+		dbRequest.giveUserAdmin(dbconn, data, function(result){
+			console.log("");
+		});
+	});
+
+	//notworking
+	app.post('/adminpanel/removetable', (req,res) => {
+		console.log("give admin called");
+		let data = {"id": req.body.id};
+		dbRequest.removeTable(dbconn, data, function(result){
+			console.log("");
+		});
+	});
+
+	//not working
+	app.post('/adminpanel/removeadmin',(req, res) => {
+		console.log("removeadmin called");
+		let data = {"id": req.body.id};
+		dbRequest.removeUserAdmin(dbconn, data, function(result){
+			console.log("");
+		});
+	});
+
 }
