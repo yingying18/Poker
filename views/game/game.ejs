@@ -18,7 +18,7 @@
 
 
                 <div id="card-table" class="gameTableR" >
-                    <div id ="tablebet" class="tablebet">5000</div>
+                    <div id ="tablebet" class="tablebet"></div>
                     <div id = "housecards"  class="housecards">house</div>
                             
                             <%let recordCount = tabledata.maxplayer%>
@@ -31,8 +31,9 @@
                                                 <% if ( parseInt(gameusersession[k].seatnumber) === i) { %>  
                                                     <div id = "usertimer<%= i %>" class = "usertimer<%= i %>"><%= i %></div>
                                                     <div id = "user<%= i %>" class="gameTableUser<%= i %>">
-                                                        <%= gameusersession[k].username %><br>
-                                                        bet : 0
+                                                        <div style="float:left"><%= gameusersession[k].username %></div><br><div style="float:left" id="credit<%= i %>">  $ : <%= gameusersession[k].credit %></div>
+                                                        <div  id="bet<%= i %>">bet :  <%= gameusersession[k].userbet %> </div>
+                                                       
 
                                               
                                                      <% if ( parseInt(gameusersession[k].user_id) === authuser.userid) { %> 

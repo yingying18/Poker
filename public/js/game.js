@@ -10,7 +10,7 @@
       
       if (gameSessionData.gamestatus == 'inplay'){
           console.log("be_startgame inplay ");
-         
+          document.getElementById('tablebet').innerHTML = "";
                let leave = document.getElementsByName("leave");
                for (let k = 0 ; k < leave.length ; k++){
                 leave[k].style.visibility = "hidden"; 
@@ -38,22 +38,11 @@
           updateData(data);
           
                   if (gameSessionData.gamestartinsec >0){
-                    console.log("  --- >0" + (gameSessionData.gamestartinsec));
-                       showActionButtons("generals");
-
-                     
-                    document.getElementById('gameinfotimer').innerHTML = "starts in "+ gameSessionData.gamestartinsec;
+                    
+                      showActionButtons("generals");
+                      document.getElementById('gameinfotimer').innerHTML = "starts in "+ gameSessionData.gamestartinsec;
                         
-                        if (gameSessionData.gamestartinsec <= 5){
-                            
-                                
-                        }
-/*
-                        else if (gameSessionData.gamestartinsec >= 1){
-                            showgame(gameSessionData.tableid);
 
-                        }
-                    */
                      
                   }else{
                     for (let i = 0 ; i< gameSessionData.users.length ; i++){
@@ -62,6 +51,7 @@
                                     }
                                 }
                         document.getElementById('housecards').innerHTML = "";
+                        document.getElementById('tablebet').innerHTML = "";
                       console.log("______________________ wait game not >= 0 ")
                      showgame(gameSessionData.tableid);
                     document.getElementById('gameinfotimer').innerHTML = gameSessionData.gamestatus;
@@ -117,17 +107,31 @@ function updatedatacallserver(){
 }
 function callgame(userid){
 
-  alert('call game :'+userid);
+  alert('call game :'+gameSessionData.thisuser);
 }
 
 function raisegame(userid){
 
-  alert('raise game :'+userid);
+  //alert('raise game :'+gameSessionData.thisuser);
+  socket.emit('fe_raisebet', gameSessionData);
+
 }
+
+   socket.on('be_raisebet', function(data){
+    let total = 0;
+    gameSessionData.usersbet =  data.usersbet;
+    for (key in gameSessionData.usersbet){
+      document.getElementById("bet"+gameSessionData.seatstaken[key]).innerHTML = "bet : " + gameSessionData.usersbet[key];
+      total = total + gameSessionData.usersbet[key];
+    }
+    document.getElementById("tablebet").innerHTML = total; 
+    console.log("user bet "+ JSON.stringify(gameSessionData.usersbet));
+
+    });
 
 function foldgame(userid){
 
-  alert('fold game :'+userid);
+  alert('fold game :'+gameSessionData.thisuser);
 }
 
 //front end game socket calls

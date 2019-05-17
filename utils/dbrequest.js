@@ -630,5 +630,105 @@ module.exports = {
         
       }
     );
+  },
+  updateUniqueUserBet: function (con, data, callback) {
+    console.log(colors.yellow("data paremeter passed to db call updateUniqueUserBet : "+JSON.stringify(data)+'\n'));
+    let result = con.query(  "update gameusersession set userbet = " +data.usersbet[data.thisuser] + " where user_id = " +  data.thisuser  ,
+      function (err, result, fields) {
+       if (err) {
+          console.log(colors.magenta("db error : updateUniqueUserBet ->" + JSON.stringify(result)+ '\n'));
+          callback(err);
+          throw err;
+        }
+        console.log(colors.yellow("returning response from db updateUniqueUserBet : " + JSON.stringify(result)+'\n'));
+        callback(result);
+        
+      }
+    );
+  },
+    updateTableBet: function (con, data, callback) {
+          let total = 0;
+          for (key in data.usersbet){
+                    total = total + data.usersbet[key];
+          }
+        console.log(colors.yellow("data paremeter passed to db call updateTableBet : "+JSON.stringify(data)+'\n'));
+        let result = con.query(  "update gametablesession set totalbet = " + total + " where id = " +  data.gamesessionid  ,
+        function (err, result, fields) {
+         if (err) {
+            console.log(colors.magenta("db error : updateTableBet ->" + JSON.stringify(result)+ '\n'));
+            callback(err);
+            throw err;
+          }
+          console.log(colors.yellow("returning response from db updateTableBet : " + JSON.stringify(result)+'\n'));
+          callback(result);
+          
+        }
+    );
+  },
+  clearTableBet: function (con, data, callback) {
+
+        console.log(colors.yellow("data paremeter passed to db call clearTableBet : "+JSON.stringify(data)+'\n'));
+        let result = con.query(  "update gametablesession set totalbet = 0 where id = " +  data.gamesessionid  ,
+        function (err, result, fields) {
+         if (err) {
+            console.log(colors.magenta("db error : clearTableBet ->" + JSON.stringify(result)+ '\n'));
+            callback(err);
+            throw err;
+          }
+          console.log(colors.yellow("returning response from db clearTableBet : " + JSON.stringify(result)+'\n'));
+          callback(result);
+          
+        }
+    );
+  },
+  clearAllUserBet: function (con, data, callback) {
+
+        console.log(colors.yellow("data paremeter passed to db call clearAllUserBet : "+JSON.stringify(data)+'\n'));
+        let result = con.query(  "update gameusersession set userbet = 0 where gamesession_id = " +  data.gamesessionid  ,
+        function (err, result, fields) {
+         if (err) {
+            console.log(colors.magenta("db error : clearAllUserBet ->" + JSON.stringify(result)+ '\n'));
+            callback(err);
+            throw err;
+          }
+          console.log(colors.yellow("returning response from db clearAllUserBet : " + JSON.stringify(result)+'\n'));
+          callback(result);
+          
+        }
+    );
+  },
+  decrementUserCredit: function (con, data, callback) {
+    console.log(colors.yellow("data paremeter passed to db call decrementUserCredit : "+JSON.stringify(data)+'\n'));
+    let result = con.query(  "update user set credit = credit - " + data.thisbet + " where id = " +  data.thisuser  ,
+      function (err, result, fields) {
+       if (err) {
+          console.log(colors.magenta("db error : decrementUserCredit ->" + JSON.stringify(result)+ '\n'));
+          callback(err);
+          throw err;
+        }
+        console.log(colors.yellow("returning response from db decrementUserCredit : " + JSON.stringify(result)+'\n'));
+        callback(result);
+        
+      }
+    );
+  },
+  incrementtUserCredit: function (con, data, callback) {
+          let total = 0;
+          for (key in data.usersbet){
+                    total = total + data.usersbet[key];
+          }
+    console.log(colors.yellow("data paremeter passed to db call incrementtUserCredit : "+JSON.stringify(data)+'\n'));
+    let result = con.query(  "update user set credit = credit + " + total + " where id = " +  data.winner  ,
+      function (err, result, fields) {
+       if (err) {
+          console.log(colors.magenta("db error : incrementtUserCredit ->" + JSON.stringify(result)+ '\n'));
+          callback(err);
+          throw err;
+        }
+        console.log(colors.yellow("returning response from db incrementtUserCredit : " + JSON.stringify(result)+'\n'));
+        callback(result);
+        
+      }
+    );
   }
 };
