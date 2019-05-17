@@ -288,6 +288,21 @@ module.exports = {
       }
     );
   },
+  deleteAllUserFromGameSession: function (con, data, callback) {
+      console.log(colors.yellow("data paremeter passed to db call deleteAllUserFromGameSession : "+JSON.stringify(data)+'\n'));
+    let result = con.query(  "delete from gameusersession where  gamesession_id = " +  data.gamesessionid  ,
+      function (err, result, fields) {
+        if (err) {
+          console.log(colors.magenta("db error : deleteAllUserFromGameSession ->" + JSON.stringify(result)+ '\n'));
+          callback(err);
+          throw err;
+        }
+        console.log(colors.yellow("returning response from db deleteAllUserFromGameSession : " + JSON.stringify(result)+'\n'));
+        callback(result);
+        
+      }
+    );
+  },
   get52Cards: function (con, data, callback) {
       console.log(colors.yellow("data paremeter passed to db call get52Cards : "+JSON.stringify(data)+'\n'));
     let result = con.query(  "select * from card ",

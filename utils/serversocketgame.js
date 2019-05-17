@@ -16,28 +16,27 @@ if ((typeof checkcleaner === 'undefined') || (checkcleaner == null)){
 							console.log("dangling session deleter active");
 							if (cleansessionintervaltrack.size > 0 ){
 								for (var [key, value] of cleansessionintervaltrack) {
-								  console.log(key + ' = ' + value);
-								  console.log(key + ' = ' + value);
-								  console.log(key + ' = ' + value);
-								  console.log(key + ' = ' + value);
-								  console.log(key + ' = ' + value);
-								  console.log(key + ' = ' + value);
-								  console.log(key + ' = ' + value);
-								  let data = {};
-								data.gamesessionid = key;
+
+								  	let data = {};
+									data.gamesessionid = key;
 										dbRequest.deleteGameSession(dbconn, data, function (result) {
 
 									          if (typeof result.code !== "undefined" ) {
 									           		throw new Error('deleteGameSession : -> result is empty or undefined');
 									          } else {
 									          	console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV : session deleted "+key));
-									          	console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV : session deleted "+key));
-									          	console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV : session deleted "+key));
-									          	console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV : session deleted "+key));
-									          	console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV : session deleted "+key));
-									          	console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV : session deleted "+key));
-									          	console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV : session deleted"+key));
-									          	cleansessionintervaltrack.delete(key);
+
+									          		
+									          		dbRequest.deleteAllUserFromGameSession(dbconn, data, function (result) {
+												          if (typeof result.code !== "undefined" ) {
+											           		throw new Error('deleteGameSession : -> result is empty or undefined');
+												          } else {
+												          	console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV : after session deleted users too"+key));
+												          	
+												         	cleansessionintervaltrack.delete(key);
+																																	          	
+												          }
+												    });
 																						          	
 									          }
 									    });	
