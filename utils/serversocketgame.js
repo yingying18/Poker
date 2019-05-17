@@ -9,6 +9,34 @@ var gamestartintervaltrack = new Map();
 var decidingintervaltrack = new Map();
 
 
+function checkRoomHasMemeber(data){
+
+	let room = io.sockets.adapter.rooms[data.gamesessionid];
+	if (room){
+		if (room.length < 1){
+			clearInterval(intervaltrack.get(data.gamesessionid));
+			intervaltrack.set(data.gamesessionid, 'undefined');
+
+			clearInterval(gamestartintervaltrack.get(data.gamesessionid));
+			gamestartintervaltrack.set(data.gamesessionid, 'undefined');
+
+			clearInterval(decidingintervaltrack.get(data.gamesessionid));
+			decidingintervaltrack.set(data.gamesessionid, 'undefined');
+			return false;
+		}
+	}else{
+			clearInterval(intervaltrack.get(data.gamesessionid));
+			intervaltrack.set(data.gamesessionid, 'undefined');
+
+			clearInterval(gamestartintervaltrack.get(data.gamesessionid));
+			gamestartintervaltrack.set(data.gamesessionid, 'undefined');
+
+			clearInterval(decidingintervaltrack.get(data.gamesessionid));
+			decidingintervaltrack.set(data.gamesessionid, 'undefined');
+		return false;
+	}
+}
+
 function refreshdata(data,callback){
 
 			console.log(colors.red("-------------------- refresh data" + JSON.stringify(data)));
@@ -118,7 +146,7 @@ let io = socket(server);
 		});
 
 		socket.on('fe_executedeciding', function(data,olddata) {
-
+			checkRoomHasMemeber(olddata);
 
 			let order = [];
 			let cards = [];
@@ -195,6 +223,7 @@ let io = socket(server);
 		});
 
 		socket.on('fe_userleft', function(data) {
+			checkRoomHasMemeber(data);
 			console.log("$$$$$$$$$$$$$$$$$$$$$ before refresh data called"+ JSON.stringify(data));
 			let leavinguser = data.thisuser;
 			let leavinguserseat = data.seatstaken[data.thisuser];
@@ -298,7 +327,7 @@ let io = socket(server);
 		});
 
 		socket.on('fe_raisebet', function(data) {
-
+			checkRoomHasMemeber(data);
 			data.usersbet[data.thisuser] = data.usersbet[data.thisuser] + 10; 
 			data.thisbet = 10;
 					dbRequest.updateUniqueUserBet(dbconn, data, function (result) {
@@ -337,6 +366,7 @@ let io = socket(server);
 		});
 
 		socket.on('fe_updatedata', function(data) {
+			checkRoomHasMemeber(data);
 			data = refreshdata(data,function(returndata){
 				data = returndata;
 			console.log(colors.cyan("---------socket disconnected : "+socket.id));
@@ -346,7 +376,7 @@ let io = socket(server);
 		});
 		socket.on('fe_setEnvForSocket', function(data){
 			
-		
+			checkRoomHasMemeber(data);
 			console.log(colors.red("on loby enter" + JSON.stringify(data)));
 			/*data : {"thisuser":168,"thissocketid":"","thiscards":[],"thisseatno":0,"thisbet":0,
 			"seatstaken":[],"users":[],"deck":[],"gamesessionid":0,"housecards":[],"usercards":[],
@@ -457,6 +487,7 @@ let io = socket(server);
 		});
 
 		function startGame(data){
+			checkRoomHasMemeber(data);
 			console.log('fe start game :' + data.gamestatus);
 			if (data.gamestatus == 'waiting' ){ 
 				
@@ -469,7 +500,7 @@ let io = socket(server);
 				if ((typeof gamestartintervaltrack.get(data.gamesessionid) === 'undefined') || (gamestartintervaltrack.get(data.gamesessionid) == 'undefined')){	
 					
 						gamestartintervaltrack.set(data.gamesessionid ,  setInterval(function(data){
-					
+								checkRoomHasMemeber(data);
 								data.gamestartinsec--;
 								refreshdata(data, function(returndata){
 								data = returndata;
@@ -535,10 +566,12 @@ let io = socket(server);
 		}
 
 		socket.on('fe_startgame', function(data){
+			checkRoomHasMemeber(data);
 			startGame(data);
 		});
 
 		socket.on('socketUserAuthInfo', function(usersession){
+			//checkRoomHasMemeber();
 			user = {};
 			user = JSON.parse(usersession); 
 			console.log(colors.cyan("socket event serverside : socketUserAuthInfo -> " + (user.userid)));
@@ -552,6 +585,7 @@ let io = socket(server);
 		});
 
 		socket.on('fe_setDeck', function(data){
+			checkRoomHasMemeber(data);
 			console.log(colors.cyan("socket event serverside : fe_setDeck -> " ));
 			io.emit('be_setDeck', '');
 	    
@@ -565,6 +599,7 @@ let io = socket(server);
 		});
 
 		socket.on('fe_incrementcycle', function(data){
+			checkRoomHasMemeber(data);
 			clearInterval(intervaltrack.get(data.gamesessionid));
 			intervaltrack.set(data.gamesessionid, 'undefined');
 			 data.cycle++;
@@ -684,21 +719,20 @@ let io = socket(server);
 
 
 		socket.on('fe_dispatchTimerTick', function(data){
-			console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^ : "+intervaltrack.get(data.gamesessionid));
-		if ((typeof intervaltrack.get(data.gamesessionid) === 'undefined') || (intervaltrack.get(data.gamesessionid) == 'undefined')){	
-			console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^ : intervaltrack started ");
-			 intervaltrack.set(data.gamesessionid ,  setInterval(function(data){
+			checkRoomHasMemeber(data);
+
 			
+		if ((typeof intervaltrack.get(data.gamesessionid) === 'undefined') || (intervaltrack.get(data.gamesessionid) == 'undefined')){	
+			
+			 intervaltrack.set(data.gamesessionid ,  setInterval(function(data){
+				checkRoomHasMemeber(data);
 
           
 
     
 
 			let controlcycle = 1;
-			let room = io.sockets.adapter.rooms[data.gamesessionid];
 			let dbtimer = data.thistimer;
-			if (room)
-			console.log(" ** ** ** ** ** uturn :" +data.userturn+"  "+data.thisuser +"  " +room.length + " d l:" +  data.calls);
 
 			console.log(colors.cyan("dispatching to the room :" +JSON.stringify(io.sockets.adapter.sids[socket.id])));
 
@@ -810,6 +844,7 @@ let io = socket(server);
 			});
 
 		socket.on('fe_dealcards', function(data){
+			checkRoomHasMemeber(data);
 			clearInterval(intervaltrack.get(data.gamesessionid));
 			intervaltrack.set(data.gamesessionid, 'undefined');
 			console.log("cals: ------------------- "+data.calls);
@@ -890,6 +925,7 @@ let io = socket(server);
 		});
 
 		socket.on('fe_switchToNetUser', function(data){
+			checkRoomHasMemeber(data);
 			clearInterval(intervaltrack.get(data.gamesessionid));
 			intervaltrack.set(data.gamesessionid, 'undefined');
 			let room = io.sockets.adapter.rooms[data.gamesessionid];
