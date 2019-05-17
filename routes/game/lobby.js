@@ -3,7 +3,7 @@ module.exports = function (app,dbRequest,dbconn) {
 
 	app.get('/lobby',(req, res) =>{
 		console.log("get /lobby called");
-		dbRequest.getAllTables(dbconn, null, function (result) {
+		dbRequest.getAllTables(dbconn, null, function (tablesresult) {
                   
                   if (typeof result.code !== "undefined" || result === "") {
                     res.send("we encountered an error while calling the lobby.");

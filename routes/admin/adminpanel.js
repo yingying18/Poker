@@ -4,15 +4,10 @@ module.exports = function (app,dbRequest,dbconn) {
 	//need session to 
 	app.get('/adminpanel',(req, res) =>{
 		 console.log("adminpanel get called");	
-					
-		 dbRequest.getUsers(dbconn, '', function(result){
-			res.render('admin/adminpanel', {result})
-		 });
-
-		 dbRequest.getAllTables(dbconn, null, function (result) {
-
-			dbRequest.getUsers(dbconn, '', function(tablesresult){
-				if (typeof result.code !== "undefined" || result === "") {
+		
+		 dbRequest.getAllTables(dbconn, null, function(tablesresult){
+			dbRequest.getUsers(dbconn, '', function(result){
+				if (typeof tablesresult.code !== "undefined" || tablesresult === "") {
 					res.send("we encountered an error while calling the lobby.");
 				} else {
 					//res.render('game/lobby', {result : tablesresult, authanticate : req.session.authanticate, authuser : req.session.authuser});
