@@ -1,5 +1,5 @@
 let activeEditNo = -1;
-function makeUserEditable(id, name, password, email, usertype) {
+function makeAdminUserEditable(id, name, password, email, usertype) {
   activeEditNo = id;
   document.getElementById("user" + id).innerHTML =
     '<form id="editUser" method="post">' +
@@ -21,16 +21,83 @@ function cancelUserEditable(id, name, password, usertype) {
   gotoMenu(method, urlaction, data, destinationdiv);
 }
 
-function updateUser(id, name, password, usertype) {
+
+function createNewTable(){
+  var maxplayer = document.getElementById("maxplayerinput").value
+  var minbetamount = document.getElementById("minbetamountinput").value
   method = "post";
-  urlaction = "admin/saveuser";
+  urlaction = "adminpanel/addnewtable";
+  destinationdiv = "updatableMiddleContainer";
+  var data = {};
+  data.maxplayer = maxplayer;
+  data.minbetamount = minbetamount;
+
+  postData(method, urlaction, data, destinationdiv);
+}
+
+function giveAdmin(id, username, usertype, email){
+  method = "post";
+  urlaction = "adminpanel/giveadmin";
+  destinationdiv = "updatableMiddleContainer";
+  var data = {};
+  data.id = id;
+  document.getElementById("admin"+id).innerHTML = "" +
+  "<td>" + id +"</td>" +
+  "<td>" + username + "</td>" +
+  "<td>" + 1 + "</td>" +
+  "<td>" + email + "</td>";
+
+  postData(method, urlaction, data, destinationdiv);
+}
+
+function removeAdmin(id, username, usertype, email){
+  method = "post";
+  urlaction = "adminpanel/removeadmin";
+  destinationdiv = "updatableMiddleContainer";
+  var data = {};
+  data.id = id;
+  document.getElementById("admin"+id).innerHTML = "" +
+  "<td>" + id +"</td>" +
+  "<td>" + username + "</td>" +
+  "<td>" + 0 + "</td>" +
+  "<td>" + email + "</td>";
+
+  postData(method, urlaction, data, destinationdiv);
+}
+
+function suspendUser(id) {
+  method = "post";
+  urlaction = "adminpanel/suspenduser";
+  destinationdiv = "updatableMiddleContainer";
+  document.getElementById("user"+id).innerHTML = "";
+
+  var data = {};
+  data.id = id;
+
+  postData(method, urlaction, data, destinationdiv);
+}
+
+function removeUser(id) {
+  method = "post";
+  urlaction = "adminpanel/removeuser";
+  destinationdiv = "updatableMiddleContainer";
+  document.getElementById("user"+id).innerHTML = "";
+
+  var data = {};
+  data.id = id;
+
+  postData(method, urlaction, data, destinationdiv);
+}
+
+function removetable(id){
+  method = "post";
+  urlaction = "adminpanel/removeadmin";
   destinationdiv = "updatableMiddleContainer";
 
   var data = {};
   data.id = id;
-  data.name = name;
-  data.password = password;
-  data.usertype = usertype;
+
+  document.getElementById().innerHTML = "";
 
   postData(method, urlaction, data, destinationdiv);
 }

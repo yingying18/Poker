@@ -21,48 +21,40 @@
           <table id="usersTable" class="table table-striped" table width="100%" rules=groups cellspacing="0" cellpadding="0" class="table table-hover">
             <tr>
               <th scope="col">Table Id</th>
-              <th scope="col">Player Seats</th>
               <th scope="col">Min Bet Amount</th>
-              <th scope="col">RNG Seed</th>
+              <th scope="col">Active</th>
+              <th scope="col">Max Players</th>
+              <th scope="col">Remove Lobby</th>
             </tr>
 
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>4</td>
-                <td>$123</td>
-                <td>123456789</td>
-                <td></td>
-                <td>
-                  <button style="color:white;background-color:#455DF7;" type="button" onclick="reseizeOpaqueDiv(null,null);" class="btn btn-secondary btn-sm">Edit</button>
-                  <button style="color:white;background-color:#F74545;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove</button>
-                </td>
-              </tr>
 
-              <% if ( typeof result1 != 'undefined' ) { %>
-                <% for (var i=0; i<result1.length; i++) {%>
+              <% if ( typeof tablesresult != 'undefined' ) { %>
+                <% for (var i=0; i<tablesresult.length; i++) {%>
                   
-                  <tr id="table<%=result1[i].id%>">
-                  <!--"makeUserEditable('<%=result[i].id %>','<%= result[i].username %>','<%= result[i].password %>','<%= result[i].usertype %>');"-->
-                  <td>
-                  
-                  </td>
+                  <tr id="table<%=tablesresult[i].table_id%>">
+
                     <td>
-                      <%= result1[i].tableid  %>
+                      Table Id: <%= tablesresult[i].table_id %>
                     </td>
+
                     <td>
-                      <%= result1[i].playerseats %>
+                      Minimum Amount: <%= tablesresult[i].minamount %>
                     </td>
+
                     <td>
-                      <%= result1[i].minbetamount %>
+                      Active: <%= tablesresult[i].active %>
                     </td>
+
                     <td>
-                      <%= result1[i].rngseed %>
+                      Max Players: <%= tablesresult[i].maxplayer %>
                     </td>
+
                     <td>
-                      <button style="color:white;background-color:#455DF7;" type="button" onclick="" class="btn btn-secondary btn-sm">Edit</button>
-                      <button style="color:white;background-color:#F74545;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove</button>
+                      <!--<button style="color:white; background-color:#F74545;" type="button" onclick="removetable('<%= tablesresult[i].table_id %>');" class="btn btn-secondary btn-sm">Remove</button>-->
+                      <button style="color:white; background-color:#F74545;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove(...)</button>
                     </td>
+
                   </tr>
                 <%}%>
               <%}%>
@@ -70,11 +62,12 @@
           </table>
 
           <!--Button form to Create Table-->
-          <form action="/" method="">
-            Max Player Seats: <input type="text" name="maxseats"><br>
-            Min Bet Amount:   <input type="text" name="minbetamount"><br>
-            <input type="submit" value="Create Table">
-          </form>
+          <div>
+            Max Player Seats: <input type="text" id="maxplayerinput" style="max-width: 150px" name="maxseats"><br>
+            Min Bet Amount:   <input type="text" id="minbetamountinput" style="max-width: 150px" name="minbetamount"><br>
+            <button style="color:white; background-color:#F74545;" type="button" onclick="" class="btn btn-secondary btn-sm">Create Table(...)</button>
+            <!--<button style="color:white; background-color:#F74545;" type="button" onclick="createNewTable();" class="btn btn-secondary btn-sm">Create Table</button>-->
+          </div>
         </div>
 
         <div id="usersMenu" class="tab-pane fade">
@@ -85,7 +78,8 @@
             <tr>
               <th scope= "col">ID</th>
               <th scope="col">Username</th>
-              <th scope="col">Password</th>
+              <th scope="col">Suspended</th>
+              <th scope="col">Deleted</th>
               <th scope="col">Email</th>
               <th scope="col">Account Type</th>
               <th scope="col">Buttons</th>
@@ -102,7 +96,10 @@
                       <%= result[i].username  %>
                     </td>
                     <td>
-                      <%= result[i].password %>
+                      <%= result[i].suspended %>
+                    </td>
+                    <td>
+                      <%= result[i].deleted %>
                     </td>
                     <td>
                       <%= result[i].email %>
@@ -111,8 +108,8 @@
                       <%= result[i].usertype %>
                     </td>
                     <td>
-                      <button style="color:white;background-color:#455DF7;" type="button" onclick="makeUserEditable('<%=result[i].id %>','<%= result[i].username %>','<%= result[i].password %>','<%= result[i].email %>','<%= result[i].usertype %>');reseizeOpaqueDiv(null,null);" class="btn btn-secondary btn-sm">Edit</button>
-                      <button style="color:white;background-color:#F74545;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove</button>
+                      <button style="color:white;background-color:#F74545;" type="button" onclick="suspendUser('<%= result[i].id %>');" class="btn btn-secondary btn-sm">Suspend</button>
+                      <button style="color:white;background-color:#F74545;" type="button" onclick="removeUser('<%= result[i].id %>');" class="btn btn-secondary btn-sm">Remove</button>
                     </td>
                   </tr>
                 <%}%>
@@ -153,9 +150,9 @@
                     </td>
                     <td>
                       <% if(result[i].usertype != 0) {%>
-                      <button style="color:white;background-color:#d65151;" type="button" onclick="" class="btn btn-secondary btn-sm">Remove Admin</button>
+                        <button style="color:white;background-color:#d65151;" type="button" onclick="removeAdmin('<%= result[i].id %>','<%= result[i].username %>','<%= result[i].usertype %>','<%= result[i].email %>');" class="btn btn-secondary btn-sm">Remove Admin</button>
                       <%} else {%>
-                        <button style="color:white;background-color:#3CB371;" type="button" onclick="" class="btn btn-secondary btn-sm">Give Admin</button>
+                        <button style="color:white;background-color:#3CB371;" type="button" onclick="giveAdmin('<%= result[i].id %>','<%= result[i].username %>','<%= result[i].usertype %>','<%= result[i].email %>');" class="btn btn-secondary btn-sm">Give Admin</button>
                       <%}%>
                     </td>
                   </tr>
