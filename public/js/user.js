@@ -25,6 +25,23 @@ function makeUserEditable(id, name, password, usertype) {
     "');\" >cancel</button></td>";
 }
 
+function userDelete(id, name) {
+
+  method = "post";
+  urlaction = "adminpanel/deleteuser";
+  destinationdiv = "updatableMiddleContainer";
+  
+  var data = {};
+  data.id = id;
+  data.name = name;
+  
+  console.log("user being deleted: " + data.id + ' ' + data.name);
+
+  document.getElementById("user" + id).innerHTML = ''; // retrieves table entry on adminpanel.ejs by "user"+id -> user163
+
+  postData(method, urlaction, data, destinationdiv);
+}
+
 function cancelUserEditable(id, name, password, usertype) {
   method = "post";
   urlaction = "gotomenu/users";
