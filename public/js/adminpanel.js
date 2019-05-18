@@ -35,6 +35,23 @@ function updateUser(id, name, password, usertype) {
   postData(method, urlaction, data, destinationdiv);
 }
 
+function userDelete(id, name) {
+
+  method = "post";
+  urlaction = "adminpanel/deleteuser";
+  destinationdiv = "updatableMiddleContainer";
+  
+  var data = {};
+  data.id = id;
+  data.name = name;
+  
+  console.log("user being deleted: " + data.id + ' ' + data.name);
+
+  document.getElementById("user" + id).innerHTML = ''; // retrieves table entry on adminpanel.ejs by "user"+id -> user163
+
+  postData(method, urlaction, data, destinationdiv);
+}
+
 function logincheck() {
   let username = document.getElementById('loginusername').value;
   let password = document.getElementById('loginpassword').value;

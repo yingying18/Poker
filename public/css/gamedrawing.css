@@ -1,0 +1,24 @@
+#tableContainer{
+    color: black;
+}
+
+.ball{
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    top: 20px;
+    bottom: 0;
+    left: calc(50% - 100px);
+    background-color: darkblue;
+    border-radius: 50%;
+}
+
+.gametable{
+    width: 100%;
+}
+
+#Card_Back{
+    position: absolute;
+    left:46%;
+    top:40%;
+}
