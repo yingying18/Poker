@@ -7,6 +7,10 @@
         home
     </button>
     <button type="button" class="btn btn-dark btn-xs "
+        onclick="gotoMenu('get','/gamedrawing','','updatableMiddleContainer',reseizeOpaqueDiv);">
+        Game Drawing
+    </button>
+    <button type="button" class="btn btn-dark btn-xs "
         onclick="gotoMenu('get','/about','','updatableMiddleContainer',reseizeOpaqueDiv);">
         About
     </button>
@@ -15,10 +19,10 @@
         How to play
     </button>
     <% if ( (typeof authanticate === 'undefined') || authanticate == "false" ) { %>
-        <button type="button" class="btn btn-dark btn-xs "
-            onclick="gotoMenu('get','/register','','updatableMiddleContainer',reseizeOpaqueDiv);">
-            Register
-        </button>
+    <button type="button" class="btn btn-dark btn-xs "
+        onclick="gotoMenu('get','/register','','updatableMiddleContainer',reseizeOpaqueDiv);">
+        Register
+    </button>
     <%}%>
     <button type="button" class="btn btn-dark btn-xs "
         onclick="gotoMenu('get','/lobby','','updatableMiddleContainer',reseizeOpaqueDiv);">
