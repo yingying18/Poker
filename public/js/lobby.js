@@ -7,13 +7,13 @@ function showgame(tableid,authuser) {
   var senddata ={};
   data.tableid = tableid;
   
-  gameSessionData.tableid = tableid;
+  //gameSessionData.tableid = tableid;
 
   postData('post', 'lobby/showgame', data, 'updatableMiddleContainer',reseizeOpaqueDiv);
 
 
   
-
+/*
     if ((typeof intervalchekbegining === 'undefined') || (intervalchekbegining == null)){  
       
        intervalchekbegining = setInterval(function(data){
@@ -48,10 +48,10 @@ function showgame(tableid,authuser) {
                           sendAuthInfoToSocket((authuser));
                           
                           setEnvForSocket((returnetabledata[0]),authuser.userid,null);
-                          /*
+                         
                           showgame(<%= result[i].table_id %>,'<%= JSON.stringify(authuser) %>');
                           sendAuthInfoToSocket('<%= JSON.stringify(authuser) %>');
-                          setEnvForSocket(<%= JSON.stringify(result[i]) %>,'<%= authuser.userid%>', null);">*/
+                          setEnvForSocket(<%= JSON.stringify(result[i]) %>,'<%= authuser.userid%>', null);">
 
                        });
                    
@@ -71,7 +71,7 @@ function showgame(tableid,authuser) {
     console.log("---------------------------------------------------------");
   console.log("--------------------------------------------------------- game.js");
   console.log("---------------------------------------------------------"+JSON.stringify(gameSessionData));
-
+*/
 }
 
 function sendAuthToSocket(authuser){

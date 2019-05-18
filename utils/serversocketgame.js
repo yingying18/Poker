@@ -409,7 +409,7 @@ let io = socket(server);
 		socket.on('fe_callbet', function(data) {
 			checkRoomHasMemeber(data);
 			if (data.hasOwnProperty('previoususer')){
-				data.usersbet[data.thisuser] = data.usersbet[data.previoususer] ; 
+				data.usersbet[data.thisuser] = data.usersbet[data.thisuser] + data.usersbet[data.previoususer] ; 
 				data.thisbet = data.usersbet[data.previoususer];
 			}else{
 				data.thisbet = 0;
