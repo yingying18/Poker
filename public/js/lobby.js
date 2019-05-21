@@ -28,22 +28,10 @@ function showgame(tableid,authuser) {
           			console.log("checking senddata"+JSON.stringify(data));
           			   
                    postDataReturn('post', '/game/getThisTable', data,function(returnetabledata){
-                    console.log("call set end ***********"+JSON.stringify(returnetabledata));
 
-                     console.log("auth user***********");
-                      console.log("auth user***********");
-                       console.log("auth user***********");
-                        console.log("auth user***********");
-                         console.log("auth user***********");
-                          console.log("auth user***********");
-                           console.log("auth user***********");
-                            console.log("auth user***********");
-                             console.log("auth user***********");
                      
                        postData('post', 'lobby/showgame', data, 'updatableMiddleContainer',function(){
-                             console.log("call set end ***********"+JSON.stringify(authuser));
-                             console.log("call set end *********** table data"+JSON.stringify(returnetabledata));
-                            console.log("callback for set auth info ------------------------");
+
 
                           sendAuthInfoToSocket((authuser));
                           

@@ -726,7 +726,7 @@ module.exports = {
     });
   },
   suspendUser: function (con, data, callback) {
-    let result = con.query("update user set suspended = " + 1 + ", WHERE id = " + data.id + ";" , function(err, result, fields){
+    let result = con.query("update user set suspended = " + 1 + " WHERE id = " + data.id + ";" , function(err, result, fields){
       if (err) {
         console.log("DB error: give user admin ->" + JSON.stringify(result) + '\n');
         callback(err);
@@ -737,7 +737,7 @@ module.exports = {
     });
   },
   removeUser: function(con, data, callback) {
-    let result = con.query("update user set deleted = " + 1 + ", WHERE id = " + data.id + ";", function(err, result, fields){
+    let result = con.query("update user set deleted = " + 1 + " WHERE id = " + data.id + ";", function(err, result, fields){
       if (err) {
         console.log("DB error: give user admin ->" + JSON.stringify(result) + '\n');
         callback(err);
