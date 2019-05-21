@@ -34,7 +34,7 @@
     <%}%>
      <% if ( (typeof authanticate !== 'undefined') && authanticate == "true" )  { %>
         <% if ( (typeof authuser !== 'undefined') )  { %>
-             <% if ( ( parseInt(authuser.usertype) ==0) )  { %>
+             <% if ( ( parseInt(authuser.usertype) == 1) )  { %>
            
                 <button type="button" class="btn btn-dark btn-xs "
                     onclick="gotoMenu('get','/adminpanel','','updatableMiddleContainer',reseizeOpaqueDiv);">

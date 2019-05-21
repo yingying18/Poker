@@ -24,14 +24,14 @@ if ((typeof checkcleaner === 'undefined') || (checkcleaner == null)){
 									          if (typeof result.code !== "undefined" ) {
 									           		throw new Error('deleteGameSession : -> result is empty or undefined');
 									          } else {
-									          	console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV : session deleted "+key));
+									          	
 
 									          		
 									          		dbRequest.deleteAllUserFromGameSession(dbconn, data, function (result) {
 												          if (typeof result.code !== "undefined" ) {
 											           		throw new Error('deleteGameSession : -> result is empty or undefined');
 												          } else {
-												          	console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV : after session deleted users too"+key));
+												          	
 												          	
 												         	cleansessionintervaltrack.delete(key);
 																																	          	
@@ -157,7 +157,7 @@ function refreshdata(data,callback){
 											          		
 										          	}
 										          	
-										          			console.log(colors.cyan("%%%%%%%%%%% refreshdata serverside sends refresh data :" + JSON.stringify(data)));
+										          			
 											          		
 													callback(data);
 																							          	
@@ -180,44 +180,6 @@ function refreshdata(data,callback){
 let io = socket(server);
 
 	io.on('connection', function(socket){
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-		console.log(colors.cyan("------socket connected : "+socket.id));
-
-
 
 		
 		socket.on('disconnect', function() {
@@ -304,19 +266,19 @@ let io = socket(server);
 
 		socket.on('fe_userleft', function(data) {
 			checkRoomHasMemeber(data);
-			console.log("$$$$$$$$$$$$$$$$$$$$$ before refresh data called"+ JSON.stringify(data));
+			
 			let leavinguser = data.thisuser;
 			let leavinguserseat = data.seatstaken[data.thisuser];
 			let usersinleavinses = data.users;
 				refreshdata(data,function(returndata){
 					data = returndata;
 			
-			console.log(colors.cyan("---------user_left : "+socket.id));
+			
 			clearInterval(intervaltrack.get(data.gamesessionid));
 			intervaltrack.set(data.gamesessionid, 'undefined');
 			clearInterval(gamestartintervaltrack.get(data.gamesessionid));
 			gamestartintervaltrack.set(data.gamesessionid, 'undefined');
-			console.log("{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{ "+JSON.stringify(data));
+			
 			let alluser = null;
 			    dbRequest.getAllUserForGameSession(dbconn, data, function (result) {
 
@@ -324,17 +286,6 @@ let io = socket(server);
 			           		throw new Error('getGameSessionForUser : -> result is empty or undefined');
 			          } else {
 			          	alluser = result;
-			          		console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "));
-			          		console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "));
-			          		console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "));
-
-			          		console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "));
-
-
-			          		console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "));
-			          		console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "+result.length));
-
-			          		console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "+ JSON.stringify(result)));
 
 			          		if (alluser.length==0){
 			          				console.log("session has no user delete session");
@@ -343,24 +294,12 @@ let io = socket(server);
 									          if (typeof result.code !== "undefined" ) {
 									           		throw new Error('deleteGameSession : -> result is empty or undefined');
 									          } else {
-									          	console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "));
-									          		console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "));
-									          			console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "));
 
-									          				console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "));
-
-
-									          					console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "));
-									          						console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "));
-
-									          	console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "+ JSON.stringify(result)));
 																						          	
 									          }
 									    });	
 			          		}else{
-			          			console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  response more than 0"));
-			          					console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "+ JSON.stringify(result)));
-			          					console.log(colors.cyan("VVVVVVVVVVVVV  VVVVVVVVVVVVV :  "+ JSON.stringify(data)));
+
 
 			          					let actualseat = leavinguserseat
 										let possiblenextseat = actualseat;
@@ -370,7 +309,7 @@ let io = socket(server);
 											actualseat = (actualseat+1) % 5;
 											possiblenextseat = actualseat;
 										 	for(let m=0; m< alluser.length; m++) {
-								          		console.log("actual seat : "+actualseat + "  "+ alluser[m].seatnumber);
+								          		
 								          		if (possiblenextseat == alluser[m].seatnumber){
 								          			changetouser =alluser[m].user_id;
 								          			break;
@@ -387,11 +326,9 @@ let io = socket(server);
 													          if (typeof result.code !== "undefined" || result === "") {
 													           		throw new Error('updateUserTurn : -> result is empty or undefined');
 													          } else {
+													          	
 													          	console.log(colors.cyan("colecting db record : updateUserTurn :  "+ JSON.stringify(result)));
-
-
-													          	console.log(colors.cyan("data ---> serverside updateUserTurn :" + JSON.stringify(data)));
-														       startGame(data);
+														       	startGame(data);
 
 																										          	
 													          }
@@ -507,7 +444,7 @@ let io = socket(server);
 			"userturn":0,"tableid":null,"usersinsocketroom":[],"tablemoney":0,"timer":5}
 			*/
 			let gamesessionid = null;
-			console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+JSON.stringify(data));
+			
 	      	dbRequest.getGameTableSession(dbconn, data, function (result) {
 	      		// [{"id":45,"table_id":1,"state":"waiting","userturn":168,"usercyclestarter":168,"totalbet":0,"cycle":1,"maxcycle":1}]
 
@@ -526,9 +463,9 @@ let io = socket(server);
 		          		
 		          		data.gamesessionid = tempdata[0].id;
 		          		socket.join(data.gamesessionid);
-		          		console.log("----------------------"+ userroom.get(data.thisuser ));
+		          		
 		          		if ( typeof userroom.get(data.thisuser ) === "undefined"){
-		          			console.log("--------------------- set userrrom");
+		          			
 		          			userroom.set(data.thisuser,data.gamesessionid);
 		          		}
 		          		data.socketroom = tempdata[0].id;
@@ -970,7 +907,7 @@ let io = socket(server);
 			checkRoomHasMemeber(data);
 			clearInterval(intervaltrack.get(data.gamesessionid));
 			intervaltrack.set(data.gamesessionid, 'undefined');
-			console.log("cals: ------------------- "+data.calls);
+			
 
 				console.log(colors.cyan("dealing cards :" +JSON.stringify(io.sockets.adapter.sids[socket.id])));
 				let dealcardnumber = -1;
@@ -1041,8 +978,7 @@ let io = socket(server);
 					          }
 					    });	
 											    
-	    		//console.log(colors.cyan("fe_dealcards : deck left : " + JSON.stringify(data.deck)));
-				//io.to(data.gamesessionid).emit('be_dealcards',data);
+
 		
 	    
 		});
@@ -1090,7 +1026,7 @@ let io = socket(server);
 																          	
 			          }
 			    });	
-			//io.to(data.gamesessionid).emit('be_switchToNetUser',data);
+		
 		
 	    
 		});
