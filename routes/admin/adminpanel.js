@@ -24,7 +24,7 @@ module.exports = function (app,dbRequest,dbconn) {
 		let data = {"id": req.body.id};
 
 		dbRequest.removeUser(dbconn, data, function(result){
-			console.log("");
+	
 		});
 	});
 
@@ -42,8 +42,31 @@ module.exports = function (app,dbRequest,dbconn) {
 		console.log("add new table called");
 		let data = {"minamount": req.body.minamount, "maxplayer": req.body.maxplayer};
 		console.log(JSON.stringify(data));
+		tabledata = null;
 		dbRequest.addnewtable(dbconn, data, function(result){
-			console.log("");
+			if (typeof result.code !== "undefined" || result === "") {
+					res.send("we encountered an error while calling the lobby.");
+				} else {
+							//res.render('game/lobby', {result : tablesresult, authanticate : req.session.authanticate, authuser : req.session.authuser});
+							dbRequest.getAllTables(dbconn, data, function(result){
+								if (typeof result.code !== "undefined" || result === "") {
+										res.send("we encountered an error while calling the lobby.");
+									} else {
+												tabledata = result;
+												dbRequest.getUsers(dbconn, '', function(result){
+													if (typeof result.code !== "undefined" || result === "") {
+														res.send("we encountered an error while calling the lobby.");
+													} else {
+														//res.render('game/lobby', {result : tablesresult, authanticate : req.session.authanticate, authuser : req.session.authuser});
+														res.render('admin/adminpanel', {result: result, tablesresult: tabledata});
+													}
+												});
+										
+									}
+									
+							});
+			}
+			
 		});
 	});
 
@@ -61,7 +84,28 @@ module.exports = function (app,dbRequest,dbconn) {
 		console.log("give admin called");
 		let data = {"id": req.body.id};
 		dbRequest.removeTable(dbconn, data, function(result){
-			console.log("");
+						if (typeof result.code !== "undefined" || result === "") {
+					res.send("we encountered an error while calling the lobby.");
+				} else {
+							//res.render('game/lobby', {result : tablesresult, authanticate : req.session.authanticate, authuser : req.session.authuser});
+							dbRequest.getAllTables(dbconn, data, function(result){
+								if (typeof result.code !== "undefined" || result === "") {
+										res.send("we encountered an error while calling the lobby.");
+									} else {
+												tabledata = result;
+												dbRequest.getUsers(dbconn, '', function(result){
+													if (typeof result.code !== "undefined" || result === "") {
+														res.send("we encountered an error while calling the lobby.");
+													} else {
+														//res.render('game/lobby', {result : tablesresult, authanticate : req.session.authanticate, authuser : req.session.authuser});
+														res.render('admin/adminpanel', {result: result, tablesresult: tabledata});
+													}
+												});
+										
+									}
+									
+							});
+			}
 		});
 	});
 
