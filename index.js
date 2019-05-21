@@ -36,18 +36,25 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(function (req, res, next) {
+ 
   console.log("app use : " + JSON.stringify(req.session));
   let sesdata = JSON.stringify(req.session);
   if (typeof req.session.userid !== 'undefined') {
+    if ((req.session.suspended == 0) &&(req.session.deleted ==0)){
     req.body.authanticate = "true";
     req.body.usertype = req.session.usertype;
-    console.log("xxxxxxxxx"+req.session.userid);
+   
+    }else{
+      req.body.authanticate = "false";
+     console.log("xxxxxxxxx"+req.session.userid);
+    }
     console.log("xxxxxxxxx"+req.session.usertype);
   } else {
     req.body.authanticate = "false";
     
   }
-  console.log(req.body.authanticate);
+  console.log("authantication " +req.body.authanticate);
+  console.log("authuser " +req.body.authuser);
   next();
 })
 

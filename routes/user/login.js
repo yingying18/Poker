@@ -15,7 +15,7 @@ module.exports = function (app, dbRequest, dbconn) {
 
 		dbRequest.checkLoginUser(dbconn, data, function (result) {
 			// console.log("return" + JSON.stringify(result));
-			if (typeof result.code !== "undefined" || result === "") {
+			if (typeof result.code !== "undefined" ) {
 				res.send("we encountered an error during the login");
 			} else {
 				console.log("login result db : " + JSON.stringify(result) + result.length);
@@ -29,8 +29,8 @@ module.exports = function (app, dbRequest, dbconn) {
 					req.session.filetype = result[0].filetype;
 					req.session.picture = result[0].picture;
 					req.session.usertype = result[0].usertype;
-					req.session.authanticate = "true";
-					console.log("session : " + req.session.username);
+					req.session.deleted = result[0].deleted;
+					req.session.suspended = result[0].suspended;
 					authuser = {
 						userid: req.session.userid,
 						username: req.session.username,
@@ -39,19 +39,21 @@ module.exports = function (app, dbRequest, dbconn) {
 						picture: req.session.picture,
 						usertype: req.session.usertype
 					}
-					req.session.authuser = authuser;
-					console.log("----------------->"+JSON.stringify(authuser));
-					res.render('mainpage/index', { authanticate: "true", authuser: authuser });
-					
-					res.render('mainpage/index', { authanticate: "true", authuser: authuser }, (err, html) => {
-    res.write(html + '\n');
-    setTimeout(() => { // mimick a calculation that takes some time
-      res.render('mainpage/header', { authanticate: "true", authuser: authuser }, { result : 42 }, (err, html) => {
-        res.end(html + '\n');
-      });
-    }, 2000);
-  });
+					if ((result[0].deleted == 0) && (result[0].suspended == 0)){
+						req.session.authanticate = "true";	
+						req.session.authuser = authuser;
 
+					}else{
+						req.session.authanticate = "false";	
+						req.session.authuser = null;
+					}
+					if (req.session.authuser == null){
+						req.session == null;
+						res.render('user/login',{ authanticate: req.session.authanticate, authuser: req.session.authuser });
+					}else{
+						res.render('mainpage/index', { authanticate: req.session.authanticate, authuser: req.session.authuser });
+					}
+					
 				}
 			}
 		});
