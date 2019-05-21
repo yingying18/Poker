@@ -700,17 +700,14 @@ module.exports = {
    
   },
   addnewtable: function (con, data, callback) {
-    let result = con.query("insert into tables (" +
-      "minamount, active, maxplayer"+
-      ") values ('" +
-      data.minamount + ", " + 1 + "," + data.maxplayer + ")" ,
+    let result = con.query("insert into tables (minamount, active, maxplayer ) values ( "+ data.minamount +" , 1 , " + data.maxplayer + " )" ,
       function(err, result, fields){
         if (err) {
-          console.log("DB error: give user admin ->" + JSON.stringify(result) + '\n');
+          console.log("DB error: give user addnewtable ->" + JSON.stringify(result) + '\n');
           callback(err);
           throw err;
         }
-        console.log("returning response from db giveUserAdmin : " + JSON.stringify(result) + 'n');
+        console.log("returning response from db addnewtable : " + JSON.stringify(result) + 'n');
         callback(result);
     });
   },

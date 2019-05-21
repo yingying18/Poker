@@ -1,7 +1,7 @@
 module.exports = function (app,dbRequest,dbconn) {
 
 
-	//need session to 
+	
 	app.get('/adminpanel',(req, res) =>{
 		 console.log("adminpanel get called");	
 		
@@ -18,7 +18,7 @@ module.exports = function (app,dbRequest,dbconn) {
 	});
 
 
-	//not working
+	
 	app.post('/adminpanel/removeuser',(req, res) => {
 		console.log("remove user called");
 		let data = {"id": req.body.id};
@@ -28,7 +28,7 @@ module.exports = function (app,dbRequest,dbconn) {
 		});
 	});
 
-	//not working
+	
 	app.post('/adminpanel/suspenduser',(req, res) => {
 		console.log("suspend user called");
 		let data = {"id": req.body.id};
@@ -37,16 +37,17 @@ module.exports = function (app,dbRequest,dbconn) {
 		});
 	});
 
-	//not working
+
 	app.post('/adminpanel/addnewtable', (req, res) => {
 		console.log("add new table called");
 		let data = {"minamount": req.body.minamount, "maxplayer": req.body.maxplayer};
+		console.log(JSON.stringify(data));
 		dbRequest.addnewtable(dbconn, data, function(result){
 			console.log("");
 		});
 	});
 
-	//not working
+	
 	app.post('/adminpanel/giveadmin',(req, res) => {
 		console.log("give admin called");
 		let data = {"id": req.body.id};
@@ -64,7 +65,7 @@ module.exports = function (app,dbRequest,dbconn) {
 		});
 	});
 
-	//not working
+	
 	app.post('/adminpanel/removeadmin',(req, res) => {
 		console.log("removeadmin called");
 		let data = {"id": req.body.id};

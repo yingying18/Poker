@@ -23,14 +23,14 @@ function cancelUserEditable(id, name, password, usertype) {
 
 
 function createNewTable(){
-  var maxplayer = document.getElementById("maxplayerinput").value
-  var minbetamount = document.getElementById("minbetamountinput").value
+  var maxplayer = document.getElementById("maxplayerinput").value;
+  var minbetamount = document.getElementById("minbetamountinput").value;
   method = "post";
   urlaction = "adminpanel/addnewtable";
   destinationdiv = "updatableMiddleContainer";
   var data = {};
   data.maxplayer = maxplayer;
-  data.minbetamount = minbetamount;
+  data.minamount = minbetamount;
 
   postData(method, urlaction, data, destinationdiv);
 }
@@ -91,13 +91,13 @@ function removeUser(id) {
 
 function removetable(id){
   method = "post";
-  urlaction = "adminpanel/removeadmin";
+  urlaction = "adminpanel/removetable";
   destinationdiv = "updatableMiddleContainer";
 
   var data = {};
   data.id = id;
 
-  document.getElementById().innerHTML = "";
+  
 
   postData(method, urlaction, data, destinationdiv);
 }
