@@ -2,18 +2,15 @@
 
 
   let refreshcontrol = 0;
-  console.log("---------------------------------------------------------");
-  console.log("--------------------------------------------------------- game.js");
-  console.log("---------------------------------------------------------"+JSON.stringify(gameSessionData));
+
 
     socket.on('be_startgame', function(data){
-        console.log("be_startgame");
-      console.log(gameSessionData.gamestatus);
+      
       gameSessionData.gamestartinsec = data.gamestartinsec;
       gameSessionData.gamestatus = data.gamestatus ;
       
       if (gameSessionData.gamestatus == 'inplay'){
-          console.log("be_startgame inplay ");
+        
           document.getElementById('tablebet').innerHTML = "";
                let leave = document.getElementsByName("leave");
                for (let k = 0 ; k < leave.length ; k++){
@@ -28,17 +25,12 @@
           startGame();
 
       }else if (gameSessionData.gamestatus == 'waiting'){
-        console.log("  --- >0" + (gameSessionData.gamestartinsec));
+       
               let useractionbuttons = document.getElementsByName("userac");
                for (let k = 0 ; k < useractionbuttons.length ; k++){
                 useractionbuttons[k].style.visibility = "hidden"; 
                }
-          console.log("be_startgame waiting ");
-          console.log(gameSessionData.gamestatus);
-          //postData('post', 'lobby/showgame', data, 'updatableMiddleContainer',reseizeOpaqueDiv);
-          //socket.emit('fe_userleft', gameSessionData);
           
-          //console.log(gameSessionData.gamestatus);
           updateData(data);
           
                   if (gameSessionData.gamestartinsec >0){
@@ -53,11 +45,10 @@
                                   if (typeof gameSessionData.seatstaken[gameSessionData.users[i]] !=='undefined'){
                                     document.getElementById('card'+gameSessionData.seatstaken[gameSessionData.users[i]] ).innerHTML = "";
                                     }
-                                }
-                        document.getElementById('housecards').innerHTML = "";
-                        document.getElementById('tablebet').innerHTML = "";
-                      console.log("______________________ wait game not >= 0 ")
-                     showgame(gameSessionData.tableid);
+                    }
+                    document.getElementById('housecards').innerHTML = "";
+                    document.getElementById('tablebet').innerHTML = "";
+                    showgame(gameSessionData.tableid);
                     document.getElementById('gameinfotimer').innerHTML = gameSessionData.gamestatus;
                     startGame();
                   
@@ -152,29 +143,7 @@ function foldgame(userid){
 
 
     function sendAuthInfoToSocket(sesionuser){
-        console.log("sendAuthInfoToSocket");
-        console.log("sendAuthInfoToSocket");
-        console.log("sendAuthInfoToSocket");
-        console.log("sendAuthInfoToSocket");
-        console.log("sendAuthInfoToSocket");
-        console.log("sendAuthInfoToSocket");
-        console.log("sendAuthInfoToSocket");
-        console.log("sendAuthInfoToSocket");
-        console.log("sendAuthInfoToSocket");
-        console.log("sendAuthInfoToSocket");
-        console.log("sendAuthInfoToSocket");
-        console.log("sendAuthInfoToSocket");
-        console.log("sendAuthInfoToSocket");
-        console.log("sendAuthInfoToSocket");
-        console.log("sendAuthInfoToSocket");
-        console.log("sendAuthInfoToSocket");
-        console.log("sendAuthInfoToSocket");
-        console.log("sendAuthInfoToSocket");
-        console.log("sendAuthInfoToSocket");
-        console.log("sendAuthInfoToSocket");
-        console.log("sendAuthInfoToSocket");
-        console.log("sendAuthInfoToSocket");
-        console.log("sendAuthInfoToSocket");
+
         console.log(JSON.stringify(sesionuser));
         socket.emit('socketUserAuthInfo', sesionuser );
         
@@ -183,22 +152,7 @@ function foldgame(userid){
 
 
     function setEnvForSocket(tableid , userid ,seatno){
-         console.log("setEnvForSocket");
-         console.log("setEnvForSocket");
-         console.log("setEnvForSocket");
-         console.log("setEnvForSocket");
-         console.log("setEnvForSocket");
-         console.log("setEnvForSocket");
-         console.log("setEnvForSocket");
-         console.log("setEnvForSocket");
-         console.log("setEnvForSocket");
-         console.log("setEnvForSocket");
-         console.log("setEnvForSocket");
-         console.log("setEnvForSocket");
-         console.log("setEnvForSocket");
-         console.log("setEnvForSocket"+ userid);
-         console.log("setEnvForSocket"+ JSON.stringify(tableid));
-         console.log("setEnvForSocket"+ (tableid.table_id));
+
 
          //console.log("setEnvForSocket"+ JSON.stringify(tableid));
         gameSessionData.thisuser = parseInt(userid);
@@ -398,27 +352,11 @@ function foldgame(userid){
     socket.on('be_sessionover', function(data){
       gameSessionData.gamestatus = data.gamestatus;
       document.getElementById('gameinfotimer').innerHTML = gameSessionData.gamestatus + " the winner ";
-        showAllCards(gameSessionData);
-        console.log("be_sessionover");
-        console.log("be_sessionover");
-        console.log("be_sessionover");
-        console.log("be_sessionover");
-        console.log("be_sessionoverv data" + data.gamestatus);
-         console.log("be_sessionover" + JSON.stringify(gameSessionData));
+       showAllCards(gameSessionData);
+
 
           socket.emit('fe_executedeciding', data,gameSessionData);
-        /*
-        
-      gameSessionData.cycle = data.cycle;
-      gameSessionData.playedusers = data.playedusers;
-      gameSessionData.usercards = data.usercards;
-      gameSessionData.housecards = data.housecards;
-      //gameSessionData.deck = data.deck;
-      gameSessionData.gamestartinsec =  data.gamestartinsec;
-      gameSessionData.gamestatus = data.gamestatus;
-  */
-      //gameSessionData.gamestatus = 'waiting';
-      //socket.emit('fe_startgame', gameSessionData);
+
      
     });
 
